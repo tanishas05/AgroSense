@@ -58,12 +58,15 @@ export default function DiseaseScanner() {
     reader.readAsDataURL(file)
   }
 
-  const severityColor: Record<string, string> = {
-    Low: 'text-green-400 bg-green-400/10 border-green-400/20',
-    Medium: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',
-    High: 'text-red-400 bg-red-400/10 border-red-400/20',
-  }[result?.severity] ?? 'text-green-400 bg-green-400/10 border-green-400/20'
+  const severityColors: Record<string, string> = {
+  Low: 'text-green-400 bg-green-400/10 border-green-400/20',
+  Medium: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',
+  High: 'text-red-400 bg-red-400/10 border-red-400/20',
+}
 
+const severityColor =
+  severityColors[result?.severity as string] ??
+  'text-green-400 bg-green-400/10 border-green-400/20'
   return (
     <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
