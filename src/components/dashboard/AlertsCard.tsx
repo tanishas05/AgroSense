@@ -12,7 +12,7 @@ export default function AlertsCard() {
       (pos) => generateAlerts(pos.coords.latitude, pos.coords.longitude),
       () => generateAlerts(28.6667, 77.2167)
     )
-  }, [])
+  }, [session])
 
   async function generateAlerts(lat: number, lon: number) {
     try {
@@ -22,9 +22,13 @@ export default function AlertsCard() {
       ])
       const weather = await weatherRes.json()
       const mandi = await mandiRes.json()
+      const current = weather.list?.[0]
+      const humidity = current?.main?.humidity ?? 50
+      const temp = current?.main?.temp ?? 28
 
       const newAlerts: any[] = []
 
+      // Rain alert
       const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
       if (rainDay) {
         const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
@@ -36,6 +40,7 @@ export default function AlertsCard() {
         })
       }
 
+      // Market alert
       const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
       if (rising) {
         newAlerts.push({
@@ -46,24 +51,40 @@ export default function AlertsCard() {
         })
       }
 
-      newAlerts.push({
-        type: 'danger',
-        title: 'Leaf Blight risk detected',
-        desc: 'High humidity conditions · Monitor Field B',
-        time: '3h ago',
-      })
+      // Fungal risk based on real humidity
+      if (humidity > 65) {
+        newAlerts.push({
+          type: 'danger',
+          title: 'Fungal disease risk high',
+          desc: `Humidity at ${Math.round(humidity)}% · Spray fungicide preventively`,
+          time: '2h ago',
+        })
+      }
 
-      newAlerts.push({
-        type: 'info',
-        title: 'Fertilizer application due',
-        desc: 'Field A · NPK recommended in 3 days',
-        time: '1d ago',
-      })
+      // Heat stress based on real temp
+      if (temp > 35) {
+        newAlerts.push({
+          type: 'warning',
+          title: 'Heat stress alert',
+          desc: `Temperature ${Math.round(temp)}°C · Water crops early morning`,
+          time: '3h ago',
+        })
+      }
+
+      // Fertilizer reminder based on day of week
+      const dayOfWeek = new Date().getDay()
+      if (dayOfWeek === 1 || dayOfWeek === 4) {
+        newAlerts.push({
+          type: 'info',
+          title: 'Weekly fertilizer check',
+          desc: 'Review NPK levels for your crops this week',
+          time: 'Today',
+        })
+      }
 
       setAlerts(newAlerts)
 
-      // Save alerts to Supabase
-      if (session?.user?.email) {
+      if (session?.user?.email && newAlerts.length > 0) {
         for (const alert of newAlerts) {
           await fetch('/api/alerts', {
             method: 'POST',
@@ -101,9 +122,7 @@ export default function AlertsCard() {
       <div className="space-y-2.5">
         {alerts.length === 0 ? (
           <div className="space-y-2">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="h-14 bg-green-400/5 rounded-lg animate-pulse" />
-            ))}
+            {[1,2,3].map(i => <div key={i} className="h-14 bg-green-400/5 rounded-lg animate-pulse" />)}
           </div>
         ) : alerts.map(({ type, title, desc, time }, i) => {
           const s = typeStyles[type]

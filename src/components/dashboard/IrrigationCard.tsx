@@ -1,24 +1,33 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 export default function IrrigationCard() {
+  const { data: session } = useSession()
   const [data, setData] = useState<any>(null)
+  const [crops, setCrops] = useState<string[]>([])
 
   useEffect(() => {
+    if (session?.user?.email) {
+      fetch(`/api/profile?email=${session.user.email}`)
+        .then(r => r.json())
+        .then(p => setCrops(p?.crops ?? []))
+    }
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        fetch(`/api/farm-stats?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`)
-          .then(r => r.json())
-          .then(setData)
-      },
+      (pos) => fetch(`/api/farm-stats?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`).then(r => r.json()).then(setData),
       () => fetch('/api/farm-stats').then(r => r.json()).then(setData)
     )
-  }, [])
+  }, [session])
 
   const moisture = data ? Math.min(90, Math.max(30, 100 - data.humidity + 20)) : 62
   const nextIrrigation = data?.irrigationNeeded ? 'Today · As soon as possible' : 'Tomorrow · 6:00 AM'
   const amount = data ? Math.round(20 + (data.temp - 25) * 0.5) : 25
+
+  const fields = crops.slice(0, 3).map((crop, i) => ({
+    name: crop,
+    moisture: i === 0 ? moisture : i === 1 ? Math.max(30, moisture - 14) : Math.min(90, moisture + 9),
+  }))
 
   return (
     <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
@@ -48,13 +57,9 @@ export default function IrrigationCard() {
       </div>
 
       <div className="space-y-2">
-        {[
-          { field: 'Field A', moisture: moisture },
-          { field: 'Field B', moisture: Math.max(30, moisture - 14) },
-          { field: 'Field C', moisture: Math.min(90, moisture + 9) },
-        ].map(({ field, moisture: m }) => (
-          <div key={field} className="flex items-center justify-between text-xs">
-            <span className="text-green-100/50">{field}</span>
+        {fields.length > 0 ? fields.map(({ name, moisture: m }) => (
+          <div key={name} className="flex items-center justify-between text-xs">
+            <span className="text-green-100/50">{name}</span>
             <div className="flex items-center gap-2">
               <div className="w-20 h-1 bg-green-400/10 rounded-full overflow-hidden">
                 <div
@@ -67,7 +72,9 @@ export default function IrrigationCard() {
               </span>
             </div>
           </div>
-        ))}
+        )) : (
+          <p className="text-[10px] text-green-100/25 text-center py-1">Set crops in Profile to see field data</p>
+        )}
       </div>
     </div>
   )

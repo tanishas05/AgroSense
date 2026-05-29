@@ -19,6 +19,7 @@ export default function PestAlerts() {
       const weather = await res.json()
       const temp = weather.main?.temp ?? 28
       const humidity = weather.main?.humidity ?? 60
+      const desc = weather.weather?.[0]?.main ?? ''
 
       const generated = []
 
@@ -27,7 +28,7 @@ export default function PestAlerts() {
           pest: 'Fungal Blight',
           risk: 'High',
           crops: 'Tomato, Potato',
-          advice: 'Apply copper-based fungicide immediately. Ensure proper drainage.',
+          advice: `Humidity is ${Math.round(humidity)}% — apply copper-based fungicide immediately. Ensure proper drainage.`,
           icon: '🍄',
         })
       }
@@ -37,26 +38,40 @@ export default function PestAlerts() {
           pest: 'Aphids & Whitefly',
           risk: 'Medium',
           crops: 'Cotton, Wheat',
-          advice: 'Use neem oil spray in early morning. Avoid chemical pesticides.',
+          advice: `Temperature ${Math.round(temp)}°C is favorable for aphids. Use neem oil spray in early morning.`,
           icon: '🐛',
         })
       }
 
-      generated.push({
-        pest: 'Stem Borer',
-        risk: 'Low',
-        crops: 'Rice, Maize',
-        advice: 'Monitor crops weekly. Use pheromone traps for detection.',
-        icon: '🪲',
-      })
+      if (desc === 'Rain' || desc === 'Drizzle') {
+        generated.push({
+          pest: 'Root Rot Risk',
+          risk: 'High',
+          crops: 'All crops',
+          advice: 'Rain detected — ensure proper field drainage. Avoid waterlogging near roots.',
+          icon: '🌧️',
+        })
+      }
 
-      generated.push({
-        pest: 'Locust Warning',
-        risk: 'Low',
-        crops: 'All crops',
-        advice: 'Check government alerts. Have pesticide ready if needed.',
-        icon: '🦗',
-      })
+      if (temp > 28 && humidity < 40) {
+        generated.push({
+          pest: 'Spider Mites',
+          risk: 'Medium',
+          crops: 'Cotton, Brinjal',
+          advice: 'Hot and dry conditions favor spider mites. Spray water on undersides of leaves.',
+          icon: '🕷️',
+        })
+      }
+
+      if (generated.length === 0) {
+        generated.push({
+          pest: 'No active pest threats',
+          risk: 'Low',
+          crops: 'All crops',
+          advice: `Current conditions (${Math.round(temp)}°C, ${Math.round(humidity)}% humidity) are not favorable for major pests. Keep monitoring.`,
+          icon: '✅',
+        })
+      }
 
       setAlerts(generated)
     } catch {
@@ -106,7 +121,7 @@ export default function PestAlerts() {
       )}
 
       <div className="mt-4 p-3 bg-blue-400/5 border border-blue-400/15 rounded-lg">
-        <p className="text-[11px] text-blue-300 font-medium">Alerts based on your weather</p>
+        <p className="text-[11px] text-blue-300 font-medium">Alerts based on your live weather</p>
         <p className="text-[10px] text-green-100/35 mt-0.5">Risk levels adjust to current conditions</p>
       </div>
     </div>
