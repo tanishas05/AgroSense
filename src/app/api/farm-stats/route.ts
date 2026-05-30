@@ -8,14 +8,13 @@ export async function GET(req: Request) {
   try {
     const weatherRes = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&units=metric`,
-      { next: { revalidate: 1800 } }
+      { cache: 'no-store' }
     )
     const weather = await weatherRes.json()
     const humidity = weather.main?.humidity ?? 60
     const temp = weather.main?.temp ?? 28
     const rain = weather.weather?.[0]?.main === 'Rain'
 
-    // Dynamic calculations based on real weather
     const cropHealth = Math.min(100, Math.max(50,
       85 + (humidity > 60 ? 5 : -5) + (temp > 35 ? -8 : 4) + (rain ? -3 : 2)
     ))
@@ -29,7 +28,6 @@ export async function GET(req: Request) {
       waterUsed: `${waterUsed}mm`,
       waterChange: rain ? 'Rain detected today' : `${waterUsed > 24 ? '+' : '-'}${Math.abs(waterUsed - 24)}mm vs yesterday`,
       waterPositive: waterUsed <= 24,
-      fertilizerSaved: '₹1,240',
       irrigationNeeded,
       temp: Math.round(temp),
       humidity,
@@ -42,7 +40,6 @@ export async function GET(req: Request) {
       waterUsed: '24mm',
       waterChange: '-6mm vs yesterday',
       waterPositive: true,
-      fertilizerSaved: '₹1,240',
       irrigationNeeded: false,
       temp: 28,
       humidity: 60,

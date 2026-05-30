@@ -2,9 +2,15 @@
 
 import Link from 'next/link'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
+import '@/lib/i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navbar() {
   const { data: session } = useSession()
+  const router = useRouter()
+  const { t } = useTranslation()
 
   return (
     <nav className="relative z-20 flex items-center justify-between px-8 py-5 border-b border-green-400/10">
@@ -19,50 +25,37 @@ export default function Navbar() {
       </Link>
 
       <div className="hidden md:flex items-center gap-7 text-sm text-green-100/40">
-        {['Features', 'Dashboard', 'Market', 'Advisory'].map((item) => (
-          <Link key={item} href={`/${item.toLowerCase()}`} className="hover:text-green-300 transition-colors no-underline">
-            {item}
-          </Link>
-        ))}
+        <Link href="/features" className="hover:text-green-300 transition-colors no-underline">{t('features')}</Link>
+        <button onClick={() => session ? router.push('/dashboard') : router.push('/auth/signin')} className="hover:text-green-300 transition-colors">
+          {t('dashboard')}
+        </button>
+        <Link href="/market" className="hover:text-green-300 transition-colors no-underline">{t('market')}</Link>
+        <Link href="/advisory" className="hover:text-green-300 transition-colors no-underline">{t('advisory')}</Link>
       </div>
 
       <div className="flex items-center gap-2.5">
+        <LanguageSwitcher />
         {session ? (
           <div className="flex items-center gap-3">
             <span className="text-xs text-green-100/40 hidden md:block">{session.user?.name}</span>
             <Link href="/profile">
               {session.user?.image ? (
-                <img
-                  src={session.user.image}
-                  alt="avatar"
-                  className="w-8 h-8 rounded-full border border-green-400/30 hover:border-green-400/60 transition-all cursor-pointer"
-                />
+                <img src={session.user.image} alt="avatar" className="w-8 h-8 rounded-full border border-green-400/30 hover:border-green-400/60 transition-all cursor-pointer" />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-green-400/10 border border-green-400/30 flex items-center justify-center text-xs text-green-400 cursor-pointer hover:border-green-400/60 transition-all">
-                  👤
-                </div>
+                <div className="w-8 h-8 rounded-full bg-green-400/10 border border-green-400/30 flex items-center justify-center text-xs text-green-400 cursor-pointer">👤</div>
               )}
             </Link>
-            <button
-              onClick={() => signOut()}
-              className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all"
-            >
-              Sign out
+            <button onClick={() => signOut()} className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all">
+              {t('signOut')}
             </button>
           </div>
         ) : (
           <>
-            <button
-              onClick={() => signIn('google')}
-              className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all"
-            >
-              Sign in
+            <button onClick={() => signIn('google')} className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all">
+              {t('signIn')}
             </button>
-            <button
-              onClick={() => signIn('google')}
-              className="px-4 py-1.5 text-sm font-medium text-white bg-green-700 rounded-md hover:bg-green-800 transition-all"
-            >
-              Get started
+            <button onClick={() => signIn('google')} className="px-4 py-1.5 text-sm font-medium text-white bg-green-700 rounded-md hover:bg-green-800 transition-all">
+              {t('getStarted')}
             </button>
           </>
         )}

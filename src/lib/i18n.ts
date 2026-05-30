@@ -1,0 +1,276 @@
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+
+const resources = {
+  en: {
+    translation: {
+      // Navbar
+      features: 'Features',
+      dashboard: 'Dashboard',
+      market: 'Market',
+      advisory: 'Advisory',
+      signIn: 'Sign in',
+      signOut: 'Sign out',
+      getStarted: 'Get started',
+
+      // Home
+      tagline: 'AI-powered smart farming platform',
+      heroTitle: 'Farm smarter, harvest better.',
+      heroSub: 'Real-time crop intelligence, hyperlocal weather advisories, and market price predictions — all in your regional language.',
+      startFarming: 'Start farming smarter',
+      seeHowItWorks: 'See how it works →',
+      farmers: 'Farmers',
+      accuracy: 'Disease accuracy',
+      languages: 'Languages',
+      everythingAFarmerNeeds: 'Everything a farmer needs',
+      readyToTransform: 'Ready to transform your farm?',
+      joinFarmers: 'Join 2.4 million farmers already using AgroSense.',
+      getStartedFree: 'Get started for free',
+
+      // Dashboard
+      goodMorning: 'Good morning',
+      goodAfternoon: 'Good afternoon',
+      goodEvening: 'Good evening',
+      goodNight: 'Good night',
+      farmDashboard: 'Dashboard',
+      liveData: 'Live data',
+      cropHealthScore: 'Crop Health Score',
+      waterUsedToday: 'Water Used Today',
+      fertilizerSaved: 'Fertilizer Saved',
+      irrigationStatus: 'Irrigation Status',
+      needed: 'Needed',
+      good: 'Good',
+      scheduleSoon: 'Schedule soon',
+      optimal: 'Optimal',
+
+      // Weather
+      weatherForecast: 'Weather Forecast',
+      humidity: 'Humidity',
+      wind: 'Wind',
+      feelsLike: 'Feels like',
+      visibility: 'Visibility',
+      today: 'Today',
+
+      // Market
+      mandiPrices: 'Mandi Prices',
+      live: 'Live',
+      mandiIntelligence: 'Mandi Price Intelligence',
+      govtMandi: 'Government Mandi prices · Updated every hour',
+      priceTrend: 'Price Trend',
+      allCommodities: 'All Commodities',
+      search: 'Search...',
+
+      // Advisory
+      aiAdvisory: 'AI-powered advisory',
+      cropAdvisory: 'Crop Advisory',
+      aiDiseaseScanner: 'AI Disease Scanner',
+      uploadPhoto: 'Upload a crop photo for instant AI diagnosis',
+      clickOrDrop: 'Click or drag & drop a crop photo',
+      cropNameOptional: 'Crop name (optional, e.g. Wheat, Tomato)',
+      analyzing: 'Analyzing your crop with AI...',
+      detected: 'Detected',
+      healthScore: 'Health score',
+      confidence: 'AI Confidence',
+      treatmentSteps: 'Treatment Steps',
+      nutrientDeficiencies: 'Nutrient Deficiencies',
+      scanAnother: 'Scan another crop',
+      personalizedAdvisory: 'Personalized Crop Advisory',
+      aiAdviceBasedOn: 'AI advice based on your location & weather',
+      cropsFromProfile: 'crops from your profile',
+      setCropsInProfile: 'Set your crops in Profile →',
+      irrigation: 'Irrigation',
+      fertilizer: 'Fertilizer',
+      pestControl: 'Pest Control',
+      harvesting: 'Harvesting',
+      proTips: 'Pro Tips',
+      pestAlerts: 'Pest Alerts',
+      weatherBased: 'Weather-based',
+
+      // Profile
+      accountSettings: 'Account settings',
+      profileSettings: 'Profile & Settings',
+      manageProfile: 'Manage your farm profile and preferences',
+      verifiedFarmer: 'Verified Farmer',
+      scansDone: 'Scans done',
+      alerts: 'Alerts',
+      language: 'Language',
+      saveProfile: 'Save Profile',
+      farmDetails: 'Farm Details',
+      farmName: 'Farm Name',
+      landSize: 'Land Size (acres)',
+      state: 'State',
+      district: 'District',
+      soilType: 'Soil Type',
+      cropsYouGrow: 'Crops You Grow',
+      selected: 'selected',
+      saveFarmSettings: 'Save Farm Settings',
+      saved: '✓ Saved!',
+      notificationPreferences: 'Notification Preferences',
+      languagePreference: 'Language Preference',
+      chooseLanguage: 'Choose your preferred language for advisories and alerts',
+
+      // Alerts
+      alertsTitle: 'Alerts',
+      new: 'new',
+
+      // Smart Irrigation
+      smartIrrigation: 'Smart Irrigation',
+      aiOptimized: 'AI Optimized',
+      soilMoisture: 'Soil Moisture',
+      optimalRange: 'Optimal range: 55–70%',
+      nextIrrigation: 'Next irrigation scheduled',
+
+      // Crop Health
+      cropHealth: 'Crop Health',
+      scanNewCrop: 'Scan new crop',
+      notScanned: 'Not scanned',
+      healthy: 'Healthy',
+      monitor: 'Monitor',
+      atRisk: 'At Risk',
+      uploadCropPhoto: '+ Upload crop photo for AI scan',
+      noCropsSet: 'No crops set yet',
+      setCrops: 'Set crops in Profile →',
+    },
+  },
+  hi: {
+    translation: {
+      // Navbar
+      features: 'विशेषताएं',
+      dashboard: 'डैशबोर्ड',
+      market: 'बाज़ार',
+      advisory: 'सलाह',
+      signIn: 'साइन इन',
+      signOut: 'साइन आउट',
+      getStarted: 'शुरू करें',
+
+      // Home
+      tagline: 'AI-संचालित स्मार्ट खेती प्लेटफ़ॉर्म',
+      heroTitle: 'समझदारी से खेती करें, बेहतर फसल काटें।',
+      heroSub: 'रियल-टाइम फसल जानकारी, हाइपरलोकल मौसम सलाह, और बाज़ार मूल्य — आपकी भाषा में।',
+      startFarming: 'स्मार्ट खेती शुरू करें',
+      seeHowItWorks: 'यह कैसे काम करता है →',
+      farmers: 'किसान',
+      accuracy: 'रोग पहचान',
+      languages: 'भाषाएं',
+      everythingAFarmerNeeds: 'एक किसान को जो चाहिए',
+      readyToTransform: 'अपनी खेती बदलने के लिए तैयार हैं?',
+      joinFarmers: '24 लाख किसान पहले से AgroSense इस्तेमाल कर रहे हैं।',
+      getStartedFree: 'मुफ्त शुरू करें',
+
+      // Dashboard
+      goodMorning: 'सुप्रभात',
+      goodAfternoon: 'नमस्ते',
+      goodEvening: 'शुभ संध्या',
+      goodNight: 'शुभ रात्रि',
+      farmDashboard: 'डैशबोर्ड',
+      liveData: 'लाइव डेटा',
+      cropHealthScore: 'फसल स्वास्थ्य स्कोर',
+      waterUsedToday: 'आज पानी का उपयोग',
+      fertilizerSaved: 'खाद की बचत',
+      irrigationStatus: 'सिंचाई स्थिति',
+      needed: 'ज़रूरी',
+      good: 'अच्छा',
+      scheduleSoon: 'जल्द शेड्यूल करें',
+      optimal: 'सर्वोत्तम',
+
+      // Weather
+      weatherForecast: 'मौसम पूर्वानुमान',
+      humidity: 'आर्द्रता',
+      wind: 'हवा',
+      feelsLike: 'महसूस होता है',
+      visibility: 'दृश्यता',
+      today: 'आज',
+
+      // Market
+      mandiPrices: 'मंडी भाव',
+      live: 'लाइव',
+      mandiIntelligence: 'मंडी मूल्य जानकारी',
+      govtMandi: 'सरकारी मंडी भाव · हर घंटे अपडेट',
+      priceTrend: 'मूल्य प्रवृत्ति',
+      allCommodities: 'सभी वस्तुएं',
+      search: 'खोजें...',
+
+      // Advisory
+      aiAdvisory: 'AI-संचालित सलाह',
+      cropAdvisory: 'फसल सलाह',
+      aiDiseaseScanner: 'AI रोग स्कैनर',
+      uploadPhoto: 'तत्काल AI निदान के लिए फसल की फोटो अपलोड करें',
+      clickOrDrop: 'फसल की फोटो यहाँ डालें',
+      cropNameOptional: 'फसल का नाम (वैकल्पिक, जैसे गेहूं, टमाटर)',
+      analyzing: 'AI से फसल का विश्लेषण हो रहा है...',
+      detected: 'पाया गया',
+      healthScore: 'स्वास्थ्य स्कोर',
+      confidence: 'AI विश्वास',
+      treatmentSteps: 'उपचार के चरण',
+      nutrientDeficiencies: 'पोषक तत्वों की कमी',
+      scanAnother: 'दूसरी फसल स्कैन करें',
+      personalizedAdvisory: 'व्यक्तिगत फसल सलाह',
+      aiAdviceBasedOn: 'आपके स्थान और मौसम पर AI सलाह',
+      cropsFromProfile: 'फसलें आपकी प्रोफ़ाइल से',
+      setCropsInProfile: 'प्रोफ़ाइल में फसलें सेट करें →',
+      irrigation: 'सिंचाई',
+      fertilizer: 'खाद',
+      pestControl: 'कीट नियंत्रण',
+      harvesting: 'कटाई',
+      proTips: 'विशेषज्ञ सुझाव',
+      pestAlerts: 'कीट चेतावनी',
+      weatherBased: 'मौसम-आधारित',
+
+      // Profile
+      accountSettings: 'खाता सेटिंग',
+      profileSettings: 'प्रोफ़ाइल और सेटिंग',
+      manageProfile: 'अपनी खेत प्रोफ़ाइल प्रबंधित करें',
+      verifiedFarmer: 'सत्यापित किसान',
+      scansDone: 'स्कैन किए',
+      alerts: 'अलर्ट',
+      language: 'भाषा',
+      saveProfile: 'प्रोफ़ाइल सहेजें',
+      farmDetails: 'खेत विवरण',
+      farmName: 'खेत का नाम',
+      landSize: 'भूमि का आकार (एकड़)',
+      state: 'राज्य',
+      district: 'जिला',
+      soilType: 'मिट्टी का प्रकार',
+      cropsYouGrow: 'आप जो फसलें उगाते हैं',
+      selected: 'चुने गए',
+      saveFarmSettings: 'खेत सेटिंग सहेजें',
+      saved: '✓ सहेजा!',
+      notificationPreferences: 'सूचना प्राथमिकताएं',
+      languagePreference: 'भाषा प्राथमिकता',
+      chooseLanguage: 'सलाह और अलर्ट के लिए अपनी पसंदीदा भाषा चुनें',
+
+      // Alerts
+      alertsTitle: 'अलर्ट',
+      new: 'नए',
+
+      // Smart Irrigation
+      smartIrrigation: 'स्मार्ट सिंचाई',
+      aiOptimized: 'AI अनुकूलित',
+      soilMoisture: 'मिट्टी की नमी',
+      optimalRange: 'सर्वोत्तम सीमा: 55–70%',
+      nextIrrigation: 'अगली सिंचाई निर्धारित',
+
+      // Crop Health
+      cropHealth: 'फसल स्वास्थ्य',
+      scanNewCrop: 'नई फसल स्कैन करें',
+      notScanned: 'स्कैन नहीं हुई',
+      healthy: 'स्वस्थ',
+      monitor: 'निगरानी करें',
+      atRisk: 'खतरे में',
+      uploadCropPhoto: '+ फसल की फोटो अपलोड करें',
+      noCropsSet: 'कोई फसल सेट नहीं',
+      setCrops: 'प्रोफ़ाइल में फसलें सेट करें →',
+    },
+  },
+}
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: 'en',
+    fallbackLng: 'en',
+    interpolation: { escapeValue: false },
+  })
+
+export default i18n
