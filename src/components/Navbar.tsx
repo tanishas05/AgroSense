@@ -3,14 +3,13 @@
 import Link from 'next/link'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
-import '@/lib/i18n'
+import { useLang } from '@/context/LanguageContext'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navbar() {
   const { data: session } = useSession()
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t } = useLang()
 
   return (
     <nav className="relative z-20 flex items-center justify-between px-8 py-5 border-b border-green-400/10">

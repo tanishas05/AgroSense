@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useLang } from '../../context/LanguageContext'
 
 export default function CropAdvisory() {
   const { data: session } = useSession()
+  const { t } = useLang()
   const router = useRouter()
   const [crops, setCrops] = useState<string[]>([])
   const [selected, setSelected] = useState('')
@@ -14,7 +16,6 @@ export default function CropAdvisory() {
   const [weather, setWeather] = useState<any>(null)
   const [profileLoading, setProfileLoading] = useState(true)
 
-  // Load user's crops from profile
   useEffect(() => {
     if (!session?.user?.email) return
     fetch(`/api/profile?email=${session.user.email}`)
@@ -27,23 +28,13 @@ export default function CropAdvisory() {
       })
   }, [session])
 
-  // Load weather
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        fetch(`/api/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&type=current`)
-          .then(r => r.json())
-          .then(setWeather)
-      },
-      () => {
-        fetch('/api/weather?q=Delhi&type=current')
-          .then(r => r.json())
-          .then(setWeather)
-      }
+      pos => fetch(`/api/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&type=current`).then(r => r.json()).then(setWeather),
+      () => fetch('/api/weather?q=Delhi&type=current').then(r => r.json()).then(setWeather)
     )
   }, [])
 
-  // Fetch advisory when crop or weather changes
   useEffect(() => {
     if (!weather || !selected) return
     setLoading(true)
@@ -53,11 +44,7 @@ export default function CropAdvisory() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         crop: selected,
-        weather: {
-          temp: Math.round(weather.main?.temp ?? 28),
-          humidity: weather.main?.humidity ?? 60,
-          description: weather.weather?.[0]?.description ?? 'clear',
-        },
+        weather: { temp: Math.round(weather.main?.temp ?? 28), humidity: weather.main?.humidity ?? 60, description: weather.weather?.[0]?.description ?? 'clear' },
       }),
     })
       .then(r => r.json())
@@ -65,83 +52,65 @@ export default function CropAdvisory() {
       .catch(() => setLoading(false))
   }, [selected, weather])
 
-  if (profileLoading) {
-    return (
-      <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5 h-48 animate-pulse" />
-    )
-  }
+  if (profileLoading) return <div className="h-48 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.1)' }} />
 
   return (
-    <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
+    <div className="p-5 rounded-xl" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.12)' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-sm font-semibold text-green-100">Personalized Crop Advisory</h2>
-          <p className="text-xs text-green-100/35 mt-0.5">AI advice based on your location & weather</p>
+          <h2 className="text-sm font-semibold text-white">{t('personalizedAdvisory')}</h2>
+          <p className="text-xs mt-0.5" style={{ color: 'rgba(74,222,128,0.5)' }}>{t('aiAdviceBasedOn')}</p>
         </div>
-        <span className="text-[10px] text-green-100/30">
-          {crops.length} crops from your profile
-        </span>
+        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>{crops.length} {t('cropsFromProfile')}</span>
       </div>
 
       {crops.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-sm text-green-100/40 mb-4">No crops set in your profile yet</p>
-          <button
-            onClick={() => router.push('/profile')}
-            className="text-xs text-green-400 border border-green-400/20 px-4 py-2 rounded-lg hover:bg-green-400/5 transition-all"
-          >
-            Set your crops in Profile →
+          <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.35)' }}>{t('noCropsYet')}</p>
+          <button onClick={() => router.push('/profile')} className="text-xs px-4 py-2 rounded-lg" style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
+            {t('setCropsInProfile')}
           </button>
         </div>
       ) : (
         <>
           <div className="flex flex-wrap gap-2 mb-4">
             {crops.map(crop => (
-              <button
-                key={crop}
-                onClick={() => setSelected(crop)}
-                className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
-                  selected === crop
-                    ? 'bg-green-400/20 text-green-300 border border-green-400/30'
-                    : 'text-green-100/40 border border-green-400/10 hover:text-green-300 hover:border-green-400/25'
-                }`}
-              >
+              <button key={crop} onClick={() => setSelected(crop)}
+                className="text-xs px-3 py-1.5 rounded-lg transition-all"
+                style={selected === crop
+                  ? { background: 'rgba(74,222,128,0.15)', color: '#86efac', border: '1px solid rgba(74,222,128,0.3)' }
+                  : { color: 'rgba(255,255,255,0.35)', border: '1px solid rgba(255,255,255,0.08)' }}>
                 {crop}
               </button>
             ))}
           </div>
 
           {loading ? (
-            <div className="space-y-3">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="h-16 bg-green-400/5 rounded-xl animate-pulse" />
-              ))}
-            </div>
+            <div className="space-y-3">{[1,2,3,4].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}</div>
           ) : advisory ? (
             <div className="space-y-3">
               {[
-                { icon: '💧', label: 'Irrigation', value: advisory.irrigation },
-                { icon: '🌱', label: 'Fertilizer', value: advisory.fertilizer },
-                { icon: '🐛', label: 'Pest Control', value: advisory.pestControl },
-                { icon: '🌾', label: 'Harvesting', value: advisory.harvesting },
-              ].map(({ icon, label, value }) => (
-                <div key={label} className="flex gap-3 p-3 bg-green-400/5 border border-green-400/10 rounded-xl">
+                { icon: '💧', label: t('irrigation'), value: advisory.irrigation, color: '#38bdf8', bg: 'rgba(56,189,248,0.06)', border: 'rgba(56,189,248,0.15)' },
+                { icon: '🌱', label: t('fertilizer'), value: advisory.fertilizer, color: '#4ade80', bg: 'rgba(74,222,128,0.06)', border: 'rgba(74,222,128,0.15)' },
+                { icon: '🐛', label: t('pestControl'), value: advisory.pestControl, color: '#fbbf24', bg: 'rgba(251,191,36,0.06)', border: 'rgba(251,191,36,0.15)' },
+                { icon: '🌾', label: t('harvesting'), value: advisory.harvesting, color: '#a78bfa', bg: 'rgba(167,139,250,0.06)', border: 'rgba(167,139,250,0.15)' },
+              ].map(({ icon, label, value, color, bg, border }) => (
+                <div key={label} className="flex gap-3 p-3 rounded-xl" style={{ background: bg, border: `1px solid ${border}` }}>
                   <span className="text-lg flex-shrink-0">{icon}</span>
                   <div>
-                    <p className="text-xs font-semibold text-green-100 mb-0.5">{label}</p>
-                    <p className="text-xs text-green-100/50 leading-relaxed">{value}</p>
+                    <p className="text-xs font-semibold mb-0.5" style={{ color }}>{label}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{value}</p>
                   </div>
                 </div>
               ))}
 
               {advisory.tips?.length > 0 && (
-                <div className="bg-green-400/5 border border-green-400/10 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-green-100 mb-2">💡 Pro Tips</p>
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <p className="text-xs font-semibold text-white mb-2">{t('proTips')}</p>
                   <ul className="space-y-1.5">
                     {advisory.tips.map((tip: string, i: number) => (
-                      <li key={i} className="text-xs text-green-100/50 flex items-start gap-2">
-                        <span className="text-green-400 mt-0.5">→</span>
-                        {tip}
+                      <li key={i} className="text-xs flex items-start gap-2" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                        <span style={{ color: '#4ade80' }}>→</span>{tip}
                       </li>
                     ))}
                   </ul>

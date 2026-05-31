@@ -1,7 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useLang } from '../../context/LanguageContext'
 
 const languages = [
   { code: 'en', name: 'English', native: 'English' },
@@ -19,60 +18,27 @@ const languages = [
 ]
 
 export default function LanguageSettings() {
-  const { data: session } = useSession()
-  const [selected, setSelected] = useState('en')
-  const [saved, setSaved] = useState(false)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!session?.user?.email) return
-    fetch(`/api/profile?email=${session.user.email}`)
-      .then(r => r.json())
-      .then(data => {
-        if (data?.language) setSelected(data.language)
-        setLoading(false)
-      })
-  }, [session])
-
-  async function handleSave() {
-    if (!session?.user?.email) return
-    await fetch('/api/profile', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: session.user.email, language: selected }),
-    })
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
-  }
-
-  if (loading) return <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5 h-48 animate-pulse" />
+  const { lang, setLang, t } = useLang()
 
   return (
     <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
-      <h2 className="text-sm font-semibold text-green-100 mb-1">Language Preference</h2>
-      <p className="text-xs text-green-100/35 mb-4">Choose your preferred language for advisories and alerts</p>
+      <h2 className="text-sm font-semibold text-green-100 mb-1">{t('languagePref')}</h2>
+      <p className="text-xs text-green-100/35 mb-4">{t('chooseLanguage')}</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
         {languages.map(({ code, name, native }) => (
-          <button
-            key={code}
-            onClick={() => setSelected(code)}
-            className={`p-3 rounded-lg border text-left transition-all ${
-              selected === code
-                ? 'bg-green-400/15 border-green-400/40 text-green-300'
-                : 'bg-green-400/3 border-green-400/10 text-green-100/50 hover:border-green-400/25'
-            }`}
-          >
+          <button key={code} onClick={() => setLang(code as any)}
+            className="p-3 rounded-lg border text-left transition-all"
+            style={lang === code
+              ? { background: 'rgba(74,222,128,0.15)', borderColor: 'rgba(74,222,128,0.4)', color: '#86efac' }
+              : { background: 'rgba(74,222,128,0.03)', borderColor: 'rgba(74,222,128,0.1)', color: 'rgba(232,245,226,0.4)' }
+            }>
             <div className="text-sm font-medium">{native}</div>
-            <div className="text-[10px] mt-0.5 opacity-60">{name}</div>
+            <div className="text-xs mt-0.5 opacity-60">{name}</div>
+            {code !== 'en' && code !== 'hi' && <div className="text-xs mt-0.5" style={{ color: '#fbbf24' }}>Coming soon</div>}
           </button>
         ))}
       </div>
-      <button
-        onClick={handleSave}
-        className="w-full py-2.5 text-xs font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 transition-all"
-      >
-        {saved ? '✓ Language Saved!' : 'Save Language'}
-      </button>
+      <p className="text-xs text-green-100/25">English and हिंदी are fully supported. Other languages coming soon.</p>
     </div>
   )
 }

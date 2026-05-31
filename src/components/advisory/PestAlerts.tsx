@@ -1,14 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useLang } from '../../context/LanguageContext'
 
 export default function PestAlerts() {
+  const { t } = useLang()
   const [alerts, setAlerts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => fetchAlerts(pos.coords.latitude, pos.coords.longitude),
+      pos => fetchAlerts(pos.coords.latitude, pos.coords.longitude),
       () => fetchAlerts(28.6667, 77.2167)
     )
   }, [])
@@ -20,109 +22,52 @@ export default function PestAlerts() {
       const temp = weather.main?.temp ?? 28
       const humidity = weather.main?.humidity ?? 60
       const desc = weather.weather?.[0]?.main ?? ''
-
       const generated = []
 
-      if (humidity > 70) {
-        generated.push({
-          pest: 'Fungal Blight',
-          risk: 'High',
-          crops: 'Tomato, Potato',
-          advice: `Humidity is ${Math.round(humidity)}% — apply copper-based fungicide immediately. Ensure proper drainage.`,
-          icon: '🍄',
-        })
-      }
-
-      if (temp > 32) {
-        generated.push({
-          pest: 'Aphids & Whitefly',
-          risk: 'Medium',
-          crops: 'Cotton, Wheat',
-          advice: `Temperature ${Math.round(temp)}°C is favorable for aphids. Use neem oil spray in early morning.`,
-          icon: '🐛',
-        })
-      }
-
-      if (desc === 'Rain' || desc === 'Drizzle') {
-        generated.push({
-          pest: 'Root Rot Risk',
-          risk: 'High',
-          crops: 'All crops',
-          advice: 'Rain detected — ensure proper field drainage. Avoid waterlogging near roots.',
-          icon: '🌧️',
-        })
-      }
-
-      if (temp > 28 && humidity < 40) {
-        generated.push({
-          pest: 'Spider Mites',
-          risk: 'Medium',
-          crops: 'Cotton, Brinjal',
-          advice: 'Hot and dry conditions favor spider mites. Spray water on undersides of leaves.',
-          icon: '🕷️',
-        })
-      }
-
-      if (generated.length === 0) {
-        generated.push({
-          pest: 'No active pest threats',
-          risk: 'Low',
-          crops: 'All crops',
-          advice: `Current conditions (${Math.round(temp)}°C, ${Math.round(humidity)}% humidity) are not favorable for major pests. Keep monitoring.`,
-          icon: '✅',
-        })
-      }
+      if (humidity > 70) generated.push({ pest: 'Fungal Blight', risk: 'High', crops: 'Tomato, Potato', advice: `Humidity ${Math.round(humidity)}% — apply copper fungicide immediately.`, icon: '🍄' })
+      if (temp > 32) generated.push({ pest: 'Aphids & Whitefly', risk: 'Medium', crops: 'Cotton, Wheat', advice: `${Math.round(temp)}°C favors aphids. Use neem oil spray in early morning.`, icon: '🐛' })
+      if (desc === 'Rain' || desc === 'Drizzle') generated.push({ pest: 'Root Rot Risk', risk: 'High', crops: 'All crops', advice: 'Rain detected — ensure proper field drainage.', icon: '🌧️' })
+      if (temp > 28 && humidity < 40) generated.push({ pest: 'Spider Mites', risk: 'Medium', crops: 'Cotton, Brinjal', advice: 'Hot dry conditions favor mites. Spray water on leaf undersides.', icon: '🕷️' })
+      if (generated.length === 0) generated.push({ pest: 'No active threats', risk: 'Low', crops: 'All crops', advice: `${Math.round(temp)}°C, ${Math.round(humidity)}% humidity — conditions are not favorable for major pests.`, icon: '✅' })
 
       setAlerts(generated)
-    } catch {
-      setAlerts([])
-    } finally {
-      setLoading(false)
-    }
+    } catch { setAlerts([]) }
+    finally { setLoading(false) }
   }
 
-  const riskColor: Record<string, string> = {
-    High: 'text-red-400 bg-red-400/10 border-red-400/20',
-    Medium: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20',
-    Low: 'text-green-400 bg-green-400/10 border-green-400/20',
-  }
+  const riskColor: Record<string, string> = { High: '#f87171', Medium: '#fbbf24', Low: '#4ade80' }
+  const riskBg: Record<string, string> = { High: 'rgba(248,113,113,0.1)', Medium: 'rgba(251,191,36,0.1)', Low: 'rgba(74,222,128,0.1)' }
 
   return (
-    <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
+    <div className="p-5 rounded-xl" style={{ background: 'rgba(251,191,36,0.04)', border: '1px solid rgba(251,191,36,0.12)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-green-100">Pest Alerts</h2>
-        <span className="text-[10px] px-2 py-1 bg-yellow-400/10 text-yellow-400 rounded-full border border-yellow-400/20">
-          Weather-based
-        </span>
+        <h2 className="text-sm font-semibold text-white">{t('pestAlerts')}</h2>
+        <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.2)' }}>{t('weatherBased')}</span>
       </div>
 
       {loading ? (
-        <div className="space-y-3">
-          {[1,2,3].map(i => <div key={i} className="h-24 bg-green-400/5 rounded-xl animate-pulse" />)}
-        </div>
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-24 rounded-xl animate-pulse" style={{ background: 'rgba(251,191,36,0.04)' }} />)}</div>
       ) : (
         <div className="space-y-3">
           {alerts.map(({ pest, risk, crops, advice, icon }) => (
-            <div key={pest} className="bg-green-400/3 border border-green-400/10 rounded-xl p-3 hover:border-green-400/20 transition-all">
+            <div key={pest} className="p-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span className="text-base">{icon}</span>
-                  <span className="text-xs font-semibold text-green-100">{pest}</span>
+                  <span className="text-xs font-semibold text-white">{pest}</span>
                 </div>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full border ${riskColor[risk]}`}>
-                  {risk}
-                </span>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{ color: riskColor[risk], background: riskBg[risk], border: `1px solid ${riskColor[risk]}30` }}>{risk}</span>
               </div>
-              <p className="text-[10px] text-green-100/40 mb-1.5">Affects: {crops}</p>
-              <p className="text-[10px] text-green-100/55 leading-relaxed">{advice}</p>
+              <p className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.35)' }}>Affects: {crops}</p>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>{advice}</p>
             </div>
           ))}
         </div>
       )}
 
-      <div className="mt-4 p-3 bg-blue-400/5 border border-blue-400/15 rounded-lg">
-        <p className="text-[11px] text-blue-300 font-medium">Alerts based on your live weather</p>
-        <p className="text-[10px] text-green-100/35 mt-0.5">Risk levels adjust to current conditions</p>
+      <div className="mt-4 p-3 rounded-lg" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}>
+        <p className="text-xs font-medium" style={{ color: '#38bdf8' }}>{t('alertsBasedOnWeather')}</p>
+        <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.3)' }}>{t('riskAdjust')}</p>
       </div>
     </div>
   )

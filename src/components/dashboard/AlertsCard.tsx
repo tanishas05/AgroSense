@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useLang } from '@/context/LanguageContext'
 
 export default function AlertsCard() {
   const { data: session } = useSession()
+  const { t } = useLang()
   const [alerts, setAlerts] = useState<any[]>([])
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => generateAlerts(pos.coords.latitude, pos.coords.longitude),
+      pos => generateAlerts(pos.coords.latitude, pos.coords.longitude),
       () => generateAlerts(28.6667, 77.2167)
     )
   }, [session])
@@ -25,62 +27,18 @@ export default function AlertsCard() {
       const current = weather.list?.[0]
       const humidity = current?.main?.humidity ?? 50
       const temp = current?.main?.temp ?? 28
-
       const newAlerts: any[] = []
 
-      // Rain alert
       const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
       if (rainDay) {
         const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
-        newAlerts.push({
-          type: 'warning',
-          title: `Heavy rain expected ${day}`,
-          desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`,
-          time: 'Just now',
-        })
+        newAlerts.push({ type: 'warning', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
       }
 
-      // Market alert
       const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
-      if (rising) {
-        newAlerts.push({
-          type: 'success',
-          title: `${rising.crop} price rising`,
-          desc: `${rising.market} · ${rising.change} · Good time to sell`,
-          time: '1h ago',
-        })
-      }
-
-      // Fungal risk based on real humidity
-      if (humidity > 65) {
-        newAlerts.push({
-          type: 'danger',
-          title: 'Fungal disease risk high',
-          desc: `Humidity at ${Math.round(humidity)}% · Spray fungicide preventively`,
-          time: '2h ago',
-        })
-      }
-
-      // Heat stress based on real temp
-      if (temp > 35) {
-        newAlerts.push({
-          type: 'warning',
-          title: 'Heat stress alert',
-          desc: `Temperature ${Math.round(temp)}°C · Water crops early morning`,
-          time: '3h ago',
-        })
-      }
-
-      // Fertilizer reminder based on day of week
-      const dayOfWeek = new Date().getDay()
-      if (dayOfWeek === 1 || dayOfWeek === 4) {
-        newAlerts.push({
-          type: 'info',
-          title: 'Weekly fertilizer check',
-          desc: 'Review NPK levels for your crops this week',
-          time: 'Today',
-        })
-      }
+      if (rising) newAlerts.push({ type: 'success', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
+      if (humidity > 65) newAlerts.push({ type: 'danger', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
+      if (temp > 35) newAlerts.push({ type: 'warning', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '3h ago' })
 
       setAlerts(newAlerts)
 
@@ -89,18 +47,11 @@ export default function AlertsCard() {
           await fetch('/api/alerts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: session.user.email,
-              type: alert.type,
-              title: alert.title,
-              description: alert.desc,
-            }),
+            body: JSON.stringify({ email: session.user.email, type: alert.type, title: alert.title, description: alert.desc }),
           })
         }
       }
-    } catch {
-      setAlerts([])
-    }
+    } catch { setAlerts([]) }
   }
 
   const typeStyles: Record<string, any> = {
@@ -113,33 +64,31 @@ export default function AlertsCard() {
   return (
     <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-green-100">Alerts</h2>
-        <span className="text-[10px] px-2 py-0.5 bg-red-400/10 text-red-400 rounded-full">
-          {alerts.length} new
-        </span>
+        <h2 className="text-sm font-semibold text-green-100">{t('alertsTitle')}</h2>
+        <span className="text-xs px-2 py-0.5 bg-red-400/10 text-red-400 rounded-full">{alerts.length} {t('newAlerts')}</span>
       </div>
 
-      <div className="space-y-2.5">
-        {alerts.length === 0 ? (
-          <div className="space-y-2">
-            {[1,2,3].map(i => <div key={i} className="h-14 bg-green-400/5 rounded-lg animate-pulse" />)}
-          </div>
-        ) : alerts.map(({ type, title, desc, time }, i) => {
-          const s = typeStyles[type]
-          return (
-            <div key={i} className={`${s.bg} border ${s.border} rounded-lg p-3`}>
-              <div className="flex items-start gap-2.5">
-                <div className={`w-1.5 h-1.5 rounded-full ${s.dot} mt-1.5 flex-shrink-0`} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-green-100">{title}</p>
-                  <p className="text-[10px] text-green-100/40 mt-0.5">{desc}</p>
+      {alerts.length === 0 ? (
+        <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-14 bg-green-400/5 rounded-lg animate-pulse" />)}</div>
+      ) : (
+        <div className="space-y-2.5">
+          {alerts.map(({ type, title, desc, time }, i) => {
+            const s = typeStyles[type]
+            return (
+              <div key={i} className={`${s.bg} border ${s.border} rounded-lg p-3`}>
+                <div className="flex items-start gap-2.5">
+                  <div className={`w-1.5 h-1.5 rounded-full ${s.dot} mt-1.5 flex-shrink-0`} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-green-100">{title}</p>
+                    <p className="text-xs text-green-100/40 mt-0.5">{desc}</p>
+                  </div>
+                  <span className="text-xs text-green-100/25 flex-shrink-0">{time}</span>
                 </div>
-                <span className="text-[10px] text-green-100/25 flex-shrink-0">{time}</span>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
