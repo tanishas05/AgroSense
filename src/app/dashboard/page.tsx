@@ -1,3 +1,5 @@
+'use client'
+
 import Navbar from '@/components/Navbar'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import WeatherCard from '@/components/dashboard/WeatherCard'
@@ -16,8 +18,6 @@ export default function DashboardPage() {
   return (
     <main className="relative min-h-screen bg-[#0a1a0d] overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none" />
-      <div className="absolute pointer-events-none" style={{ width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 70%)', top: -100, right: -100 }} />
-      <div className="absolute pointer-events-none" style={{ width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,139,250,0.04) 0%, transparent 70%)', bottom: 0, left: 50 }} />
       <Navbar />
       <div className="max-w-7xl mx-auto px-8 py-8">
         <DashboardHeader />

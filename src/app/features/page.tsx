@@ -1,3 +1,5 @@
+'use client'
+
 import Navbar from '@/components/Navbar'
 import FeaturesHero from '@/components/features/FeaturesHero'
 import HowItWorks from '@/components/features/HowItWorks'

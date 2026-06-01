@@ -13,7 +13,8 @@ export default function Navbar() {
 
   return (
     <nav className="relative z-20 flex items-center justify-between px-8 py-5 border-b border-green-400/10">
-      <Link href="/" className="flex items-center gap-2.5 text-green-300 font-bold text-lg tracking-tight no-underline">
+      {/* Logo - left */}
+      <Link href="/" className="flex items-center gap-2.5 text-green-300 font-bold text-lg tracking-tight no-underline flex-shrink-0">
         <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-green-400 rounded-lg flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M9 2C9 2 5 5 5 9C5 11.2 6.8 13 9 13C11.2 13 13 11.2 13 9C13 5 9 2 9 2Z" fill="white" opacity="0.9"/>
@@ -23,7 +24,8 @@ export default function Navbar() {
         AgroSense
       </Link>
 
-      <div className="hidden md:flex items-center gap-7 text-sm text-green-100/40">
+      {/* Nav links - center */}
+      <div className="hidden md:flex items-center gap-8 text-sm text-green-100/40 absolute left-1/2 -translate-x-1/2">
         <Link href="/features" className="hover:text-green-300 transition-colors no-underline">{t('features')}</Link>
         <button onClick={() => session ? router.push('/dashboard') : router.push('/auth/signin')} className="hover:text-green-300 transition-colors">
           {t('dashboard')}
@@ -32,7 +34,8 @@ export default function Navbar() {
         <Link href="/advisory" className="hover:text-green-300 transition-colors no-underline">{t('advisory')}</Link>
       </div>
 
-      <div className="flex items-center gap-2.5">
+      {/* Right side */}
+      <div className="flex items-center gap-2.5 flex-shrink-0">
         <LanguageSwitcher />
         {session ? (
           <div className="flex items-center gap-3">
