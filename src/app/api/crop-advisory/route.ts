@@ -1,44 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
-  const { crop, weather } = await req.json()
+  const { crop, weather, village, district, state } = await req.json()
 
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'llama3-8b-8192',
-      max_tokens: 512,
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an agricultural advisor for Indian farmers. Always respond with valid JSON only. No markdown, no explanation.',
-        },
-        {
-          role: 'user',
-          content: `Give farming advice for ${crop} crop in India. Current weather: ${weather.temp}°C, humidity ${weather.humidity}%, ${weather.description}. Return this exact JSON structure:
-{"irrigation":"specific advice here","fertilizer":"specific advice here","pestControl":"specific advice here","harvesting":"specific advice here","tips":["tip 1","tip 2","tip 3"]}`,
-        },
-      ],
-    }),
-  })
+  // Build a location string as specific as possible
+  const locationParts = [village, district, state].filter(Boolean)
+  const locationStr = locationParts.length > 0
+    ? locationParts.join(', ')
+    : 'India'
 
-  const data = await response.json()
-  const text = data.choices?.[0]?.message?.content ?? ''
+  const isVillageLevel = Boolean(village && village !== 'Your Village')
+
+  const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice — not generic state-level recommendations. Always consider the exact village microclimate, local soil types, and regional crop calendars. Respond with valid JSON only. No markdown, no explanation.`
+
+  const userPrompt = `Give highly specific farming advice for ${crop} crop.
+
+Location: ${locationStr}${isVillageLevel ? ` (village-level precision)` : ''}
+Current weather at this location: ${weather.temp}°C, humidity ${weather.humidity}%, ${weather.description}
+
+Important: Your advice must be SPECIFIC to ${village ?? locationStr} — mention local conditions, nearby markets if known, regional pest patterns, and the specific season. Do NOT give generic advice.
+
+Return this exact JSON:
+{"irrigation":"specific village-level advice","fertilizer":"specific advice for this region","pestControl":"pest risks specific to ${weather.humidity}% humidity at ${weather.temp}°C in this area","harvesting":"harvesting advice for this location and season","tips":["hyperlocal tip 1","hyperlocal tip 2","hyperlocal tip 3"]}`
 
   try {
-    const clean = text.replace(/```json|```/g, '').trim()
-    return NextResponse.json(JSON.parse(clean))
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'llama3-8b-8192',
+        max_tokens: 600,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+      }),
+    })
+
+    const data = await response.json()
+    const text = data.choices?.[0]?.message?.content ?? ''
+
+    try {
+      const clean = text.replace(/```json|```/g, '').trim()
+      const parsed = JSON.parse(clean)
+      return NextResponse.json({ ...parsed, village: village ?? null, location: locationStr })
+    } catch {
+      throw new Error('JSON parse failed')
+    }
   } catch {
+    // Fallback — still village-aware
     return NextResponse.json({
-      irrigation: `At ${weather.temp}°C, irrigate ${crop} early morning every 3-4 days. Avoid waterlogging.`,
-      fertilizer: `Apply Urea 50kg/acre for ${crop}. Add DAP before next rain.`,
-      pestControl: `High humidity (${weather.humidity}%) increases fungal risk. Spray neem oil weekly.`,
-      harvesting: `${crop} is best harvested in early morning for maximum yield and quality.`,
-      tips: ['Test soil pH every season', 'Use drip irrigation to save 40% water', 'Keep crop rotation records'],
+      irrigation: `At ${weather.temp}°C in ${locationStr}, irrigate ${crop} early morning (5–7am) every ${weather.temp > 35 ? '2–3' : '4–5'} days. Avoid evening irrigation to reduce fungal risk.`,
+      fertilizer: `For ${crop} in ${locationStr}: Apply Urea 50kg/acre this week. With ${weather.humidity}% humidity, DAP absorption is ${weather.humidity > 70 ? 'optimal' : 'reduced — add 10% extra'}.`,
+      pestControl: `${weather.humidity > 75 ? `High humidity (${weather.humidity}%) in ${village ?? locationStr} — spray copper fungicide immediately.` : `Monitor for ${weather.temp > 32 ? 'whitefly and aphids' : 'stem borer'} common in this region.`}`,
+      harvesting: `${crop} harvest in ${locationStr} is best done in early morning. Check local ${district ?? 'district'} mandi price before deciding timing.`,
+      tips: [
+        `Check ${district ?? 'district'} mandi rates before selling`,
+        `Local soil in this region benefits from green manure`,
+        `Connect with Krishi Vigyan Kendra in ${district ?? 'your district'}`,
+      ],
+      village: village ?? null,
+      location: locationStr,
     })
   }
 }

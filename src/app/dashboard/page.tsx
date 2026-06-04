@@ -8,6 +8,8 @@ import MarketCard from '@/components/dashboard/MarketCard'
 import IrrigationCard from '@/components/dashboard/IrrigationCard'
 import AlertsCard from '@/components/dashboard/AlertsCard'
 import DashboardHeader from '@/components/dashboard/DashboardHeader'
+import RiskScoreCard from '@/components/dashboard/RiskScoreCard'
+import OfflineBanner from '@/components/dashboard/OfflineBanner'
 import { Suspense } from 'react'
 
 function Skeleton({ h = 'h-40' }: { h?: string }) {
@@ -20,18 +22,29 @@ export default function DashboardPage() {
       <div className="absolute inset-0 grid-bg pointer-events-none" />
       <Navbar />
       <div className="max-w-7xl mx-auto px-8 py-8">
+        {/* Offline banner — shows only when offline */}
+        <OfflineBanner />
+
         <DashboardHeader />
         <DashboardStats />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+          {/* Left: main content */}
           <div className="lg:col-span-2 space-y-4">
             <Suspense fallback={<Skeleton h="h-64" />}>
               <WeatherCard />
+            </Suspense>
+            {/* AI Risk Score — village-specific */}
+            <Suspense fallback={<Skeleton h="h-56" />}>
+              <RiskScoreCard />
             </Suspense>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <IrrigationCard />
               <MarketCard />
             </div>
           </div>
+
+          {/* Right: sidebar */}
           <div className="space-y-4">
             <CropHealthCard />
             <AlertsCard />

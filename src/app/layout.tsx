@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { SessionProvider } from './SessionProvider'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { LocationProvider } from '@/context/LocationContext'
 
 export const metadata: Metadata = {
   title: 'AgroSense — AI-Powered Smart Farming',
@@ -18,9 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <LanguageProvider>
-          <SessionProvider>
-            {children}
-          </SessionProvider>
+          <LocationProvider>
+            <SessionProvider>
+              {children}
+            </SessionProvider>
+          </LocationProvider>
         </LanguageProvider>
       </body>
     </html>

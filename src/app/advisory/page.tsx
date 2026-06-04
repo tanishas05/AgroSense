@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import DiseaseScanner from '@/components/advisory/DiseaseScanner'
 import CropAdvisory from '@/components/advisory/CropAdvisory'
 import PestAlerts from '@/components/advisory/PestAlerts'
+import VoiceAdvisory from '@/components/advisory/VoiceAdvisory'
 import { useLang } from '@/context/LanguageContext'
 
 export default function AdvisoryPage() {
@@ -22,8 +23,12 @@ export default function AdvisoryPage() {
           <div className="lg:col-span-2 space-y-4">
             <DiseaseScanner />
             <CropAdvisory />
+            {/* Voice-Based Farming Support */}
+            <VoiceAdvisory />
           </div>
-          <div><PestAlerts /></div>
+          <div className="space-y-4">
+            <PestAlerts />
+          </div>
         </div>
       </div>
     </main>

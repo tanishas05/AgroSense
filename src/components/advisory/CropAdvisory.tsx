@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useLang } from '../../context/LanguageContext'
+import { useLang } from '@/context/LanguageContext'
+import { useLocation } from '@/context/LocationContext'
 
 export default function CropAdvisory() {
   const { data: session } = useSession()
   const { t } = useLang()
+  const { location } = useLocation()
   const router = useRouter()
   const [crops, setCrops] = useState<string[]>([])
   const [selected, setSelected] = useState('')
@@ -29,11 +31,17 @@ export default function CropAdvisory() {
   }, [session])
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      pos => fetch(`/api/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&type=current`).then(r => r.json()).then(setWeather),
-      () => fetch('/api/weather?q=Delhi&type=current').then(r => r.json()).then(setWeather)
-    )
-  }, [])
+    // Use location from context if available, else fallback
+    if (location) {
+      fetch(`/api/weather?lat=${location.lat}&lon=${location.lon}&type=current`)
+        .then(r => r.json()).then(setWeather)
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        pos => fetch(`/api/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&type=current`).then(r => r.json()).then(setWeather),
+        () => fetch('/api/weather?q=Delhi&type=current').then(r => r.json()).then(setWeather)
+      )
+    }
+  }, [location])
 
   useEffect(() => {
     if (!weather || !selected) return
@@ -44,30 +52,52 @@ export default function CropAdvisory() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         crop: selected,
-        weather: { temp: Math.round(weather.main?.temp ?? 28), humidity: weather.main?.humidity ?? 60, description: weather.weather?.[0]?.description ?? 'clear' },
+        weather: {
+          temp: Math.round(weather.main?.temp ?? 28),
+          humidity: weather.main?.humidity ?? 60,
+          description: weather.weather?.[0]?.description ?? 'clear',
+        },
+        // Pass village-level location for hyperlocal advice
+        village: location?.village ?? null,
+        district: location?.district ?? null,
+        state: location?.state ?? null,
       }),
     })
       .then(r => r.json())
       .then(data => { setAdvisory(data); setLoading(false) })
       .catch(() => setLoading(false))
-  }, [selected, weather])
+  }, [selected, weather, location])
 
-  if (profileLoading) return <div className="h-48 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.1)' }} />
+  if (profileLoading) return (
+    <div className="h-48 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.1)' }} />
+  )
 
   return (
     <div className="p-5 rounded-xl" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.12)' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-sm font-semibold text-white">{t('personalizedAdvisory')}</h2>
-          <p className="text-xs mt-0.5" style={{ color: 'rgba(74,222,128,0.5)' }}>{t('aiAdviceBasedOn')}</p>
+          <p className="text-xs mt-0.5" style={{ color: 'rgba(74,222,128,0.5)' }}>
+            {location?.village
+              ? `📍 ${location.display} · AI advice`
+              : t('aiAdviceBasedOn')}
+          </p>
         </div>
-        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>{crops.length} {t('cropsFromProfile')}</span>
+        <div className="text-right">
+          <span className="text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>{crops.length} {t('cropsFromProfile')}</span>
+          {location?.village && (
+            <div className="text-xs mt-0.5 px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.08)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.15)' }}>
+              Village-specific ✓
+            </div>
+          )}
+        </div>
       </div>
 
       {crops.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.35)' }}>{t('noCropsYet')}</p>
-          <button onClick={() => router.push('/profile')} className="text-xs px-4 py-2 rounded-lg" style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
+          <button onClick={() => router.push('/profile')} className="text-xs px-4 py-2 rounded-lg"
+            style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
             {t('setCropsInProfile')}
           </button>
         </div>
@@ -86,7 +116,9 @@ export default function CropAdvisory() {
           </div>
 
           {loading ? (
-            <div className="space-y-3">{[1,2,3,4].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}</div>
+            <div className="space-y-3">
+              {[1,2,3,4].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}
+            </div>
           ) : advisory ? (
             <div className="space-y-3">
               {[
