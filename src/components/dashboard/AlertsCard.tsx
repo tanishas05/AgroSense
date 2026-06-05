@@ -3,18 +3,18 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useLang } from '@/context/LanguageContext'
+import { useLocation } from '@/context/LocationContext'
 
 export default function AlertsCard() {
   const { data: session } = useSession()
   const { t } = useLang()
+  const { location } = useLocation()
   const [alerts, setAlerts] = useState<any[]>([])
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      pos => generateAlerts(pos.coords.latitude, pos.coords.longitude),
-      () => generateAlerts(28.6667, 77.2167)
-    )
-  }, [session])
+    if (!location) return
+    generateAlerts(location.lat, location.lon)
+  }, [location])
 
   async function generateAlerts(lat: number, lon: number) {
     try {
@@ -32,13 +32,12 @@ export default function AlertsCard() {
       const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
       if (rainDay) {
         const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
-        newAlerts.push({ type: 'warning', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
+        newAlerts.push({ type: 'warning', icon: '🌧️', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
       }
-
       const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
-      if (rising) newAlerts.push({ type: 'success', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
-      if (humidity > 65) newAlerts.push({ type: 'danger', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
-      if (temp > 35) newAlerts.push({ type: 'warning', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '3h ago' })
+      if (rising) newAlerts.push({ type: 'success', icon: '📈', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
+      if (humidity > 65) newAlerts.push({ type: 'danger', icon: '🍄', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
+      if (temp > 35) newAlerts.push({ type: 'warning', icon: '🌡️', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '3h ago' })
 
       setAlerts(newAlerts)
 
@@ -54,36 +53,38 @@ export default function AlertsCard() {
     } catch { setAlerts([]) }
   }
 
-  const typeStyles: Record<string, any> = {
-    warning: { dot: 'bg-yellow-400', bg: 'bg-yellow-400/5', border: 'border-yellow-400/15' },
-    danger: { dot: 'bg-red-400', bg: 'bg-red-400/5', border: 'border-red-400/15' },
-    success: { dot: 'bg-green-400', bg: 'bg-green-400/5', border: 'border-green-400/15' },
-    info: { dot: 'bg-blue-400', bg: 'bg-blue-400/5', border: 'border-blue-400/15' },
+  const typeConfig: Record<string, { color: string; bg: string; border: string }> = {
+    warning: { color: '#fbbf24', bg: 'rgba(251,191,36,0.06)',  border: 'rgba(251,191,36,0.18)' },
+    danger:  { color: '#f87171', bg: 'rgba(239,68,68,0.06)',   border: 'rgba(239,68,68,0.18)' },
+    success: { color: '#4ade80', bg: 'rgba(74,222,128,0.06)',  border: 'rgba(74,222,128,0.18)' },
+    info:    { color: '#60a5fa', bg: 'rgba(96,165,250,0.06)',  border: 'rgba(96,165,250,0.18)' },
   }
 
   return (
-    <div className="bg-green-950/60 border border-green-400/15 rounded-xl p-5">
+    <div className="rounded-2xl p-5" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-green-100">{t('alertsTitle')}</h2>
-        <span className="text-xs px-2 py-0.5 bg-red-400/10 text-red-400 rounded-full">{alerts.length} {t('newAlerts')}</span>
+        <h2 className="text-sm font-semibold text-green-100">🔔 {t('alertsTitle')}</h2>
+        {alerts.length > 0 && (
+          <span className="text-xs px-2 py-0.5 rounded-full"
+            style={{ background: 'rgba(239,68,68,0.12)', color: '#f87171', border: '1px solid rgba(239,68,68,0.2)' }}>
+            {alerts.length} {t('newAlerts')}
+          </span>
+        )}
       </div>
-
       {alerts.length === 0 ? (
-        <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-14 bg-green-400/5 rounded-lg animate-pulse" />)}</div>
+        <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}</div>
       ) : (
-        <div className="space-y-2.5">
-          {alerts.map(({ type, title, desc, time }, i) => {
-            const s = typeStyles[type]
+        <div className="space-y-2">
+          {alerts.map(({ type, icon, title, desc, time }, i) => {
+            const cfg = typeConfig[type] ?? typeConfig.info
             return (
-              <div key={i} className={`${s.bg} border ${s.border} rounded-lg p-3`}>
-                <div className="flex items-start gap-2.5">
-                  <div className={`w-1.5 h-1.5 rounded-full ${s.dot} mt-1.5 flex-shrink-0`} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-green-100">{title}</p>
-                    <p className="text-xs text-green-100/40 mt-0.5">{desc}</p>
-                  </div>
-                  <span className="text-xs text-green-100/25 flex-shrink-0">{time}</span>
+              <div key={i} className="flex gap-3 p-3 rounded-xl" style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
+                <span className="text-base flex-shrink-0 mt-0.5">{icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold" style={{ color: cfg.color }}>{title}</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(232,245,226,0.4)' }}>{desc}</p>
                 </div>
+                <span className="text-xs flex-shrink-0" style={{ color: 'rgba(232,245,226,0.2)' }}>{time}</span>
               </div>
             )
           })}

@@ -23,12 +23,9 @@ export default function AdvisoryPage() {
           <div className="lg:col-span-2 space-y-4">
             <DiseaseScanner />
             <CropAdvisory />
-            {/* Voice-Based Farming Support */}
             <VoiceAdvisory />
           </div>
-          <div className="space-y-4">
-            <PestAlerts />
-          </div>
+          <div><PestAlerts /></div>
         </div>
       </div>
     </main>

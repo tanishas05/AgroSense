@@ -1,8 +1,7 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { useLang } from '../../context/LanguageContext'
-
+import { useLang } from '@/context/LanguageContext'
 export default function SignInPage() {
   const { t } = useLang()
 

@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useLocation } from '@/context/LocationContext'
 import Navbar from '@/components/Navbar'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import WeatherCard from '@/components/dashboard/WeatherCard'
@@ -9,46 +11,61 @@ import IrrigationCard from '@/components/dashboard/IrrigationCard'
 import AlertsCard from '@/components/dashboard/AlertsCard'
 import DashboardHeader from '@/components/dashboard/DashboardHeader'
 import RiskScoreCard from '@/components/dashboard/RiskScoreCard'
-import OfflineBanner from '@/components/dashboard/OfflineBanner'
-import { Suspense } from 'react'
 
-function Skeleton({ h = 'h-40' }: { h?: string }) {
-  return <div className={`${h} bg-green-950/60 border border-green-400/15 rounded-xl animate-pulse`} />
+function LocationInit() {
+  const { location, setLocation } = useLocation()
+  useEffect(() => {
+    if (location) return
+    navigator.geolocation.getCurrentPosition(
+      async p => {
+        const { latitude: lat, longitude: lon } = p.coords
+        try {
+          const loc = await fetch(`/api/location?lat=${lat}&lon=${lon}`).then(r => r.json())
+          setLocation({ lat, lon, village: loc.village, district: loc.district, state: loc.state, display: loc.display })
+        } catch {
+          setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
+        }
+      },
+      () => setLocation({ lat: 28.6667, lon: 77.2167, village: 'New Delhi', district: 'New Delhi', state: 'Delhi', display: 'New Delhi, Delhi' })
+    )
+  }, [])
+  return null
 }
 
 export default function DashboardPage() {
   return (
     <main className="relative min-h-screen bg-[#0a1a0d] overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none" />
+      <LocationInit />
       <Navbar />
       <div className="max-w-7xl mx-auto px-8 py-8">
-        {/* Offline banner — shows only when offline */}
-        <OfflineBanner />
-
         <DashboardHeader />
         <DashboardStats />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
-          {/* Left: main content */}
-          <div className="lg:col-span-2 space-y-4">
-            <Suspense fallback={<Skeleton h="h-64" />}>
-              <WeatherCard />
-            </Suspense>
-            {/* AI Risk Score — village-specific */}
-            <Suspense fallback={<Skeleton h="h-56" />}>
-              <RiskScoreCard />
-            </Suspense>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <IrrigationCard />
-              <MarketCard />
-            </div>
+        {/* Row 1: Weather (wide) + Crop Health (sidebar) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <div className="lg:col-span-2">
+            <WeatherCard />
           </div>
-
-          {/* Right: sidebar */}
-          <div className="space-y-4">
+          <div>
             <CropHealthCard />
+          </div>
+        </div>
+
+        {/* Row 2: Risk Score (wide) + Alerts (sidebar) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <div className="lg:col-span-2">
+            <RiskScoreCard />
+          </div>
+          <div>
             <AlertsCard />
           </div>
+        </div>
+
+        {/* Row 3: Irrigation + Market equally split */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <IrrigationCard />
+          <MarketCard />
         </div>
       </div>
     </main>
