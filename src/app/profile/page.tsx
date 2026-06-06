@@ -17,16 +17,29 @@ export default function ProfilePage() {
         <div className="mb-8">
           <p className="text-xs mb-1 text-green-400">{t('accountSettingsTag')}</p>
           <h1 className="font-serif text-4xl mb-2 text-green-50">{t('profileSettings')}</h1>
-          <p className="text-sm text-green-100/45">{t('manageProfile')}</p>
+          <p className="text-sm" style={{ color: 'rgba(232,245,226,0.35)' }}>{t('manageProfile')}</p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-1"><ProfileCard /></div>
-          <div className="lg:col-span-2 space-y-4">
+
+        {/* Row 1: Profile (narrow) + Farm Settings (wide) — equal height */}
+        <div className="grid gap-4 mb-4" style={{ gridTemplateColumns: '280px 1fr', alignItems: 'stretch' }}>
+          <div className="flex flex-col">
+            <ProfileCard />
+          </div>
+          <div className="flex flex-col">
             <FarmSettings />
+          </div>
+        </div>
+
+        {/* Row 2: Notifications (narrow) + Language (wide) — equal height */}
+        <div className="grid gap-4" style={{ gridTemplateColumns: '280px 1fr', alignItems: 'stretch' }}>
+          <div className="flex flex-col">
             <NotificationSettings />
+          </div>
+          <div className="flex flex-col">
             <LanguageSettings />
           </div>
         </div>
+
       </div>
     </main>
   )
