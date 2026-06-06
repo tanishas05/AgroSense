@@ -6,6 +6,20 @@ import FarmSettings from '@/components/profile/FarmSettings'
 import NotificationSettings from '@/components/profile/NotificationSettings'
 import LanguageSettings from '@/components/profile/LanguageSettings'
 import { useLang } from '@/context/LanguageContext'
+import { Component, ReactNode } from 'react'
+
+class ErrorBoundary extends Component<{ children: ReactNode; name: string }, { error: boolean }> {
+  state = { error: false }
+  static getDerivedStateFromError() { return { error: true } }
+  render() {
+    if (this.state.error) return (
+      <div className="p-4 rounded-2xl text-xs" style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171' }}>
+        {this.props.name} failed to load. Check console.
+      </div>
+    )
+    return this.props.children
+  }
+}
 
 export default function ProfilePage() {
   const { t } = useLang()
@@ -19,27 +33,14 @@ export default function ProfilePage() {
           <h1 className="font-serif text-4xl mb-2 text-green-50">{t('profileSettings')}</h1>
           <p className="text-sm" style={{ color: 'rgba(232,245,226,0.35)' }}>{t('manageProfile')}</p>
         </div>
-
-        {/* Row 1: Profile (narrow) + Farm Settings (wide) — equal height */}
-        <div className="grid gap-4 mb-4" style={{ gridTemplateColumns: '280px 1fr', alignItems: 'stretch' }}>
-          <div className="flex flex-col">
-            <ProfileCard />
-          </div>
-          <div className="flex flex-col">
-            <FarmSettings />
-          </div>
+        <div className="grid gap-4 mb-4" style={{ gridTemplateColumns: '280px 1fr' }}>
+          <ErrorBoundary name="ProfileCard"><ProfileCard /></ErrorBoundary>
+          <ErrorBoundary name="FarmSettings"><FarmSettings /></ErrorBoundary>
         </div>
-
-        {/* Row 2: Notifications (narrow) + Language (wide) — equal height */}
-        <div className="grid gap-4" style={{ gridTemplateColumns: '280px 1fr', alignItems: 'stretch' }}>
-          <div className="flex flex-col">
-            <NotificationSettings />
-          </div>
-          <div className="flex flex-col">
-            <LanguageSettings />
-          </div>
+        <div className="grid gap-4" style={{ gridTemplateColumns: '280px 1fr' }}>
+          <ErrorBoundary name="NotificationSettings"><NotificationSettings /></ErrorBoundary>
+          <ErrorBoundary name="LanguageSettings"><LanguageSettings /></ErrorBoundary>
         </div>
-
       </div>
     </main>
   )

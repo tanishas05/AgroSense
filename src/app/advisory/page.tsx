@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useLocation } from '@/context/LocationContext'
 import Navbar from '@/components/Navbar'
 import DiseaseScanner from '@/components/advisory/DiseaseScanner'
 import CropAdvisory from '@/components/advisory/CropAdvisory'
@@ -7,11 +9,32 @@ import PestAlerts from '@/components/advisory/PestAlerts'
 import VoiceAdvisory from '@/components/advisory/VoiceAdvisory'
 import { useLang } from '@/context/LanguageContext'
 
+function LocationInit() {
+  const { location, setLocation } = useLocation()
+  useEffect(() => {
+    if (location) return
+    navigator.geolocation.getCurrentPosition(
+      async p => {
+        const { latitude: lat, longitude: lon } = p.coords
+        try {
+          const loc = await fetch(`/api/location?lat=${lat}&lon=${lon}`).then(r => r.json())
+          setLocation({ lat, lon, village: loc.village, district: loc.district, state: loc.state, display: loc.display })
+        } catch {
+          setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
+        }
+      },
+      () => setLocation({ lat: 28.6667, lon: 77.2167, village: 'New Delhi', district: 'New Delhi', state: 'Delhi', display: 'New Delhi, Delhi' })
+    )
+  }, [])
+  return null
+}
+
 export default function AdvisoryPage() {
   const { t } = useLang()
   return (
     <main className="relative min-h-screen" style={{ backgroundColor: '#0a1a0d' }}>
       <div className="absolute inset-0 grid-bg pointer-events-none" />
+      <LocationInit />
       <Navbar />
       <div className="max-w-6xl mx-auto px-8 py-8">
         <div className="mb-8">

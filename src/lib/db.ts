@@ -1,6 +1,5 @@
 import { supabase } from './supabase'
 
-// Get or create user profile
 export async function getOrCreateProfile(email: string, name?: string, avatar?: string) {
   const { data, error } = await supabase
     .from('profiles')
@@ -19,7 +18,6 @@ export async function getOrCreateProfile(email: string, name?: string, avatar?: 
   return newProfile
 }
 
-// Update profile
 export async function updateProfile(email: string, updates: any) {
   const { data } = await supabase
     .from('profiles')
@@ -30,7 +28,6 @@ export async function updateProfile(email: string, updates: any) {
   return data
 }
 
-// Save disease scan
 export async function saveScan(email: string, scan: any) {
   const { data } = await supabase
     .from('disease_scans')
@@ -40,7 +37,6 @@ export async function saveScan(email: string, scan: any) {
   return data
 }
 
-// Get user scans
 export async function getUserScans(email: string) {
   const { data } = await supabase
     .from('disease_scans')
@@ -51,7 +47,6 @@ export async function getUserScans(email: string) {
   return data ?? []
 }
 
-// Save alert
 export async function saveAlert(email: string, alert: any) {
   const { data } = await supabase
     .from('farm_alerts')
@@ -61,7 +56,6 @@ export async function saveAlert(email: string, alert: any) {
   return data
 }
 
-// Get user alerts
 export async function getUserAlerts(email: string) {
   const { data } = await supabase
     .from('farm_alerts')
@@ -72,7 +66,6 @@ export async function getUserAlerts(email: string) {
   return data ?? []
 }
 
-// Mark alert as read
 export async function markAlertRead(id: string) {
   await supabase
     .from('farm_alerts')
@@ -80,7 +73,6 @@ export async function markAlertRead(id: string) {
     .eq('id', id)
 }
 
-// Get user stats
 export async function getUserStats(email: string) {
   const [scans, alerts] = await Promise.all([
     supabase.from('disease_scans').select('id', { count: 'exact' }).eq('user_email', email),
