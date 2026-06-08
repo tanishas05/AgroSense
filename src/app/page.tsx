@@ -119,7 +119,7 @@ export default function HomePage() {
             <span className="hv-icon">🌡️</span>
             <div>
               <div className="hv-label">Hyperlocal Weather · Live</div>
-              <div className="hv-val" style={{ color: '#86efac' }}>31°C · 78% Humidity</div>
+              <div className="hv-val" style={{ color: '#16a34a' }}>31°C · 78% Humidity</div>
             </div>
           </div>
           <div className="hv-card hv-card-3">
@@ -179,7 +179,7 @@ export default function HomePage() {
       </section>
 
       <footer className="landing-footer">
-        © 2026 AgroSense · Built for Bharat 🇮🇳 · <span style={{ color: 'rgba(232,245,226,0.2)' }}>Privacy · Terms</span>
+        © 2026 AgroSense · Built for Bharat 🇮🇳 · <span style={{ color: 'rgba(30,30,20,0.3)' }}>Privacy · Terms</span>
       </footer>
     </main>
   )

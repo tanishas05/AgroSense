@@ -24,7 +24,7 @@ export default function DashboardStats() {
 
   if (!stats) return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
-      {[1,2,3,4].map(i => <div key={i} className="h-28 rounded-2xl animate-pulse" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }} />)}
+      {[1,2,3,4].map(i => <div key={i} className="h-28 rounded-2xl animate-pulse" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }} />)}
     </div>
   )
 
@@ -40,14 +40,14 @@ export default function DashboardStats() {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       {items.map(({ icon, label, value, sub, ok, accent, barWidth }) => (
         <div key={label} className="relative overflow-hidden p-4 rounded-2xl"
-          style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
+          style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}>
           <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${accent}40, transparent)` }} />
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs" style={{ color: 'rgba(232,245,226,0.35)' }}>{label}</span>
+            <span className="text-xs" style={{ color: '#8a8a7a' }}>{label}</span>
             <span className="text-base">{icon}</span>
           </div>
           <div className="text-2xl font-bold mb-1" style={{ color: accent }}>{value}</div>
-          <div className="text-xs" style={{ color: ok ? 'rgba(74,222,128,0.6)' : 'rgba(251,191,36,0.7)' }}>{sub}</div>
+          <div className="text-xs" style={{ color: ok ? '#16a34a' : '#d97706' }}>{sub}</div>
           {barWidth !== null && (
             <div className="mt-3 h-1 rounded-full" style={{ background: 'rgba(74,222,128,0.08)' }}>
               <div className="h-full rounded-full" style={{ width: `${barWidth}%`, background: accent }} />

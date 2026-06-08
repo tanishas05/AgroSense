@@ -32,18 +32,18 @@ function LocationInit() {
 export default function AdvisoryPage() {
   const { t } = useLang()
   return (
-    <main className="relative min-h-screen" style={{ backgroundColor: '#0a1a0d' }}>
+    <main className="relative min-h-screen" style={{ backgroundColor: '#f5f0e8' }}>
       <div className="absolute inset-0 grid-bg pointer-events-none" />
       <LocationInit />
       <Navbar />
       <div className="max-w-6xl mx-auto px-8 py-8">
         <div className="mb-8">
           <span className="text-xs font-medium px-2.5 py-1 rounded-full mb-3 inline-block"
-            style={{ background: 'rgba(167,139,250,0.1)', color: '#a78bfa', border: '1px solid rgba(167,139,250,0.2)' }}>
+            style={{ background: 'rgba(167,139,250,0.12)', color: '#7c3aed', border: '1px solid rgba(167,139,250,0.25)' }}>
             {t('aiAdvisoryTag')}
           </span>
-          <h1 className="font-serif text-4xl text-green-50 mb-2">{t('cropAdvisory')}</h1>
-          <p className="text-sm" style={{ color: 'rgba(232,245,226,0.35)' }}>{t('aiDetection')}</p>
+          <h1 className="font-serif text-4xl mb-2" style={{ color: '#1a1a14' }}>{t('cropAdvisory')}</h1>
+          <p className="text-sm" style={{ color: '#6a6a5a' }}>{t('aiDetection')}</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
           <div className="lg:col-span-2"><DiseaseScanner /></div>

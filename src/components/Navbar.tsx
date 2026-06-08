@@ -12,51 +12,83 @@ export default function Navbar() {
   const { t } = useLang()
 
   return (
-    <nav className="relative z-20 flex items-center justify-between px-8 py-5 border-b border-green-400/10">
-      {/* Logo - left */}
-      <Link href="/" className="flex items-center gap-2.5 text-green-300 font-bold text-lg tracking-tight no-underline flex-shrink-0">
-        <div className="w-8 h-8 bg-gradient-to-br from-green-600 to-green-400 rounded-lg flex items-center justify-center">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M9 2C9 2 5 5 5 9C5 11.2 6.8 13 9 13C11.2 13 13 11.2 13 9C13 5 9 2 9 2Z" fill="white" opacity="0.9"/>
-            <path d="M9 13V16M7 16H11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-        </div>
-        AgroSense
+    <nav style={{
+      background: 'rgba(245,240,232,0.85)',
+      borderBottom: '1px solid rgba(0,0,0,0.08)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+    }} className="relative z-20 flex items-center justify-between px-8 py-4">
+
+      {/* Logo */}
+      <Link href="/" className="flex items-center no-underline flex-shrink-0">
+        <span className="font-bold text-base tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
       </Link>
 
-      {/* Nav links - center */}
-      <div className="hidden md:flex items-center gap-8 text-sm text-green-100/40 absolute left-1/2 -translate-x-1/2">
-        <Link href="/features" className="hover:text-green-300 transition-colors no-underline">{t('features')}</Link>
-        <button onClick={() => session ? router.push('/dashboard') : router.push('/auth/signin')} className="hover:text-green-300 transition-colors">
+      {/* Nav links */}
+      <div className="hidden md:flex items-center gap-7 text-sm absolute left-1/2 -translate-x-1/2">
+        {[
+          { label: t('features'),  href: '/features' },
+          { label: t('market'),    href: '/market' },
+          { label: t('advisory'),  href: '/advisory' },
+        ].map(({ label, href }) => (
+          <Link key={href} href={href}
+            className="no-underline transition-colors"
+            style={{ color: '#4a4a3a' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#16a34a')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#4a4a3a')}>
+            {label}
+          </Link>
+        ))}
+        <button
+          onClick={() => session ? router.push('/dashboard') : router.push('/auth/signin')}
+          className="transition-colors text-sm"
+          style={{ color: '#4a4a3a' }}
+          onMouseEnter={e => (e.currentTarget.style.color = '#16a34a')}
+          onMouseLeave={e => (e.currentTarget.style.color = '#4a4a3a')}>
           {t('dashboard')}
         </button>
-        <Link href="/market" className="hover:text-green-300 transition-colors no-underline">{t('market')}</Link>
-        <Link href="/advisory" className="hover:text-green-300 transition-colors no-underline">{t('advisory')}</Link>
       </div>
 
-      {/* Right side */}
+      {/* Right */}
       <div className="flex items-center gap-2.5 flex-shrink-0">
         <LanguageSwitcher />
         {session ? (
           <div className="flex items-center gap-3">
-            <span className="text-xs text-green-100/40 hidden md:block">{session.user?.name}</span>
+            <span className="text-xs hidden md:block" style={{ color: '#8a8a7a' }}>{session.user?.name}</span>
             <Link href="/profile">
               {session.user?.image ? (
-                <img src={session.user.image} alt="avatar" className="w-8 h-8 rounded-full border border-green-400/30 hover:border-green-400/60 transition-all cursor-pointer" />
+                <img src={session.user.image} alt="avatar"
+                  className="w-8 h-8 rounded-full cursor-pointer transition-all"
+                  style={{ border: '2px solid rgba(22,163,74,0.3)' }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(22,163,74,0.7)')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(22,163,74,0.3)')} />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-green-400/10 border border-green-400/30 flex items-center justify-center text-xs text-green-400 cursor-pointer">👤</div>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs cursor-pointer"
+                  style={{ background: 'rgba(22,163,74,0.1)', border: '2px solid rgba(22,163,74,0.3)', color: '#16a34a' }}>👤</div>
               )}
             </Link>
-            <button onClick={() => signOut()} className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all">
+            <button onClick={() => signOut()}
+              className="px-3 py-1.5 text-sm rounded-lg transition-all"
+              style={{ color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.12)', background: 'transparent' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(22,163,74,0.4)'; e.currentTarget.style.color = '#16a34a' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = '#4a4a3a' }}>
               {t('signOut')}
             </button>
           </div>
         ) : (
           <>
-            <button onClick={() => signIn('google')} className="px-4 py-1.5 text-sm text-green-300 border border-green-400/30 rounded-md hover:bg-green-400/8 transition-all">
+            <button onClick={() => signIn('google')}
+              className="px-3 py-1.5 text-sm rounded-lg transition-all"
+              style={{ color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.12)', background: 'transparent' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(22,163,74,0.4)'; e.currentTarget.style.color = '#16a34a' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = '#4a4a3a' }}>
               {t('signIn')}
             </button>
-            <button onClick={() => signIn('google')} className="px-4 py-1.5 text-sm font-medium text-white bg-green-700 rounded-md hover:bg-green-800 transition-all">
+            <button onClick={() => signIn('google')}
+              className="px-4 py-1.5 text-sm font-semibold rounded-lg transition-all"
+              style={{ background: '#16a34a', color: 'white', border: 'none' }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#15803d')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#16a34a')}>
               {t('getStarted')}
             </button>
           </>

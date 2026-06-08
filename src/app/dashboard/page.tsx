@@ -34,7 +34,7 @@ function LocationInit() {
 
 export default function DashboardPage() {
   return (
-    <main className="relative min-h-screen bg-[#0a1a0d] overflow-hidden">
+    <main className=" overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none" />
       <LocationInit />
       <Navbar />

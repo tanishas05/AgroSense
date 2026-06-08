@@ -156,15 +156,15 @@ export default function VoiceAdvisory() {
     <div className="p-5 rounded-xl" style={{ background: 'rgba(74,222,128,0.03)', border: '1px solid rgba(74,222,128,0.14)' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">
+          <h2 className="text-sm font-semibold" style={{ color: "#1a1a14" }}>
             🎙️ {lang === 'hi' ? 'आवाज़ खेती सहायक' : 'Voice Farming Assistant'}
           </h2>
-          <p className="text-xs mt-0.5" style={{ color: 'rgba(232,245,226,0.4)' }}>
+          <p className="text-xs mt-0.5" style={{ color: '#6a6a5a' }}>
             {lang === 'hi' ? 'हिंदी या अंग्रेज़ी में पूछें' : 'Ask in Hindi or English'}
           </p>
         </div>
         <span className="text-xs px-2 py-1 rounded-full" style={{
-          background: 'rgba(74,222,128,0.1)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)'
+          background: 'rgba(74,222,128,0.1)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)'
         }}>
           {lang === 'hi' ? '12+ भाषाएं' : '12+ langs'}
         </span>
@@ -191,7 +191,7 @@ export default function VoiceAdvisory() {
 
       {/* Status text */}
       <p className="text-center text-xs mb-4" style={{
-        color: listening ? '#4ade80' : loading ? '#fbbf24' : 'rgba(232,245,226,0.35)'
+        color: listening ? '#16a34a' : loading ? '#d97706' : '#8a8a7a'
       }}>
         {listening
           ? (lang === 'hi' ? '🎧 सुन रहा हूं...' : '🎧 Listening...')
@@ -207,25 +207,25 @@ export default function VoiceAdvisory() {
       {/* Transcript */}
       {transcript && (
         <div className="mb-3 p-3 rounded-lg" style={{
-          background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)'
+          background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(0,0,0,0.09)'
         }}>
-          <p className="text-xs mb-1" style={{ color: 'rgba(232,245,226,0.35)' }}>
+          <p className="text-xs mb-1" style={{ color: '#8a8a7a' }}>
             {lang === 'hi' ? 'आपने कहा:' : 'You said:'}
           </p>
-          <p className="text-sm text-white">"{transcript}"</p>
+          <p className="text-sm" style={{ color: "#1a1a14" }}>"{transcript}"</p>
         </div>
       )}
 
       {/* AI Response */}
       {loading && (
         <div className="mb-3 p-3 rounded-lg" style={{
-          background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.12)'
+          background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(0,0,0,0.1)'
         }}>
           <div className="flex items-center gap-2">
             <div className="h-1.5 flex-1 rounded-full overflow-hidden" style={{ background: 'rgba(74,222,128,0.1)' }}>
               <div className="h-full rounded-full animate-pulse" style={{ width: '60%', background: '#4ade80' }} />
             </div>
-            <p className="text-xs" style={{ color: 'rgba(74,222,128,0.6)' }}>
+            <p className="text-xs" style={{ color: 'rgba(22,163,74,0.6)' }}>
               {lang === 'hi' ? 'विश्लेषण हो रहा है...' : 'Analyzing...'}
             </p>
           </div>
@@ -234,12 +234,12 @@ export default function VoiceAdvisory() {
 
       {response && !loading && (
         <div className="mb-4 p-3 rounded-lg" style={{
-          background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.18)'
+          background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(74,222,128,0.18)'
         }}>
-          <p className="text-xs font-semibold mb-1.5 text-green-300">
+          <p className="text-xs font-semibold mb-1.5 text-[#16a34a]">
             🌿 {lang === 'hi' ? 'AI सलाह:' : 'AI Advisory:'}
           </p>
-          <p className="text-xs leading-relaxed" style={{ color: 'rgba(232,245,226,0.7)' }}>
+          <p className="text-xs leading-relaxed" style={{ color: '#2a2a1a' }}>
             {response}
           </p>
           <button
@@ -254,7 +254,7 @@ export default function VoiceAdvisory() {
 
       {/* Sample questions */}
       <div>
-        <p className="text-xs mb-2" style={{ color: 'rgba(232,245,226,0.3)' }}>
+        <p className="text-xs mb-2" style={{ color: '#8a8a7a' }}>
           {lang === 'hi' ? 'या इन्हें टैप करें:' : 'Or tap a question:'}
         </p>
         <div className="space-y-1.5">
@@ -263,8 +263,8 @@ export default function VoiceAdvisory() {
               className="w-full text-left text-xs px-3 py-2.5 rounded-lg transition-all hover:border-green-400/25"
               style={{
                 background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                color: 'rgba(232,245,226,0.55)',
+                border: '1px solid rgba(0,0,0,0.09)',
+                color: '#4a4a3a',
               }}>
               {q}
             </button>
@@ -279,7 +279,7 @@ export default function VoiceAdvisory() {
         <p className="text-xs font-semibold mb-1" style={{ color: '#38bdf8' }}>
           📱 {lang === 'hi' ? 'SMS सलाह (ऑफलाइन क्षेत्र)' : 'SMS Advisory (offline areas)'}
         </p>
-        <p className="text-xs" style={{ color: 'rgba(232,245,226,0.4)' }}>
+        <p className="text-xs" style={{ color: '#6a6a5a' }}>
           {lang === 'hi'
             ? '"CROP TOMATO" लिखकर 1800-XXX-XXXX पर भेजें — हिंदी में जवाब मिलेगा'
             : 'SMS "CROP TOMATO" to 1800-XXX-XXXX — get advice in your language'}

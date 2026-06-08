@@ -10,47 +10,67 @@ export default function AlertsCard() {
   const { t } = useLang()
   const { location } = useLocation()
   const [alerts, setAlerts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!location) return
+    if (!location || !session?.user?.email) return
     generateAlerts(location.lat, location.lon)
-  }, [location])
+  }, [location, session])
 
   async function generateAlerts(lat: number, lon: number) {
     try {
-      const [weatherRes, mandiRes] = await Promise.all([
+      // Fetch weather, mandi prices, AND user's notification preferences in parallel
+      const [weatherRes, mandiRes, profileRes] = await Promise.all([
         fetch(`/api/weather?lat=${lat}&lon=${lon}&type=forecast`),
         fetch('/api/mandi'),
+        fetch(`/api/profile?email=${session?.user?.email}`),
       ])
       const weather = await weatherRes.json()
       const mandi = await mandiRes.json()
+      const profile = await profileRes.json()
+      const prefs: Record<string, boolean> = profile?.notifications ?? {}
+
       const current = weather.list?.[0]
       const humidity = current?.main?.humidity ?? 50
       const temp = current?.main?.temp ?? 28
       const newAlerts: any[] = []
 
-      const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
-      if (rainDay) {
-        const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
-        newAlerts.push({ type: 'warning', icon: '🌧️', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
-      }
-      const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
-      if (rising) newAlerts.push({ type: 'success', icon: '📈', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
-      if (humidity > 65) newAlerts.push({ type: 'danger', icon: '🍄', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
-      if (temp > 35) newAlerts.push({ type: 'warning', icon: '🌡️', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '3h ago' })
-
-      setAlerts(newAlerts)
-
-      if (session?.user?.email && newAlerts.length > 0) {
-        for (const alert of newAlerts) {
-          await fetch('/api/alerts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: session.user.email, type: alert.type, title: alert.title, description: alert.desc }),
-          })
+      // Weather alerts — only if user has weather notifications on
+      if (prefs.weather !== false) {
+        const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
+        if (rainDay) {
+          const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
+          newAlerts.push({ type: 'warning', icon: '🌧️', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
+        }
+        if (temp > 35) {
+          newAlerts.push({ type: 'warning', icon: '🌡️', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '1h ago' })
         }
       }
-    } catch { setAlerts([]) }
+
+      // Market alerts — only if user has market notifications on
+      if (prefs.market !== false) {
+        const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
+        if (rising) newAlerts.push({ type: 'success', icon: '📈', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
+      }
+
+      // Disease alerts — only if user has disease notifications on
+      if (prefs.disease !== false) {
+        if (humidity > 65) newAlerts.push({ type: 'danger', icon: '🍄', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
+      }
+
+      // Irrigation alerts — only if user has irrigation notifications on
+      if (prefs.irrigation !== false) {
+        if (humidity < 40 || temp > 33) {
+          newAlerts.push({ type: 'info', icon: '💧', title: 'Irrigation recommended today', desc: `Low moisture conditions · Schedule early morning`, time: '3h ago' })
+        }
+      }
+
+      setAlerts(newAlerts)
+    } catch {
+      setAlerts([])
+    } finally {
+      setLoading(false)
+    }
   }
 
   const typeConfig: Record<string, { color: string; bg: string; border: string }> = {
@@ -71,8 +91,16 @@ export default function AlertsCard() {
           </span>
         )}
       </div>
-      {alerts.length === 0 ? (
-        <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}</div>
+
+      {loading ? (
+        <div className="space-y-2">
+          {[1,2,3].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(74,222,128,0.04)' }} />)}
+        </div>
+      ) : alerts.length === 0 ? (
+        <div className="py-8 text-center">
+          <div className="text-3xl mb-2">✅</div>
+          <p className="text-xs" style={{ color: 'rgba(232,245,226,0.3)' }}>No active alerts for your preferences</p>
+        </div>
       ) : (
         <div className="space-y-2">
           {alerts.map(({ type, icon, title, desc, time }, i) => {

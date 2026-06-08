@@ -26,7 +26,7 @@ function RiskArc({ value, size = 72 }: { value: number; size?: number }) {
       <text x={size/2} y={size/2+1} textAnchor="middle" dominantBaseline="middle"
         fill={color} fontSize="13" fontWeight="700" fontFamily="inherit">{value}%</text>
       <text x={size/2} y={size/2+13} textAnchor="middle" dominantBaseline="middle"
-        fill="rgba(232,245,226,0.3)" fontSize="7" fontFamily="inherit">RISK</text>
+        fill="#8a8a7a" fontSize="7" fontFamily="inherit">RISK</text>
     </svg>
   )
 }
@@ -71,7 +71,7 @@ export default function RiskScoreCard() {
     }
   }
 
-  if (loading) return <div className="h-40 rounded-2xl animate-pulse" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }} />
+  if (loading) return <div className="h-40 rounded-2xl animate-pulse" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }} />
   if (!risk) return null
 
   const insightColor = risk.disease>60||risk.water>60 ? '#f87171' : risk.overall>40 ? '#fbbf24' : '#4ade80'
@@ -82,12 +82,12 @@ export default function RiskScoreCard() {
   ]
 
   return (
-    <div className="p-5 rounded-2xl" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
+    <div className="p-5 rounded-2xl" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
-          <p className="text-xs mt-0.5" style={{ color: 'rgba(232,245,226,0.35)' }}>
+          <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
+          <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>
             📍 {location?.village ?? 'Your Village'} · {lang==='hi'?'हर घंटे अपडेट':'Updated every hour'}
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function RiskScoreCard() {
             return (
               <div key={label}>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-xs" style={{ color: 'rgba(232,245,226,0.5)' }}>{label}</span>
+                  <span className="text-xs" style={{ color: '#4a4a3a' }}>{label}</span>
                   <div className="flex items-center gap-1">
                     <span className="text-xs font-semibold" style={{ color }}>{value}%</span>
                     <span className="text-xs px-1 rounded" style={{ background: `${color}18`, color, fontSize: 9 }}>{level}</span>
@@ -121,7 +121,7 @@ export default function RiskScoreCard() {
           <p className="text-xs font-semibold mb-1.5" style={{ color: insightColor }}>
             ⚡ {lang==='hi'?'AI अंतर्दृष्टि':'AI Insight'}
           </p>
-          <p className="text-xs leading-relaxed" style={{ color: 'rgba(232,245,226,0.55)' }}>{risk.insight}</p>
+          <p className="text-xs leading-relaxed" style={{ color: '#4a4a3a' }}>{risk.insight}</p>
         </div>
       </div>
     </div>

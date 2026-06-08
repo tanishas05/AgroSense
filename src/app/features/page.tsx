@@ -56,9 +56,9 @@ export default function FeaturesPage() {
   }, [])
 
   return (
-    <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: '#080f09', color: '#e8f5e2' }}>
+    <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: '#f5f0e8', color: '#1a1a1a' }}>
       <div className="absolute inset-0 grid-bg pointer-events-none" />
-      <div className="absolute pointer-events-none" style={{ width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%)', top: -150, right: -150 }} />
+      <div className="absolute pointer-events-none" style={{ width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)', top: -150, right: -150 }} />
       <Navbar />
 
       {/* HERO */}
@@ -68,14 +68,14 @@ export default function FeaturesPage() {
           {lang === 'hi' ? '6 शक्तिशाली विशेषताएं' : '6 powerful features'}
         </div>
         <h1 className="font-serif text-5xl lg:text-6xl text-green-50 mb-5 leading-tight">{t('everythingAFarmerNeeds')}</h1>
-        <p className="text-base max-w-2xl mx-auto" style={{ color: 'rgba(232,245,226,0.4)', lineHeight: 1.7 }}>
+        <p className="text-base max-w-2xl mx-auto" style={{ color: 'rgba(30,30,20,0.5)', lineHeight: 1.7 }}>
           {lang === 'hi' ? 'AgroSense AI, सैटेलाइट डेटा, IoT सेंसर और रियल-टाइम मार्केट इंटेलिजेंस को एक प्लेटफ़ॉर्म में जोड़ता है।' : 'AgroSense combines AI, satellite data, IoT sensors, and real-time market intelligence into one powerful platform for Indian farmers.'}
         </p>
         <div className="grid grid-cols-3 gap-8 mt-14 max-w-lg mx-auto">
           {[{ value: '2.4M+', label: t('farmers') }, { value: '95%', label: t('accuracy') }, { value: '12+', label: t('languages') }].map(({ value, label }) => (
             <div key={label} className="text-center">
-              <div className="text-3xl font-bold mb-1" style={{ color: '#86efac' }}>{value}</div>
-              <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(232,245,226,0.3)' }}>{label}</div>
+              <div className="text-3xl font-bold mb-1" style={{ color: '#16a34a' }}>{value}</div>
+              <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(30,30,20,0.4)' }}>{label}</div>
             </div>
           ))}
         </div>
@@ -90,7 +90,7 @@ export default function FeaturesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps[lang as 'en' | 'hi'].map(({ number, icon, title, desc }, i) => (
             <div key={number} className="relative p-5 rounded-2xl transition-all"
-              style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}
+              style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.22)')}
               onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
               {i < 3 && <div className="hidden lg:block absolute top-8 -right-2 w-4 h-px" style={{ background: 'rgba(74,222,128,0.2)' }} />}
@@ -99,7 +99,7 @@ export default function FeaturesPage() {
                 <span className="text-xs font-mono" style={{ color: 'rgba(74,222,128,0.3)' }}>{number}</span>
               </div>
               <h3 className="text-sm font-semibold text-green-100 mb-2">{title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color: 'rgba(232,245,226,0.4)' }}>{desc}</p>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(30,30,20,0.5)' }}>{desc}</p>
             </div>
           ))}
         </div>
@@ -115,7 +115,7 @@ export default function FeaturesPage() {
           <div key={pi} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {pair.map(({ number, icon, accent, accentBg, accentBorder, titleKey, desc, points, tech, href, btnKey, visual }) => (
               <div key={number} className="p-6 rounded-2xl flex flex-col transition-all"
-                style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}
+                style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = accentBorder)}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
 
@@ -132,22 +132,22 @@ export default function FeaturesPage() {
                   {/* Mini stat */}
                   <div className="text-right flex-shrink-0 ml-2">
                     <div className="text-xl font-bold" style={{ color: accent }}>{visual.stat}</div>
-                    <div className="text-xs" style={{ color: 'rgba(232,245,226,0.3)' }}>{visual.statLabel}</div>
+                    <div className="text-xs" style={{ color: 'rgba(30,30,20,0.4)' }}>{visual.statLabel}</div>
                   </div>
                 </div>
 
-                <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(232,245,226,0.45)' }}>{desc[lang as 'en' | 'hi']}</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
 
                 <ul className="space-y-1.5 mb-4 flex-1">
                   {points[lang as 'en' | 'hi'].map((point, j) => (
-                    <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(232,245,226,0.55)' }}>
+                    <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(30,30,20,0.65)' }}>
                       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />{point}
                     </li>
                   ))}
                 </ul>
 
                 {/* Footer */}
-                <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(74,222,128,0.06)' }}>
+                <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.02)' }}>
                   {tech.map(techItem => (
                     <span key={techItem} className="text-xs px-2 py-0.5 rounded-lg"
                       style={{ background: accentBg, color: accent, border: `1px solid ${accentBorder}` }}>{techItem}</span>
@@ -174,13 +174,13 @@ export default function FeaturesPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {techStack.map(({ category, items }) => (
             <div key={category.en} className="p-5 rounded-2xl transition-all"
-              style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}
+              style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.2)')}
               onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
               <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgba(74,222,128,0.6)' }}>{category[lang as 'en' | 'hi']}</h3>
               <ul className="space-y-2">
                 {items.map(item => (
-                  <li key={item} className="text-xs flex items-center gap-2" style={{ color: 'rgba(232,245,226,0.6)' }}>
+                  <li key={item} className="text-xs flex items-center gap-2" style={{ color: 'rgba(30,30,20,0.7)' }}>
                     <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: 'rgba(74,222,128,0.5)' }} />{item}
                   </li>
                 ))}
@@ -192,11 +192,11 @@ export default function FeaturesPage() {
 
       {/* CTA */}
       <section className="max-w-6xl mx-auto px-8 pb-20">
-        <div className="relative overflow-hidden rounded-3xl p-14 text-center" style={{ background: 'rgba(16,36,20,0.9)', border: '1px solid rgba(74,222,128,0.15)' }}>
-          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(74,222,128,0.1) 0%, transparent 60%)' }} />
+        <div className="relative overflow-hidden rounded-3xl p-14 text-center" style={{ background: 'white', border: '1px solid rgba(74,222,128,0.15)' }}>
+          <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%)' }} />
           <div className="text-4xl mb-5">🌱</div>
           <h2 className="font-serif text-4xl text-green-50 mb-3">{t('readyToGrow')}</h2>
-          <p className="mb-8 text-sm" style={{ color: 'rgba(232,245,226,0.4)' }}>{t('freeNoCard')}</p>
+          <p className="mb-8 text-sm" style={{ color: 'rgba(30,30,20,0.5)' }}>{t('freeNoCard')}</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <button onClick={() => handleNav('/dashboard')} className="px-8 py-3.5 text-sm font-semibold text-white rounded-xl"
               style={{ background: '#16a34a' }}
@@ -205,14 +205,14 @@ export default function FeaturesPage() {
               {session ? t('goToDashboard') : t('getStartedFree')}
             </button>
             <button onClick={() => handleNav('/advisory')} className="px-8 py-3.5 text-sm rounded-xl transition-all"
-              style={{ color: 'rgba(232,245,226,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}
+              style={{ color: 'rgba(30,30,20,0.6)', border: '1px solid rgba(0,0,0,0.12)' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(74,222,128,0.35)'; e.currentTarget.style.color = '#86efac' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(232,245,226,0.5)' }}>
               {session ? t('tryScanner') : t('signInToTry')}
             </button>
           </div>
         </div>
-        <footer className="text-center text-xs mt-10" style={{ color: 'rgba(232,245,226,0.2)' }}>
+        <footer className="text-center text-xs mt-10" style={{ color: 'rgba(30,30,20,0.3)' }}>
           © 2026 AgroSense · AI-Powered Smart Farming · Built for Bharat 🇮🇳
         </footer>
       </section>

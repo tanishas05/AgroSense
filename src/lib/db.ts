@@ -76,7 +76,7 @@ export async function markAlertRead(id: string) {
 export async function getUserStats(email: string) {
   const [scans, alerts] = await Promise.all([
     supabase.from('disease_scans').select('id', { count: 'exact' }).eq('user_email', email),
-    supabase.from('farm_alerts').select('id', { count: 'exact' }).eq('user_email', email),
+    supabase.from('farm_alerts').select('id', { count: 'exact' }).eq('user_email', email).eq('is_read', false),
   ])
   return {
     scans: scans.count ?? 0,

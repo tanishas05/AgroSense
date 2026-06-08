@@ -30,22 +30,22 @@ export default function DashboardHeader() {
 
   return (
     <div className="mb-6">
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full"
-          style={{ background: 'rgba(74,222,128,0.08)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.18)' }}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xs font-medium px-2.5 py-1 rounded-full"
+          style={{ background: 'rgba(22,163,74,0.08)', color: '#16a34a', border: '1px solid rgba(22,163,74,0.2)' }}>
           {t(greetingKey)} {emoji}
         </span>
-        <span className="flex items-center gap-1 text-xs" style={{ color: 'rgba(74,222,128,0.5)' }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+        <span className="flex items-center gap-1.5 text-xs" style={{ color: '#16a34a' }}>
+          <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: '#4ade80' }} />
           {t('liveData')}
         </span>
       </div>
-      <h1 className="font-serif text-4xl text-green-50 leading-tight">
+      <h1 className="font-serif text-4xl leading-tight" style={{ color: '#1a1a14' }}>
         {profile?.farm_name ?? 'My Farm'}{' '}
-        <span style={{ color: 'rgba(240,253,244,0.45)' }}>{t('farmDashboard')}</span>
+        <span style={{ color: '#8a8a7a' }}>{t('farmDashboard')}</span>
       </h1>
       {locDisplay && (
-        <p className="text-sm mt-1.5 flex items-center gap-1.5" style={{ color: 'rgba(232,245,226,0.35)' }}>
+        <p className="text-sm mt-1.5 flex items-center gap-1.5" style={{ color: '#6a6a5a' }}>
           <span>📍</span>{locDisplay}
         </p>
       )}

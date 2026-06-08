@@ -32,25 +32,25 @@ export default function CropHealthCard() {
   }
 
   const statusConfig: Record<string, { bg: string; color: string }> = {
-    [t('healthy')]:    { bg: 'rgba(74,222,128,0.1)',  color: '#4ade80' },
+    [t('healthy')]:    { bg: 'rgba(74,222,128,0.1)',  color: '#16a34a' },
     [t('monitor')]:    { bg: 'rgba(251,191,36,0.1)',  color: '#fbbf24' },
     [t('atRisk')]:     { bg: 'rgba(239,68,68,0.1)',   color: '#f87171' },
-    [t('notScanned')]: { bg: 'rgba(255,255,255,0.05)', color: 'rgba(232,245,226,0.3)' },
+    [t('notScanned')]: { bg: 'rgba(255,255,255,0.05)', color: '#8a8a7a' },
   }
 
   const barColor = (score: number) => score >= 80 ? '#4ade80' : score >= 60 ? '#fbbf24' : '#f87171'
 
   if (loading) return (
-    <div className="h-64 rounded-2xl animate-pulse" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }} />
+    <div className="h-64 rounded-2xl animate-pulse" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }} />
   )
 
   return (
-    <div className="rounded-2xl p-5" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
+    <div className="rounded-2xl p-5" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-green-100">🌾 {t('cropHealth')}</h2>
+        <h2 className="text-sm font-semibold text-[#1a1a14]">🌾 {t('cropHealth')}</h2>
         <button onClick={() => router.push('/advisory')}
           className="text-xs px-2.5 py-1 rounded-lg transition-all"
-          style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}
+          style={{ color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)' }}
           onMouseEnter={e => (e.currentTarget.style.background = 'rgba(74,222,128,0.08)')}
           onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
           {t('scanNewCrop')}
@@ -60,10 +60,10 @@ export default function CropHealthCard() {
       {crops.length === 0 ? (
         <div className="text-center py-8">
           <div className="text-3xl mb-3">🌱</div>
-          <p className="text-xs mb-4" style={{ color: 'rgba(232,245,226,0.3)' }}>{t('noCropsSet')}</p>
+          <p className="text-xs mb-4" style={{ color: '#8a8a7a' }}>{t('noCropsSet')}</p>
           <button onClick={() => router.push('/profile')}
             className="text-xs px-4 py-2 rounded-lg"
-            style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
+            style={{ color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)' }}>
             {t('setCrops')}
           </button>
         </div>
@@ -73,11 +73,11 @@ export default function CropHealthCard() {
             const { score, status } = getHealth(crop)
             const cfg = statusConfig[status] ?? statusConfig[t('notScanned')]
             return (
-              <div key={crop} className="p-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.03)', border: '1px solid rgba(74,222,128,0.07)' }}>
+              <div key={crop} className="p-3 rounded-xl" style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.07)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <span className="text-xs font-medium text-green-100">{crop}</span>
-                    <span className="text-xs ml-2" style={{ color: 'rgba(232,245,226,0.25)' }}>Field {i + 1}</span>
+                    <span className="text-xs font-medium text-[#1a1a14]">{crop}</span>
+                    <span className="text-xs ml-2" style={{ color: '#9a9a8a' }}>Field {i + 1}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs px-2 py-0.5 rounded-full"
@@ -89,7 +89,7 @@ export default function CropHealthCard() {
                   {score !== null
                     ? <div className="h-full rounded-full transition-all duration-1000"
                         style={{ width: `${score}%`, background: barColor(score) }} />
-                    : <div className="h-full rounded-full" style={{ border: '1px dashed rgba(74,222,128,0.2)' }} />
+                    : <div className="h-full rounded-full" style={{ background: 'rgba(0,0,0,0.04)' }} />
                   }
                 </div>
               </div>
@@ -100,8 +100,8 @@ export default function CropHealthCard() {
 
       <button onClick={() => router.push('/advisory')}
         className="w-full mt-4 py-2.5 text-xs rounded-xl transition-all"
-        style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.15)' }}
-        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(74,222,128,0.06)')}
+        style={{ color: '#16a34a', border: '1px solid rgba(74,222,128,0.15)' }}
+        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
         onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
         {t('uploadCropPhoto')}
       </button>
