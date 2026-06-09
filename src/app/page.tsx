@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useLang } from '@/context/LanguageContext'
 import { useEffect, useRef, useState } from 'react'
+import { HERO_STATS, COPYRIGHT_YEAR } from '@/lib/config'
 
 function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   const [val, setVal] = useState(0)
@@ -44,7 +45,6 @@ export default function HomePage() {
   const { data: session } = useSession()
   const { t } = useLang()
 
-  // Only features that actually exist in the codebase
   const features = [
     { icon: '🔬', title: t('aiDiseaseScanner'), desc: 'Upload a photo — AI diagnoses disease in seconds with 95% accuracy using CNN + Vision models.', tag: 'CNN · Vision AI', delay: 0 },
     { icon: '🌦️', title: t('weatherForecast'), desc: 'Village-level forecasts using GPS coordinates, satellite imagery and real-time weather APIs.', tag: 'Satellite · GPS', delay: 80 },
@@ -90,17 +90,23 @@ export default function HomePage() {
 
           <div className="hero-stats">
             <div className="stat">
-              <div className="stat-val"><Counter to={24} suffix="L+" /></div>
+              <div className="stat-val">
+                <Counter to={HERO_STATS.farmers.value} suffix={HERO_STATS.farmers.suffix} />
+              </div>
               <div className="stat-label">{t('farmers')}</div>
             </div>
             <div className="stat-divider" />
             <div className="stat">
-              <div className="stat-val"><Counter to={95} suffix="%" /></div>
+              <div className="stat-val">
+                <Counter to={HERO_STATS.accuracy.value} suffix={HERO_STATS.accuracy.suffix} />
+              </div>
               <div className="stat-label">{t('accuracy')}</div>
             </div>
             <div className="stat-divider" />
             <div className="stat">
-              <div className="stat-val"><Counter to={12} suffix="+" /></div>
+              <div className="stat-val">
+                <Counter to={HERO_STATS.languages.value} suffix={HERO_STATS.languages.suffix} />
+              </div>
               <div className="stat-label">{t('languages')}</div>
             </div>
           </div>
@@ -179,7 +185,7 @@ export default function HomePage() {
       </section>
 
       <footer className="landing-footer">
-        © 2026 AgroSense · Built for Bharat 🇮🇳 · <span style={{ color: 'rgba(30,30,20,0.3)' }}>Privacy · Terms</span>
+        © {COPYRIGHT_YEAR} AgroSense · Built for Bharat 🇮🇳 · <span style={{ color: 'rgba(30,30,20,0.3)' }}>Privacy · Terms</span>
       </footer>
     </main>
   )

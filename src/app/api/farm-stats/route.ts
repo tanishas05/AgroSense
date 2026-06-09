@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server'
+import { API_URLS, DEFAULT_LOCATION } from '@/lib/config'
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const lat = searchParams.get('lat') ?? '28.6667'
-  const lon = searchParams.get('lon') ?? '77.2167'
+  const lat = searchParams.get('lat') ?? String(DEFAULT_LOCATION.lat)
+  const lon = searchParams.get('lon') ?? String(DEFAULT_LOCATION.lon)
 
   try {
     const weatherRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&units=metric`,
+      `${API_URLS.openWeather}/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&units=metric`,
       { cache: 'no-store' }
     )
     const weather = await weatherRes.json()

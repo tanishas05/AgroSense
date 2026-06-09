@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { API_URLS, CACHE_TTL, NOMINATIM_USER_AGENT } from '@/lib/config'
 
 export interface LocationData {
-  village: string       // most specific: hamlet / village / suburb
-  district: string      // district / county
+  village: string
+  district: string
   state: string
   country: string
-  display: string       // "Ozar, Nashik, Maharashtra"
+  display: string
   lat: number
   lon: number
 }
@@ -20,15 +21,14 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // OpenStreetMap Nominatim — free, no API key, village-level precision
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&zoom=14&addressdetails=1`,
+      `${API_URLS.nominatim}/reverse?lat=${lat}&lon=${lon}&format=json&zoom=14&addressdetails=1`,
       {
         headers: {
-          'User-Agent': 'AgroSense/1.0 (agrosense.app)',
+          'User-Agent': NOMINATIM_USER_AGENT,
           'Accept-Language': 'en',
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: CACHE_TTL.location },
       }
     )
 
@@ -37,7 +37,6 @@ export async function GET(req: NextRequest) {
     const data = await res.json()
     const addr = data.address ?? {}
 
-    // Priority: hamlet > village > suburb > neighbourhood > town > city_district > city
     const village =
       addr.hamlet ??
       addr.village ??

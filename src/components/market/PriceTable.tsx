@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-
-const ALL_COMMODITIES = ['Wheat','Onion','Tomato','Maize','Rice','Potato','Soybean','Cotton']
+import { MANDI_ALL_COMMODITIES } from '@/lib/config'
 
 export default function PriceTable() {
   const [prices, setPrices] = useState<any[]>([])
@@ -10,7 +9,7 @@ export default function PriceTable() {
 
   useEffect(() => {
     async function fetchAll() {
-      const results = await Promise.all(ALL_COMMODITIES.map(async commodity => {
+      const results = await Promise.all(MANDI_ALL_COMMODITIES.map(async commodity => {
         try { return await fetch(`/api/mandi-single?commodity=${commodity}`).then(r => r.json()) }
         catch { return { crop: commodity, price: 'N/A', change: '0%', up: true, market: 'N/A', state: 'N/A' } }
       }))
@@ -33,7 +32,7 @@ export default function PriceTable() {
         <div className="grid grid-cols-4 px-2 pb-2 text-xs" style={{ borderBottom: '1px solid rgba(0,0,0,0.07)', color: '#b0b0a0', fontSize: 10 }}>
           <span>Commodity</span><span>Price/q</span><span>Change</span><span>Market</span>
         </div>
-        {loading ? [1,2,3,4,5,6,7,8].map(i => (
+        {loading ? MANDI_ALL_COMMODITIES.map((_, i) => (
           <div key={i} className="h-8 rounded animate-pulse mx-2" style={{ background: 'rgba(0,0,0,0.04)' }} />
         )) : filtered.map(({ crop, price, change, up, market }) => (
           <div key={crop} className="grid grid-cols-4 items-center px-2 py-2 rounded-lg transition-all"

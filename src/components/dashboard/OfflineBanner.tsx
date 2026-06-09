@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useLang } from '@/context/LanguageContext'
+import { CACHE_TTL, OFFLINE_CACHE_FALLBACK_CITY } from '@/lib/config'
 
 // ─── useOffline hook ──────────────────────────────────────────────────────────
-// Drop this anywhere: const { isOffline, lastSync } = useOffline()
 export function useOffline() {
   const [isOffline, setIsOffline] = useState(false)
   const [lastSync, setLastSync] = useState<Date | null>(null)
@@ -16,7 +16,6 @@ export function useOffline() {
     function onOnline() {
       setIsOffline(false)
       setLastSync(new Date())
-      // Cache key data for offline use
       cacheEssentialData()
     }
     function onOffline() { setIsOffline(true) }
@@ -33,7 +32,7 @@ export function useOffline() {
 async function cacheEssentialData() {
   try {
     const [weather, mandi] = await Promise.all([
-      fetch('/api/weather?q=Delhi&type=current').then(r => r.json()),
+      fetch(`/api/weather?q=${OFFLINE_CACHE_FALLBACK_CITY}&type=current`).then(r => r.json()),
       fetch('/api/mandi').then(r => r.json()),
     ])
     localStorage.setItem('agro_cache_weather', JSON.stringify({ data: weather, ts: Date.now() }))
@@ -46,8 +45,7 @@ export function getCached<T>(key: string): T | null {
     const raw = localStorage.getItem(`agro_cache_${key}`)
     if (!raw) return null
     const parsed = JSON.parse(raw)
-    // Cache valid for 6 hours
-    if (Date.now() - parsed.ts > 6 * 60 * 60 * 1000) return null
+    if (Date.now() - parsed.ts > CACHE_TTL.offlineCache) return null
     return parsed.data as T
   } catch { return null }
 }

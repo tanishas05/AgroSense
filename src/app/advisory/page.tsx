@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useLocation } from '@/context/LocationContext'
+import { DEFAULT_LOCATION } from '@/lib/config'
 import Navbar from '@/components/Navbar'
 import DiseaseScanner from '@/components/advisory/DiseaseScanner'
 import CropAdvisory from '@/components/advisory/CropAdvisory'
@@ -23,7 +24,14 @@ function LocationInit() {
           setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
         }
       },
-      () => setLocation({ lat: 28.6667, lon: 77.2167, village: 'New Delhi', district: 'New Delhi', state: 'Delhi', display: 'New Delhi, Delhi' })
+      () => setLocation({
+        lat: DEFAULT_LOCATION.lat,
+        lon: DEFAULT_LOCATION.lon,
+        village: DEFAULT_LOCATION.village,
+        district: DEFAULT_LOCATION.district,
+        state: DEFAULT_LOCATION.state,
+        display: DEFAULT_LOCATION.display,
+      })
     )
   }, [])
   return null

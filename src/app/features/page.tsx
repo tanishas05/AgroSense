@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useLang } from '@/context/LanguageContext'
+import { HERO_STATS, COPYRIGHT_YEAR } from '@/lib/config'
 
 const features = [
   { number: '01', icon: '🔬', accent: '#a78bfa', accentBg: 'rgba(167,139,250,0.08)', accentBorder: 'rgba(167,139,250,0.2)', titleKey: 'aiDiseaseScanner', desc: { en: 'Upload a crop photo and get instant AI diagnosis with 95% accuracy. Identifies 50+ diseases and suggests treatments.', hi: 'फसल की फोटो से 95% सटीकता के साथ तत्काल AI निदान। 50+ रोग पहचानता है।' }, points: { en: ['Detects 50+ crop diseases', 'Nutrient deficiency detection', 'Treatment step recommendations', 'Works offline'], hi: ['50+ फसल रोग पहचानता है', 'पोषक तत्वों की कमी पहचानता है', 'उपचार चरण सुझाता है', 'ऑफलाइन काम करता है'] }, tech: ['CNN / Vision AI', 'TensorFlow', 'PyTorch'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: '95%', statLabel: 'AI Accuracy', detail: 'Early Blight detected', sub: 'Confidence: 91% · Treatment ready' } },
@@ -48,7 +49,6 @@ export default function FeaturesPage() {
     else router.push(href)
   }
 
-  // Pair features: [[f1,f2],[f3,f4],[f5,f6]]
   const pairs = features.reduce((acc: any[][], f, i) => {
     if (i % 2 === 0) acc.push([f])
     else acc[acc.length - 1].push(f)
@@ -72,7 +72,11 @@ export default function FeaturesPage() {
           {lang === 'hi' ? 'AgroSense AI, सैटेलाइट डेटा, IoT सेंसर और रियल-टाइम मार्केट इंटेलिजेंस को एक प्लेटफ़ॉर्म में जोड़ता है।' : 'AgroSense combines AI, satellite data, IoT sensors, and real-time market intelligence into one powerful platform for Indian farmers.'}
         </p>
         <div className="grid grid-cols-3 gap-8 mt-14 max-w-lg mx-auto">
-          {[{ value: '2.4M+', label: t('farmers') }, { value: '95%', label: t('accuracy') }, { value: '12+', label: t('languages') }].map(({ value, label }) => (
+          {[
+            { value: `${HERO_STATS.farmers.value}${HERO_STATS.farmers.suffix}`, label: t('farmers') },
+            { value: `${HERO_STATS.accuracy.value}${HERO_STATS.accuracy.suffix}`, label: t('accuracy') },
+            { value: `${HERO_STATS.languages.value}${HERO_STATS.languages.suffix}`, label: t('languages') },
+          ].map(({ value, label }) => (
             <div key={label} className="text-center">
               <div className="text-3xl font-bold mb-1" style={{ color: '#16a34a' }}>{value}</div>
               <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(30,30,20,0.4)' }}>{label}</div>
@@ -118,8 +122,6 @@ export default function FeaturesPage() {
                 style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = accentBorder)}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
-
-                {/* Card header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
@@ -129,15 +131,12 @@ export default function FeaturesPage() {
                       <h3 className="text-sm font-semibold text-green-50">{t(titleKey as any)}</h3>
                     </div>
                   </div>
-                  {/* Mini stat */}
                   <div className="text-right flex-shrink-0 ml-2">
                     <div className="text-xl font-bold" style={{ color: accent }}>{visual.stat}</div>
                     <div className="text-xs" style={{ color: 'rgba(30,30,20,0.4)' }}>{visual.statLabel}</div>
                   </div>
                 </div>
-
                 <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
-
                 <ul className="space-y-1.5 mb-4 flex-1">
                   {points[lang as 'en' | 'hi'].map((point, j) => (
                     <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(30,30,20,0.65)' }}>
@@ -145,8 +144,6 @@ export default function FeaturesPage() {
                     </li>
                   ))}
                 </ul>
-
-                {/* Footer */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.02)' }}>
                   {tech.map(techItem => (
                     <span key={techItem} className="text-xs px-2 py-0.5 rounded-lg"
@@ -213,7 +210,7 @@ export default function FeaturesPage() {
           </div>
         </div>
         <footer className="text-center text-xs mt-10" style={{ color: 'rgba(30,30,20,0.3)' }}>
-          © 2026 AgroSense · AI-Powered Smart Farming · Built for Bharat 🇮🇳
+          © {COPYRIGHT_YEAR} AgroSense · AI-Powered Smart Farming · Built for Bharat 🇮🇳
         </footer>
       </section>
     </main>

@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { MANDI_DEFAULT_COMMODITIES } from '@/lib/config'
 
-const CROPS = ['Wheat','Onion','Tomato','Maize']
-const COLORS: Record<string,string> = { Wheat:'#16a34a', Onion:'#ea580c', Tomato:'#dc2626', Maize:'#d97706' }
+const COLORS: Record<string, string> = { Wheat: '#16a34a', Onion: '#ea580c', Tomato: '#dc2626', Maize: '#d97706' }
 
 export default function PriceTrends() {
-  const [selected, setSelected] = useState('Wheat')
+  const [selected, setSelected] = useState(MANDI_DEFAULT_COMMODITIES[0])
   const [prices, setPrices] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -14,7 +14,7 @@ export default function PriceTrends() {
   }, [])
 
   const currentPrice = prices.find(p => p.crop === selected)
-  const rawPrice = currentPrice ? parseInt(currentPrice.price.replace('₹','').replace(',','')) : 2000
+  const rawPrice = currentPrice ? parseInt(currentPrice.price.replace('₹', '').replace(',', '')) : 2000
 
   function generateTrend(base: number) {
     const pts = []; let p = base * 0.88
@@ -25,8 +25,8 @@ export default function PriceTrends() {
   const trend = generateTrend(rawPrice)
   const min = Math.min(...trend), max = Math.max(...trend), range = max - min || 1
   const W = 400, H = 120
-  const pts = trend.map((p,i) => ({ x:(i/(trend.length-1))*W, y:H-((p-min)/range)*H }))
-  const d = pts.map((p,i) => `${i===0?'M':'L'} ${p.x} ${p.y}`).join(' ')
+  const pts = trend.map((p, i) => ({ x: (i / (trend.length - 1)) * W, y: H - ((p - min) / range) * H }))
+  const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ')
   const color = COLORS[selected] ?? '#16a34a'
 
   return (
@@ -34,7 +34,7 @@ export default function PriceTrends() {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>Price Trend</h2>
         <div className="flex gap-1">
-          {CROPS.map(crop => (
+          {MANDI_DEFAULT_COMMODITIES.map(crop => (
             <button key={crop} onClick={() => setSelected(crop)}
               className="text-xs px-2.5 py-1 rounded-md transition-all"
               style={selected === crop
@@ -66,13 +66,13 @@ export default function PriceTrends() {
             </defs>
             <path d={`${d} L ${W} ${H} L 0 ${H} Z`} fill="url(#fadeGrad)" />
             <path d={d} stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            {pts.map((p,i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={color} opacity={i===pts.length-1?1:0.4} />)}
+            {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={color} opacity={i === pts.length - 1 ? 1 : 0.4} />)}
           </svg>
           <div className="flex justify-between mt-2" style={{ color: '#b0b0a0', fontSize: 10 }}>
             <span>7 days ago</span><span>Today</span>
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2">
-            {[{ label:'Min',value:`₹${min}` },{ label:'Max',value:`₹${max}` },{ label:'Avg',value:`₹${Math.round(trend.reduce((a,b)=>a+b,0)/trend.length)}` }].map(({label,value}) => (
+            {[{ label: 'Min', value: `₹${min}` }, { label: 'Max', value: `₹${max}` }, { label: 'Avg', value: `₹${Math.round(trend.reduce((a, b) => a + b, 0) / trend.length)}` }].map(({ label, value }) => (
               <div key={label} className="rounded-lg p-2 text-center" style={{ background: 'rgba(0,0,0,0.03)', border: '1px solid rgba(0,0,0,0.07)' }}>
                 <div className="text-xs font-semibold" style={{ color: '#1a1a14' }}>{value}</div>
                 <div style={{ color: '#8a8a7a', fontSize: 10 }}>{label}</div>

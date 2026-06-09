@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useLocation } from '@/context/LocationContext'
+import { DEFAULT_LOCATION } from '@/lib/config'
 import Navbar from '@/components/Navbar'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import WeatherCard from '@/components/dashboard/WeatherCard'
@@ -26,7 +27,14 @@ function LocationInit() {
           setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
         }
       },
-      () => setLocation({ lat: 28.6667, lon: 77.2167, village: 'New Delhi', district: 'New Delhi', state: 'Delhi', display: 'New Delhi, Delhi' })
+      () => setLocation({
+        lat: DEFAULT_LOCATION.lat,
+        lon: DEFAULT_LOCATION.lon,
+        village: DEFAULT_LOCATION.village,
+        district: DEFAULT_LOCATION.district,
+        state: DEFAULT_LOCATION.state,
+        display: DEFAULT_LOCATION.display,
+      })
     )
   }, [])
   return null
@@ -34,7 +42,7 @@ function LocationInit() {
 
 export default function DashboardPage() {
   return (
-    <main className=" overflow-hidden">
+    <main className="overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none" />
       <LocationInit />
       <Navbar />

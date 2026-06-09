@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { useLang } from '@/context/LanguageContext'
+import { DEFAULT_LOCATION, SPEECH, SMS } from '@/lib/config'
 
 const SAMPLE_QUESTIONS = {
   en: [
@@ -26,7 +27,6 @@ export default function VoiceAdvisory() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const recRef = useRef<any>(null)
-  // ref holds latest transcript so onend closure is never stale
   const transcriptRef = useRef('')
 
   async function getAIResponse(query: string) {
@@ -34,11 +34,10 @@ export default function VoiceAdvisory() {
     setLoading(true)
     setResponse('')
     try {
-      // Get live weather for context
       const loc = await new Promise<{ lat: number; lon: number }>(res =>
         navigator.geolocation.getCurrentPosition(
           p => res({ lat: p.coords.latitude, lon: p.coords.longitude }),
-          () => res({ lat: 28.6667, lon: 77.2167 })
+          () => res({ lat: DEFAULT_LOCATION.lat, lon: DEFAULT_LOCATION.lon })
         )
       )
       const weatherRes = await fetch(`/api/weather?lat=${loc.lat}&lon=${loc.lon}&type=current`)
@@ -51,13 +50,12 @@ export default function VoiceAdvisory() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          crop: query,          // pass the voice query as the "crop" context
+          crop: query,
           weather: { temp, humidity, description },
         }),
       })
       const data = await res.json()
 
-      // Build a combined response from all advisory fields
       const parts = [
         data.irrigation,
         data.fertilizer,
@@ -70,12 +68,11 @@ export default function VoiceAdvisory() {
 
       setResponse(advice)
 
-      // Speak back
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel()
         const utter = new SpeechSynthesisUtterance(advice)
-        utter.lang = lang === 'hi' ? 'hi-IN' : 'en-IN'
-        utter.rate = 0.88
+        utter.lang = SPEECH.langMap[lang] ?? SPEECH.langMap['en']
+        utter.rate = SPEECH.rate
         window.speechSynthesis.speak(utter)
       }
     } catch {
@@ -97,11 +94,10 @@ export default function VoiceAdvisory() {
         : 'Voice not supported. Please use Chrome.')
       return
     }
-    // reset ref before each session
     transcriptRef.current = ''
 
     const rec = new SR()
-    rec.lang = lang === 'hi' ? 'hi-IN' : 'en-IN'
+    rec.lang = SPEECH.langMap[lang] ?? SPEECH.langMap['en']
     rec.continuous = false
     rec.interimResults = true
 
@@ -111,13 +107,12 @@ export default function VoiceAdvisory() {
       const txt = Array.from(e.results as any[])
         .map((r: any) => r[0].transcript)
         .join('')
-      transcriptRef.current = txt   // always write to ref
-      setTranscript(txt)            // also update display state
+      transcriptRef.current = txt
+      setTranscript(txt)
     }
 
     rec.onend = () => {
       setListening(false)
-      // read from ref, not from stale state closure
       const finalText = transcriptRef.current
       if (finalText.trim()) {
         getAIResponse(finalText)
@@ -281,8 +276,8 @@ export default function VoiceAdvisory() {
         </p>
         <p className="text-xs" style={{ color: '#6a6a5a' }}>
           {lang === 'hi'
-            ? '"CROP TOMATO" लिखकर 1800-XXX-XXXX पर भेजें — हिंदी में जवाब मिलेगा'
-            : 'SMS "CROP TOMATO" to 1800-XXX-XXXX — get advice in your language'}
+            ? `"${SMS.shortcodeHint}" लिखकर ${SMS.number || '[SMS नंबर जल्द आएगा]'} पर भेजें — हिंदी में जवाब मिलेगा`
+            : `SMS "${SMS.shortcodeHint}" to ${SMS.number || '[SMS number coming soon]'} — get advice in your language`}
         </p>
       </div>
     </div>

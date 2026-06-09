@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { DB_LIMITS } from '@/lib/config'
 
 export async function getOrCreateProfile(email: string, name?: string, avatar?: string) {
   const { data, error } = await supabase
@@ -43,7 +44,7 @@ export async function getUserScans(email: string) {
     .select('*')
     .eq('user_email', email)
     .order('created_at', { ascending: false })
-    .limit(10)
+    .limit(DB_LIMITS.scans)
   return data ?? []
 }
 
@@ -62,7 +63,7 @@ export async function getUserAlerts(email: string) {
     .select('*')
     .eq('user_email', email)
     .order('created_at', { ascending: false })
-    .limit(20)
+    .limit(DB_LIMITS.alerts)
   return data ?? []
 }
 

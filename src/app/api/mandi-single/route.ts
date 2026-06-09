@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { API_URLS, MANDI_RESOURCE_ID, MANDI_FETCH_LIMIT } from '@/lib/config'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const commodity = searchParams.get('commodity') ?? 'Wheat'
 
   try {
-    const url = `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${process.env.DATA_GOV_API_KEY}&format=json&filters%5Bcommodity%5D=${commodity}&limit=3`
+    const url = `${API_URLS.dataGovIn}/${MANDI_RESOURCE_ID}?api-key=${process.env.DATA_GOV_API_KEY}&format=json&filters%5Bcommodity%5D=${commodity}&limit=${MANDI_FETCH_LIMIT}`
     const res = await fetch(url, { cache: 'no-store' })
     const data = await res.json()
     const record = data.records?.[0]

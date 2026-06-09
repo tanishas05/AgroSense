@@ -1,18 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { API_URLS, AI_MODELS, AI_MAX_TOKENS } from '@/lib/config'
 
 export async function POST(req: NextRequest) {
   const { image, mimeType, cropName } = await req.json()
 
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch(`${API_URLS.groq}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-        max_tokens: 512,
+        model: AI_MODELS.vision,
+        max_tokens: AI_MAX_TOKENS.cropAnalysis,
         messages: [
           {
             role: 'user',
