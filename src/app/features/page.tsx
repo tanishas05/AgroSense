@@ -159,7 +159,7 @@ export default function FeaturesPage() {
                 </div>
                 <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
                 <ul className="space-y-1.5 mb-4 flex-1">
-                  {points[lang as 'en' | 'hi'].map((point, j) => (
+                  {points[lang as 'en' | 'hi'].map((point : string, j : number) => (
                     <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(30,30,20,0.65)' }}>
                       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />{point}
                     </li>
