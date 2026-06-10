@@ -108,7 +108,7 @@ export default function DiseaseScanner() {
             style={{ background: 'rgba(167,139,250,0.07)', border: '1px solid rgba(167,139,250,0.18)' }}>
             <div className="flex-1">
               <p className="text-xs mb-1" style={{ color: '#8a8a7a' }}>{t('detected')}</p>
-              <p className="text-base font-bold" style={{ color: "#1a1a14" }} className=" mb-1">{result.disease}</p>
+              <p className="text-base font-bold mb-1" style={{ color: "#1a1a14" }} >{result.disease}</p>
               <p className="text-xs leading-relaxed" style={{ color: '#6a6a5a' }}>{result.summary}</p>
             </div>
             <div className="text-right ml-4 flex-shrink-0">
@@ -137,7 +137,7 @@ export default function DiseaseScanner() {
 
           {result.treatment?.length > 0 && (
             <div className="p-4 rounded-xl" style={{ background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.15)' }}>
-              <p className="text-xs font-semibold" style={{ color: "#1a1a14" }} className=" mb-3">{t('treatmentSteps')}</p>
+              <p className="text-xs font-semibold mb-3" style={{ color: "#1a1a14" }} >{t('treatmentSteps')}</p>
               <div className="space-y-2">
                 {result.treatment.map((step: string, i: number) => (
                   <div key={i} className="flex items-start gap-2.5">
