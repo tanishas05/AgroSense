@@ -168,7 +168,7 @@ export default function Navbar() {
                   <button onClick={() => { closeMenu(); router.push('/profile') }}
                     className="w-full py-3 text-sm rounded-xl text-left px-4"
                     style={{ background: 'rgba(0,0,0,0.04)', color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.08)' }}>
-                    {t('profile') ?? 'Profile'}
+                    {'Profile'}
                   </button>
                   <button onClick={() => { closeMenu(); signOut() }}
                     className="w-full py-3 text-sm rounded-xl font-medium"
