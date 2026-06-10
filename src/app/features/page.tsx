@@ -166,7 +166,7 @@ export default function FeaturesPage() {
                   ))}
                 </ul>
                 <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.02)' }}>
-                  {tech.map(techItem => (
+                  {tech.map((techItem : string) => (
                     <span key={techItem} className="text-xs px-2 py-0.5 rounded-lg"
                       style={{ background: accentBg, color: accent, border: `1px solid ${accentBorder}` }}>{techItem}</span>
                   ))}
