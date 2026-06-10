@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useLang } from '@/context/LanguageContext'
 import { HERO_STATS, COPYRIGHT_YEAR } from '@/lib/config'
 
-const features = [
+const features: Feature[] = [
   { number: '01', icon: '🔬', accent: '#a78bfa', accentBg: 'rgba(167,139,250,0.08)', accentBorder: 'rgba(167,139,250,0.2)', titleKey: 'aiDiseaseScanner', desc: { en: 'Upload a crop photo and get instant AI diagnosis powered by Groq Vision AI. Identifies diseases and suggests treatments.', hi: 'फसल की फोटो से Groq Vision AI द्वारा तत्काल रोग निदान और उपचार सुझाव।' }, points: { en: ['Detects common crop diseases', 'Nutrient deficiency detection', 'Treatment step recommendations', 'Scan history saved'], hi: ['सामान्य फसल रोग पहचानता है', 'पोषक तत्वों की कमी पहचानता है', 'उपचार चरण सुझाता है', 'स्कैन इतिहास सहेजा जाता है'] }, tech: ['Groq Vision AI', 'Llama 4 Scout'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: '91%', statLabel: 'AI Confidence', detail: 'Early Blight detected', sub: 'Treatment ready' } },
   { number: '02', icon: '🌦️', accent: '#38bdf8', accentBg: 'rgba(56,189,248,0.08)', accentBorder: 'rgba(56,189,248,0.2)', titleKey: 'weatherForecast', desc: { en: 'GPS-based hyperlocal weather forecasts powered by OpenWeatherMap. Alerts for rainfall, frost, heatwaves and optimal sowing windows.', hi: 'GPS आधारित हाइपरलोकल मौसम पूर्वानुमान। बारिश, पाला, और बुवाई के लिए अलर्ट।' }, points: { en: ['GPS-based hyperlocal forecasts', 'Heatwave & frost warnings', 'Optimal sowing windows', '7-day rain probability'], hi: ['GPS आधारित सटीक पूर्वानुमान', 'गर्मी और पाले की चेतावनी', 'बुवाई के लिए सर्वोत्तम समय', '7-दिन वर्षा पूर्वानुमान'] }, tech: ['OpenWeather API', 'GPS'], href: '/dashboard', btnKey: 'goToDashboard', visual: { stat: '32°C', statLabel: 'Your Village · Live', detail: '78% Humidity · Overcast', sub: '65% rain chance tomorrow' } },
   { number: '03', icon: '💧', accent: '#4ade80', accentBg: 'rgba(74,222,128,0.08)', accentBorder: 'rgba(74,222,128,0.2)', titleKey: 'smartIrrigation', desc: { en: 'AI recommends irrigation timing and water amount based on weather data and humidity analysis. Helps reduce water waste.', hi: 'AI मौसम डेटा के आधार पर सटीक सिंचाई समय बताता है। पानी की बर्बादी कम करता है।' }, points: { en: ['Weather-based moisture estimate', 'Optimal irrigation timing', 'Prevents over-irrigation', 'Crop-specific recommendations'], hi: ['मौसम आधारित नमी अनुमान', 'सर्वोत्तम सिंचाई समय', 'अधिक सिंचाई रोकता है', 'फसल-विशिष्ट सिफारिशें'] }, tech: ['Weather API', 'ML Models'], href: '/dashboard', btnKey: 'goToDashboard', visual: { stat: '62%', statLabel: 'Est. Soil Moisture', detail: 'Next: Tomorrow 6AM', sub: '25mm · 45 min recommended' } },
@@ -38,6 +38,27 @@ const techStack = [
   { category: { en: 'APIs', hi: 'APIs' }, items: ['OpenWeather API', 'Nominatim / OSM', 'Govt Mandi API (data.gov.in)'] },
   { category: { en: 'Cloud', hi: 'क्लाउड' }, items: ['AWS', 'Google Cloud', 'Vercel'] },
 ]
+
+type Feature = {
+  number: string
+  icon: string
+  accent: string
+  accentBg: string
+  accentBorder: string
+  titleKey: string
+  desc: Record<'en' | 'hi', string>
+  points: Record<'en' | 'hi', string[]>
+  tech: string[]
+  href: string
+  btnKey: string
+  visual: {
+    stat: string
+    statLabel: string
+    detail: string
+    sub: string
+  }
+}
+
 
 export default function FeaturesPage() {
   const router = useRouter()
