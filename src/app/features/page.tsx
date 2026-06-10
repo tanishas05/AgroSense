@@ -67,7 +67,7 @@ export default function FeaturesPage() {
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
           {lang === 'hi' ? '6 शक्तिशाली विशेषताएं' : '6 powerful features'}
         </div>
-        <h1 className="font-serif text-5xl lg:text-6xl text-green-50 mb-5 leading-tight">{t('everythingAFarmerNeeds')}</h1>
+        <h1 className="font-serif text-5xl lg:text-6xl mb-5 leading-tight" style={{ color: '#1a1a14' }}>{t('everythingAFarmerNeeds')}</h1>
         <p className="text-base max-w-2xl mx-auto" style={{ color: 'rgba(30,30,20,0.5)', lineHeight: 1.7 }}>
           {lang === 'hi' ? 'AgroSense AI, सैटेलाइट डेटा, IoT सेंसर और रियल-टाइम मार्केट इंटेलिजेंस को एक प्लेटफ़ॉर्म में जोड़ता है।' : 'AgroSense combines AI, satellite data, IoT sensors, and real-time market intelligence into one powerful platform for Indian farmers.'}
         </p>
@@ -89,7 +89,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-8 pb-20">
         <div className="text-center mb-12">
           <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'यह कैसे काम करता है' : 'How it works'}</p>
-          <h2 className="font-serif text-4xl text-green-50 mb-3">{lang === 'hi' ? '4 आसान चरणों में शुरू करें' : 'Get started in 4 simple steps'}</h2>
+          <h2 className="font-serif text-4xl mb-3" style={{ color: '#1a1a14' }}>{lang === 'hi' ? '4 आसान चरणों में शुरू करें' : 'Get started in 4 simple steps'}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps[lang as 'en' | 'hi'].map(({ number, icon, title, desc }, i) => (
@@ -102,7 +102,7 @@ export default function FeaturesPage() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)' }}>{icon}</div>
                 <span className="text-xs font-mono" style={{ color: 'rgba(74,222,128,0.3)' }}>{number}</span>
               </div>
-              <h3 className="text-sm font-semibold text-green-100 mb-2">{title}</h3>
+              <h3 className="text-sm font-semibold mb-2" style={{ color: '#1a1a14' }}>{title}</h3>
               <p className="text-xs leading-relaxed" style={{ color: 'rgba(30,30,20,0.5)' }}>{desc}</p>
             </div>
           ))}
@@ -113,7 +113,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-8 pb-20 space-y-4">
         <div className="text-center mb-10">
           <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'विशेषताएं' : 'Features'}</p>
-          <h2 className="font-serif text-4xl text-green-50">{t('everythingAFarmerNeeds')}</h2>
+          <h2 className="font-serif text-4xl" style={{ color: '#1a1a14' }}>{t('everythingAFarmerNeeds')}</h2>
         </div>
         {pairs.map((pair, pi) => (
           <div key={pi} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -128,7 +128,7 @@ export default function FeaturesPage() {
                       style={{ background: accentBg, border: `1px solid ${accentBorder}` }}>{icon}</div>
                     <div>
                       <span className="text-xs font-mono block mb-0.5" style={{ color: `${accent}60` }}>{number}</span>
-                      <h3 className="text-sm font-semibold text-green-50">{t(titleKey as any)}</h3>
+                      <h3 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>{t(titleKey as any)}</h3>
                     </div>
                   </div>
                   <div className="text-right flex-shrink-0 ml-2">
@@ -166,7 +166,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-8 pb-20">
         <div className="text-center mb-10">
           <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'तकनीक' : 'Technology'}</p>
-          <h2 className="font-serif text-3xl text-green-50 mb-2">{lang === 'hi' ? 'हमारी तकनीक' : 'Built with modern tech'}</h2>
+          <h2 className="font-serif text-3xl mb-2" style={{ color: '#1a1a14' }}>{lang === 'hi' ? 'हमारी तकनीक' : 'Built with modern tech'}</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {techStack.map(({ category, items }) => (
@@ -192,7 +192,7 @@ export default function FeaturesPage() {
         <div className="relative overflow-hidden rounded-3xl p-14 text-center" style={{ background: 'white', border: '1px solid rgba(74,222,128,0.15)' }}>
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%)' }} />
           <div className="text-4xl mb-5">🌱</div>
-          <h2 className="font-serif text-4xl text-green-50 mb-3">{t('readyToGrow')}</h2>
+          <h2 className="font-serif text-4xl mb-3" style={{ color: '#1a1a14' }}>{t('readyToGrow')}</h2>
           <p className="mb-8 text-sm" style={{ color: 'rgba(30,30,20,0.5)' }}>{t('freeNoCard')}</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <button onClick={() => handleNav('/dashboard')} className="px-8 py-3.5 text-sm font-semibold text-white rounded-xl"
