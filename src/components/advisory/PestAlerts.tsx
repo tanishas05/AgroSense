@@ -68,7 +68,7 @@ export default function PestAlerts() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{icon}</span>
-                    <span className="text-xs font-semibold" style={{ color: "#1a1a14" }} className="">{pest}</span>
+                    <span className="text-xs font-semibold" style={{ color: "#1a1a14" }} >{pest}</span>
                   </div>
                   <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                     style={{ color: cfg.color, background: `${cfg.color}15`, border: `1px solid ${cfg.color}30` }}>{risk}</span>
