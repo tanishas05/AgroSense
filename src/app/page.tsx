@@ -46,12 +46,12 @@ export default function HomePage() {
   const { t } = useLang()
 
   const features = [
-    { icon: '🔬', title: t('aiDiseaseScanner'), desc: 'Upload a photo — AI diagnoses disease in seconds with 95% accuracy using CNN + Vision models.', tag: 'CNN · Vision AI', delay: 0 },
-    { icon: '🌦️', title: t('weatherForecast'), desc: 'Village-level forecasts using GPS coordinates, satellite imagery and real-time weather APIs.', tag: 'Satellite · GPS', delay: 80 },
-    { icon: '💧', title: t('smartIrrigation'), desc: 'Soil moisture analysis recommends exact irrigation timing and water quantity per crop.', tag: 'IoT · AI Optimized', delay: 160 },
-    { icon: '🌱', title: t('fertilizer'), desc: 'AI prescribes exact NPK quantities based on your crop type, soil, and local weather conditions.', tag: 'AI · ML', delay: 240 },
-    { icon: '📈', title: t('mandiPrices'), desc: 'Live government Mandi prices with 7-day trends — know the best time to sell your harvest.', tag: 'Govt. Mandi API', delay: 320 },
-    { icon: '🎙️', title: t('voiceAssistant'), desc: 'Speak in Hindi, Marathi, Punjabi, Tamil, Telugu, Kannada and more. Get answers instantly.', tag: '12+ Languages', delay: 400 },
+    { icon: '🔬', title: t('aiDiseaseScanner'), desc: 'Upload a crop photo — Groq Vision AI diagnoses disease in seconds and suggests treatments.', tag: 'Groq Vision AI', delay: 0 },
+    { icon: '🌦️', title: t('weatherForecast'), desc: 'GPS-based hyperlocal weather forecasts powered by OpenWeatherMap. Alerts for rainfall, frost, heatwaves and sowing windows.', tag: 'OpenWeather · GPS', delay: 80 },
+    { icon: '💧', title: t('smartIrrigation'), desc: 'Weather-based moisture estimates with AI irrigation timing recommendations. Helps reduce water waste per crop.', tag: 'Weather · AI', delay: 160 },
+    { icon: '🌱', title: t('fertilizer'), desc: 'AI recommends NPK quantities based on your crop type and local weather conditions.', tag: 'AI · ML', delay: 240 },
+    { icon: '📈', title: t('mandiPrices'), desc: 'Live government Mandi prices for key commodities — know today\'s rates before you sell your harvest.', tag: 'data.gov.in API', delay: 320 },
+    { icon: '🎙️', title: t('voiceAssistant'), desc: 'Speak in Hindi or English and get instant AI farming advice. More languages coming soon.', tag: 'Hindi · English', delay: 400 },
   ]
 
   return (
@@ -124,7 +124,7 @@ export default function HomePage() {
           <div className="hv-card hv-card-2">
             <span className="hv-icon">🌡️</span>
             <div>
-              <div className="hv-label">Hyperlocal Weather · Live</div>
+              <div className="hv-label">Weather · Live</div>
               <div className="hv-val" style={{ color: '#16a34a' }}>31°C · 78% Humidity</div>
             </div>
           </div>

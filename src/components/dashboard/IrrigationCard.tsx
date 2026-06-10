@@ -22,6 +22,7 @@ export default function IrrigationCard() {
     fetch(`/api/farm-stats?lat=${location.lat}&lon=${location.lon}`).then(r => r.json()).then(setData)
   }, [location])
 
+  // Moisture is estimated from weather humidity — not a real IoT sensor reading
   const moisture = data ? Math.min(90, Math.max(30, 100 - data.humidity + 20)) : 62
   const needsWater = data?.irrigationNeeded
   const nextIrrigation = needsWater ? `${t('today')} · ${t('scheduleSoon')}` : `${t('tomorrow')} · 6:00 AM`
@@ -37,7 +38,8 @@ export default function IrrigationCard() {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-sm font-semibold text-[#1a1a14]">💧 {t('smartIrrigation')}</h2>
-          <p className="text-xs mt-0.5" style={{ color: '#16a34a' }}>{t('aiOptimized')}</p>
+          {/* Honest subtitle — weather-based estimate, not IoT */}
+          <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>Weather-based estimate</p>
         </div>
         <div className="text-2xl font-bold" style={{ color: moistureColor }}>{moisture}%</div>
       </div>
@@ -47,7 +49,7 @@ export default function IrrigationCard() {
             style={{ width: `${moisture}%`, background: `linear-gradient(90deg, ${moistureColor}80, ${moistureColor})` }} />
         </div>
         <div className="flex justify-between mt-1">
-          <span className="text-xs" style={{ color: '#9a9a8a' }}>{t('soilMoisture')}</span>
+          <span className="text-xs" style={{ color: '#9a9a8a' }}>Est. soil moisture</span>
           <span className="text-xs" style={{ color: '#9a9a8a' }}>{t('optimalRange')}</span>
         </div>
       </div>

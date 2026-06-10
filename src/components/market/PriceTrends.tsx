@@ -16,13 +16,14 @@ export default function PriceTrends() {
   const currentPrice = prices.find(p => p.crop === selected)
   const rawPrice = currentPrice ? parseInt(currentPrice.price.replace('₹', '').replace(',', '')) : 2000
 
-  function generateTrend(base: number) {
+  // Illustrative trend based on today's price — not real historical data
+  function generateIllustration(base: number) {
     const pts = []; let p = base * 0.88
     for (let i = 0; i < 7; i++) { p += (Math.random() - 0.4) * base * 0.03; pts.push(Math.round(p)) }
     pts.push(base); return pts
   }
 
-  const trend = generateTrend(rawPrice)
+  const trend = generateIllustration(rawPrice)
   const min = Math.min(...trend), max = Math.max(...trend), range = max - min || 1
   const W = 400, H = 120
   const pts = trend.map((p, i) => ({ x: (i / (trend.length - 1)) * W, y: H - ((p - min) / range) * H }))
@@ -32,7 +33,11 @@ export default function PriceTrends() {
   return (
     <div className="rounded-xl p-5" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>Price Trend</h2>
+        <div>
+          <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>Price Trend</h2>
+          {/* Honest label — this is an illustration, not real historical data */}
+          <p className="text-xs mt-0.5" style={{ color: '#b0b0a0' }}>Illustrative · based on today's price</p>
+        </div>
         <div className="flex gap-1">
           {MANDI_DEFAULT_COMMODITIES.map(crop => (
             <button key={crop} onClick={() => setSelected(crop)}
@@ -69,7 +74,7 @@ export default function PriceTrends() {
             {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={color} opacity={i === pts.length - 1 ? 1 : 0.4} />)}
           </svg>
           <div className="flex justify-between mt-2" style={{ color: '#b0b0a0', fontSize: 10 }}>
-            <span>7 days ago</span><span>Today</span>
+            <span>Estimated range</span><span>Today</span>
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[{ label: 'Min', value: `₹${min}` }, { label: 'Max', value: `₹${max}` }, { label: 'Avg', value: `₹${Math.round(trend.reduce((a, b) => a + b, 0) / trend.length)}` }].map(({ label, value }) => (

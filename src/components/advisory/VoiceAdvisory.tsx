@@ -161,7 +161,7 @@ export default function VoiceAdvisory() {
         <span className="text-xs px-2 py-1 rounded-full" style={{
           background: 'rgba(74,222,128,0.1)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)'
         }}>
-          {lang === 'hi' ? '12+ भाषाएं' : '12+ langs'}
+          {lang === 'hi' ? 'हिंदी · English' : 'Hindi · English'}
         </span>
       </div>
 

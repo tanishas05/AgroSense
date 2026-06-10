@@ -6,20 +6,20 @@ const features = [
   {
     icon: '🔬',
     title: 'AI Crop Disease Detection',
-    desc: 'Upload a photo and get instant diagnosis with 95% accuracy using CNN/Vision AI models.',
-    tag: 'CNN · TensorFlow',
+    desc: 'Upload a crop photo and get instant AI diagnosis powered by Groq Vision AI. Suggests treatments for identified diseases.',
+    tag: 'Groq Vision AI',
   },
   {
     icon: '🌦️',
-    title: 'Hyperlocal Weather Intelligence',
-    desc: 'Village-level forecasts using GPS, satellite data, and weather APIs.',
-    tag: 'Satellite · GPS',
+    title: 'Weather Forecast',
+    desc: 'GPS-based hyperlocal weather forecasts powered by OpenWeatherMap.',
+    tag: 'OpenWeather · GPS',
   },
   {
     icon: '💧',
     title: 'Smart Irrigation System',
     desc: 'Analyzes soil moisture and crop type to recommend optimal irrigation timing.',
-    tag: 'IoT Sensors',
+    tag: 'Weather · AI',
   },
   {
     icon: '🌱',
@@ -36,7 +36,7 @@ const features = [
   {
     icon: '🎙️',
     title: 'Multilingual Voice Assistant',
-    desc: 'Speak in Hindi, Punjabi, Tamil, Marathi, Telugu, Kannada and more.',
+    desc: 'Speak in Hindi or English and get instant AI farming advice. More languages coming soon.',
     tag: '12+ Languages',
   },
 ]

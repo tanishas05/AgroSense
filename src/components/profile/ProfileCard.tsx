@@ -22,7 +22,7 @@ export default function ProfileCard() {
 
   const joinDate = profile?.created_at
     ? new Date(profile.created_at).toLocaleDateString('en', { month: 'short', year: 'numeric' })
-    : 'June 2025'
+    : '—'
 
   return (
     <div className="rounded-2xl overflow-hidden" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.1)' }}>

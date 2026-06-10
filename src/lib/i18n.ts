@@ -9,7 +9,7 @@ export const translations = {
     getStarted: 'Get started',
     tagline: 'AI-powered smart farming platform',
     heroTitle: 'Farm smarter, harvest better.',
-    heroSub: 'Real-time crop intelligence, hyperlocal weather advisories, and market price predictions — all in your regional language.',
+    heroSub: 'Real-time crop intelligence, weather advisories, and live Mandi prices — all in your regional language.',
     startFarming: 'Start farming smarter',
     seeHowItWorks: 'See how it works →',
     farmers: 'Farmers',
@@ -17,7 +17,7 @@ export const translations = {
     languages: 'Languages',
     everythingAFarmerNeeds: 'Everything a farmer needs',
     readyToTransform: 'Ready to transform your farm?',
-    joinFarmers: 'Join 2.4 million farmers using AgroSense.',
+    joinFarmers: 'Join thousands of farmers using AgroSense.',
     getStartedFree: 'Get started for free',
     goDashboard: 'Go to Dashboard',
     seeFullFeatures: 'See full feature details →',
@@ -157,14 +157,14 @@ export const translations = {
     riskInsight: 'AI Insight',
     // Village advisory
     villageAdvisory: 'Village-Specific Advisory',
-    villageTag: 'Hyperlocal · 1km accuracy',
+    villageTag: 'Hyperlocal · GPS-based',
     // Offline
     offlineBanner: 'Offline mode — showing cached data · SMS advisory available',
     offlineMode: 'Offline Mode',
     cachedData: 'Cached data',
     lastSync: 'Last sync',
     smsAdvisory: 'SMS Advisory',
-    smsSend: 'SMS "CROP [name]" to 1800-XXX-XXXX',
+    smsSend: 'SMS advisory coming soon',
     smsHint: 'Works without internet in rural areas',
     // Voice
     voiceAssistant: 'Voice Farming Assistant',
@@ -172,7 +172,7 @@ export const translations = {
     voiceListening: 'Listening...',
     voiceResponse: 'AI Advisory',
     voiceSamples: 'Or tap a question',
-    voiceLangs: '12+ languages',
+    voiceLangs: 'Hindi · English',
   },
   hi: {
     features: 'विशेषताएं',
@@ -184,7 +184,7 @@ export const translations = {
     getStarted: 'शुरू करें',
     tagline: 'AI-संचालित स्मार्ट खेती प्लेटफ़ॉर्म',
     heroTitle: 'समझदारी से खेती करें, बेहतर फसल काटें।',
-    heroSub: 'रियल-टाइम फसल जानकारी, हाइपरलोकल मौसम सलाह, और बाज़ार मूल्य — आपकी भाषा में।',
+    heroSub: 'रियल-टाइम फसल जानकारी, मौसम सलाह, और लाइव मंडी भाव — आपकी भाषा में।',
     startFarming: 'स्मार्ट खेती शुरू करें',
     seeHowItWorks: 'यह कैसे काम करता है →',
     farmers: 'किसान',
@@ -192,7 +192,7 @@ export const translations = {
     languages: 'भाषाएं',
     everythingAFarmerNeeds: 'एक किसान को जो चाहिए',
     readyToTransform: 'अपनी खेती बदलने के लिए तैयार हैं?',
-    joinFarmers: '24 लाख किसान AgroSense इस्तेमाल कर रहे हैं।',
+    joinFarmers: 'हज़ारों किसान AgroSense इस्तेमाल कर रहे हैं।',
     getStartedFree: 'मुफ्त शुरू करें',
     goDashboard: 'डैशबोर्ड पर जाएं',
     seeFullFeatures: 'सभी विशेषताएं देखें →',
@@ -332,14 +332,14 @@ export const translations = {
     riskInsight: 'AI अंतर्दृष्टि',
     // Village advisory
     villageAdvisory: 'गाँव-विशिष्ट सलाह',
-    villageTag: 'हाइपरलोकल · 1km सटीकता',
+    villageTag: 'हाइपरलोकल · GPS आधारित',
     // Offline
     offlineBanner: 'ऑफलाइन मोड — कैश्ड डेटा · SMS सलाह उपलब्ध',
     offlineMode: 'ऑफलाइन मोड',
     cachedData: 'कैश्ड डेटा',
     lastSync: 'अंतिम सिंक',
     smsAdvisory: 'SMS सलाह',
-    smsSend: '"CROP [नाम]" लिखकर 1800-XXX-XXXX पर भेजें',
+    smsSend: 'SMS सलाह जल्द आ रही है',
     smsHint: 'ग्रामीण क्षेत्रों में बिना इंटरनेट काम करता है',
     // Voice
     voiceAssistant: 'आवाज़ खेती सहायक',
@@ -347,7 +347,7 @@ export const translations = {
     voiceListening: 'सुन रहा हूं...',
     voiceResponse: 'AI सलाह',
     voiceSamples: 'या इन्हें टैप करें',
-    voiceLangs: '12+ भाषाएं',
+    voiceLangs: 'हिंदी · English',
   },
 }
 
