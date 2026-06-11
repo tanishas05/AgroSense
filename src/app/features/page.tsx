@@ -7,11 +7,11 @@ import { useLang } from '@/context/LanguageContext'
 import { HERO_STATS, COPYRIGHT_YEAR } from '@/lib/config'
 
 const features: Feature[] = [
-  { number: '01', icon: '🔬', accent: '#a78bfa', accentBg: 'rgba(167,139,250,0.08)', accentBorder: 'rgba(167,139,250,0.2)', titleKey: 'aiDiseaseScanner', desc: { en: 'Upload a crop photo and get instant AI diagnosis powered by Groq Vision AI. Identifies diseases and suggests treatments.', hi: 'फसल की फोटो से Groq Vision AI द्वारा तत्काल रोग निदान और उपचार सुझाव।' }, points: { en: ['Detects common crop diseases', 'Nutrient deficiency detection', 'Treatment step recommendations', 'Scan history saved'], hi: ['सामान्य फसल रोग पहचानता है', 'पोषक तत्वों की कमी पहचानता है', 'उपचार चरण सुझाता है', 'स्कैन इतिहास सहेजा जाता है'] }, tech: ['Groq Vision AI', 'Llama 4 Scout'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: '91%', statLabel: 'AI Confidence', detail: 'Early Blight detected', sub: 'Treatment ready' } },
-  { number: '02', icon: '🌦️', accent: '#38bdf8', accentBg: 'rgba(56,189,248,0.08)', accentBorder: 'rgba(56,189,248,0.2)', titleKey: 'weatherForecast', desc: { en: 'GPS-based hyperlocal weather forecasts powered by OpenWeatherMap. Alerts for rainfall, frost, heatwaves and optimal sowing windows.', hi: 'GPS आधारित हाइपरलोकल मौसम पूर्वानुमान। बारिश, पाला, और बुवाई के लिए अलर्ट।' }, points: { en: ['GPS-based hyperlocal forecasts', 'Heatwave & frost warnings', 'Optimal sowing windows', '7-day rain probability'], hi: ['GPS आधारित सटीक पूर्वानुमान', 'गर्मी और पाले की चेतावनी', 'बुवाई के लिए सर्वोत्तम समय', '7-दिन वर्षा पूर्वानुमान'] }, tech: ['OpenWeather API', 'GPS'], href: '/dashboard', btnKey: 'goToDashboard', visual: { stat: '32°C', statLabel: 'Your Village · Live', detail: '78% Humidity · Overcast', sub: '65% rain chance tomorrow' } },
+  { number: '01', icon: '🔬', accent: '#a78bfa', accentBg: 'rgba(167,139,250,0.08)', accentBorder: 'rgba(167,139,250,0.2)', titleKey: 'aiDiseaseScanner', desc: { en: 'Upload a crop photo and get instant AI diagnosis powered by Groq Vision AI. Identifies diseases and suggests treatments.', hi: 'फसल की फोटो से Groq Vision AI द्वारा तत्काल रोग निदान और उपचार सुझाव।' }, points: { en: ['Detects common crop diseases', 'Nutrient deficiency detection', 'Treatment step recommendations', 'Scan history saved'], hi: ['सामान्य फसल रोग पहचानता है', 'पोषक तत्वों की कमी पहचानता है', 'उपचार चरण सुझाता है', 'स्कैन इतिहास सहेजा जाता है'] }, tech: ['Groq Vision AI', 'Llama 4 Scout'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: 'AI', statLabel: 'Groq Vision · Llama 4', detail: 'Upload photo → instant result', sub: 'Confidence score included' } },
+  { number: '02', icon: '🌦️', accent: '#38bdf8', accentBg: 'rgba(56,189,248,0.08)', accentBorder: 'rgba(56,189,248,0.2)', titleKey: 'weatherForecast', desc: { en: 'GPS-based hyperlocal weather forecasts powered by OpenWeatherMap. Alerts for rainfall, frost, heatwaves and optimal sowing windows.', hi: 'GPS आधारित हाइपरलोकल मौसम पूर्वानुमान। बारिश, पाला, और बुवाई के लिए अलर्ट।' }, points: { en: ['GPS-based hyperlocal forecasts', 'Heatwave & frost warnings', 'Optimal sowing windows', '7-day rain probability'], hi: ['GPS आधारित सटीक पूर्वानुमान', 'गर्मी और पाले की चेतावनी', 'बुवाई के लिए सर्वोत्तम समय', '7-दिन वर्षा पूर्वानुमान'] }, tech: ['OpenWeather API', 'GPS'], href: '/dashboard', btnKey: 'goToDashboard', visual: { stat: 'Live', statLabel: 'GPS · OpenWeatherMap', detail: 'Real weather after sign-in', sub: '7-day forecast included' } },
   { number: '03', icon: '💧', accent: '#4ade80', accentBg: 'rgba(74,222,128,0.08)', accentBorder: 'rgba(74,222,128,0.2)', titleKey: 'smartIrrigation', desc: { en: 'AI recommends irrigation timing and water amount based on weather data and humidity analysis. Helps reduce water waste.', hi: 'AI मौसम डेटा के आधार पर सटीक सिंचाई समय बताता है। पानी की बर्बादी कम करता है।' }, points: { en: ['Weather-based moisture estimate', 'Optimal irrigation timing', 'Prevents over-irrigation', 'Crop-specific recommendations'], hi: ['मौसम आधारित नमी अनुमान', 'सर्वोत्तम सिंचाई समय', 'अधिक सिंचाई रोकता है', 'फसल-विशिष्ट सिफारिशें'] }, tech: ['Weather API', 'ML Models'], href: '/dashboard', btnKey: 'goToDashboard', visual: { stat: '62%', statLabel: 'Est. Soil Moisture', detail: 'Next: Tomorrow 6AM', sub: '25mm · 45 min recommended' } },
   { number: '04', icon: '🌱', accent: '#34d399', accentBg: 'rgba(52,211,153,0.08)', accentBorder: 'rgba(52,211,153,0.2)', titleKey: 'fertilizer', desc: { en: 'AI recommends NPK quantities based on your crop type and current weather conditions. Updated with every advisory.', hi: 'फसल प्रकार और मौसम के आधार पर AI NPK सिफारिशें। हर सलाह के साथ अपडेट।' }, points: { en: ['Crop-specific NPK guidance', 'Weather-adjusted recommendations', 'Organic manure suggestions', 'AI-powered advisory'], hi: ['फसल-विशिष्ट NPK मार्गदर्शन', 'मौसम-समायोजित सुझाव', 'जैविक खाद सुझाव', 'AI-संचालित सलाह'] }, tech: ['Groq AI', 'Crop Database'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: 'NPK', statLabel: 'AI Recommendation', detail: 'Wheat · Based on weather', sub: 'Updated with each advisory' } },
-  { number: '05', icon: '📈', accent: '#fbbf24', accentBg: 'rgba(251,191,36,0.08)', accentBorder: 'rgba(251,191,36,0.2)', titleKey: 'mandiPrices', desc: { en: 'Live government Mandi prices for key commodities across India. Know today\'s rates before you sell your harvest.', hi: 'प्रमुख फसलों के लाइव सरकारी मंडी भाव। फसल बेचने से पहले आज का रेट जानें।' }, points: { en: ['Live govt. Mandi prices', 'Price change tracking', 'Multiple commodity support', 'Market name & location'], hi: ['लाइव सरकारी मंडी भाव', 'मूल्य परिवर्तन ट्रैकिंग', 'अनेक फसलों का समर्थन', 'मंडी का नाम और स्थान'] }, tech: ['Govt Mandi API', 'data.gov.in'], href: '/market', btnKey: 'market', visual: { stat: '₹2,840', statLabel: 'Tomato · Nashik APMC', detail: '↑ 8.2% vs yesterday', sub: 'Live · Updated hourly' } },
+  { number: '05', icon: '📈', accent: '#fbbf24', accentBg: 'rgba(251,191,36,0.08)', accentBorder: 'rgba(251,191,36,0.2)', titleKey: 'mandiPrices', desc: { en: 'Live government Mandi prices for key commodities across India. Know today\'s rates before you sell your harvest.', hi: 'प्रमुख फसलों के लाइव सरकारी मंडी भाव। फसल बेचने से पहले आज का रेट जानें।' }, points: { en: ['Live govt. Mandi prices', 'Price change tracking', 'Multiple commodity support', 'Market name & location'], hi: ['लाइव सरकारी मंडी भाव', 'मूल्य परिवर्तन ट्रैकिंग', 'अनेक फसलों का समर्थन', 'मंडी का नाम और स्थान'] }, tech: ['Govt Mandi API', 'data.gov.in'], href: '/market', btnKey: 'market', visual: { stat: '₹Live', statLabel: 'data.gov.in · Hourly', detail: 'Wheat · Onion · Tomato · Maize', sub: 'Real prices from govt API' } },
   { number: '06', icon: '🎙️', accent: '#f472b6', accentBg: 'rgba(244,114,182,0.08)', accentBorder: 'rgba(244,114,182,0.2)', titleKey: 'advisory', desc: { en: 'Voice-based farming advice in Hindi and English. More languages and SMS fallback coming soon.', hi: 'हिंदी और अंग्रेज़ी में आवाज़ आधारित खेती सलाह। अधिक भाषाएं जल्द आ रही हैं।' }, points: { en: ['Hindi & English voice support', 'Voice commands & responses', 'Works in rural areas', 'More languages coming soon'], hi: ['हिंदी और अंग्रेज़ी आवाज़ समर्थन', 'आवाज़ कमांड और उत्तर', 'ग्रामीण क्षेत्रों में काम', 'अधिक भाषाएं जल्द'] }, tech: ['Web Speech API', 'Groq AI'], href: '/advisory', btnKey: 'tryScanner', visual: { stat: '2', statLabel: 'Languages', detail: 'Hindi · English', sub: 'More languages coming soon' } },
 ]
 
@@ -31,12 +31,12 @@ const steps = {
 }
 
 const techStack = [
-  { category: { en: 'Frontend', hi: 'फ्रंटएंड' }, items: ['React.js / Next.js', 'Tailwind CSS', 'Progressive Web App'] },
-  { category: { en: 'Backend', hi: 'बैकएंड' }, items: ['Node.js', 'FastAPI', 'WebSocket'] },
-  { category: { en: 'AI / ML', hi: 'AI / ML' }, items: ['Groq API', 'Llama 4 Vision', 'Llama 3'] },
-  { category: { en: 'Database', hi: 'डेटाबेस' }, items: ['PostgreSQL', 'Supabase', 'Redis'] },
+  { category: { en: 'Frontend', hi: 'फ्रंटएंड' }, items: ['React.js / Next.js 14', 'Tailwind CSS', 'TypeScript'] },
+  { category: { en: 'Backend', hi: 'बैकएंड' }, items: ['Next.js API Routes', 'NextAuth.js', 'Server-side Fetch'] },
+  { category: { en: 'AI / ML', hi: 'AI / ML' }, items: ['Groq API', 'Llama 4 Scout (Vision)', 'Llama 3 (Text)'] },
+  { category: { en: 'Database', hi: 'डेटाबेस' }, items: ['Supabase', 'PostgreSQL'] },
   { category: { en: 'APIs', hi: 'APIs' }, items: ['OpenWeather API', 'Nominatim / OSM', 'Govt Mandi API (data.gov.in)'] },
-  { category: { en: 'Cloud', hi: 'क्लाउड' }, items: ['AWS', 'Google Cloud', 'Vercel'] },
+  { category: { en: 'Cloud', hi: 'क्लाउड' }, items: ['Vercel (deployment)', 'Supabase Cloud'] },
 ]
 
 type Feature = {
@@ -58,7 +58,6 @@ type Feature = {
     sub: string
   }
 }
-
 
 export default function FeaturesPage() {
   const router = useRouter()
@@ -159,14 +158,14 @@ export default function FeaturesPage() {
                 </div>
                 <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
                 <ul className="space-y-1.5 mb-4 flex-1">
-                  {points[lang as 'en' | 'hi'].map((point : string, j : number) => (
+                  {points[lang as 'en' | 'hi'].map((point: string, j: number) => (
                     <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(30,30,20,0.65)' }}>
                       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />{point}
                     </li>
                   ))}
                 </ul>
                 <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.02)' }}>
-                  {tech.map((techItem : string) => (
+                  {tech.map((techItem: string) => (
                     <span key={techItem} className="text-xs px-2 py-0.5 rounded-lg"
                       style={{ background: accentBg, color: accent, border: `1px solid ${accentBorder}` }}>{techItem}</span>
                   ))}

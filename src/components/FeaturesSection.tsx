@@ -37,7 +37,7 @@ const features = [
     icon: '🎙️',
     title: 'Multilingual Voice Assistant',
     desc: 'Speak in Hindi or English and get instant AI farming advice. More languages coming soon.',
-    tag: '12+ Languages',
+    tag: 'Hindi · English',
   },
 ]
 

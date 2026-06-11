@@ -32,7 +32,7 @@ export default function DashboardStats() {
   const items = [
     { icon: '🌿', label: t('cropHealthScore'), value: stats.cropHealth, sub: stats.cropHealthChange, ok: stats.cropHealthPositive, accent: '#4ade80', barWidth: parseInt(stats.cropHealth) },
     { icon: '💧', label: t('waterUsedToday'), value: stats.waterUsed, sub: stats.waterChange, ok: stats.waterPositive, accent: '#38bdf8', barWidth: null },
-    { icon: '🌱', label: t('fertilizerSaved'), value: `₹${(scansCount * 620).toLocaleString('en-IN')}`, sub: `${scansCount} ${t('aiScans')}`, ok: true, accent: '#a78bfa', barWidth: null },
+    { icon: '🔬', label: t('aiScansLabel'), value: `${scansCount}`, sub: t('totalScansRun'), ok: true, accent: '#a78bfa', barWidth: null },
     { icon: '🚿', label: t('irrigationStatus'), value: irrigationOk ? t('good') : t('needed'), sub: irrigationOk ? t('optimal') : t('scheduleSoon'), ok: irrigationOk, accent: irrigationOk ? '#4ade80' : '#fbbf24', barWidth: null },
   ]
 

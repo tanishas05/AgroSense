@@ -24,10 +24,10 @@ export async function GET(req: Request) {
 
     return NextResponse.json({
       cropHealth: `${Math.round(cropHealth)}%`,
-      cropHealthChange: cropHealth > 85 ? '+4% this week' : '-2% this week',
-      cropHealthPositive: cropHealth > 85,
+      cropHealthChange: `Based on live weather`,
+      cropHealthPositive: cropHealth > 75,
       waterUsed: `${waterUsed}mm`,
-      waterChange: rain ? 'Rain detected today' : `${waterUsed > 24 ? '+' : '-'}${Math.abs(waterUsed - 24)}mm vs yesterday`,
+      waterChange: rain ? 'Rain detected today' : `Est. ${waterUsed > 24 ? 'above' : 'below'} average`,
       waterPositive: waterUsed <= 24,
       irrigationNeeded,
       temp: Math.round(temp),
@@ -36,10 +36,10 @@ export async function GET(req: Request) {
   } catch {
     return NextResponse.json({
       cropHealth: '85%',
-      cropHealthChange: '+4% this week',
+      cropHealthChange: 'Based on live weather',
       cropHealthPositive: true,
       waterUsed: '24mm',
-      waterChange: '-6mm vs yesterday',
+      waterChange: 'Est. average usage',
       waterPositive: true,
       irrigationNeeded: false,
       temp: 28,

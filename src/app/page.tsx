@@ -118,7 +118,7 @@ export default function HomePage() {
             <span className="hv-icon">🔬</span>
             <div>
               <div className="hv-label">AI Scan Result</div>
-              <div className="hv-val" style={{ color: '#fbbf24' }}>Early Blight · 91%</div>
+              <div className="hv-val" style={{ color: '#fbbf24' }}>AI Disease Detection</div>
             </div>
           </div>
           <div className="hv-card hv-card-2">
@@ -132,14 +132,14 @@ export default function HomePage() {
             <span className="hv-icon">🎙️</span>
             <div>
               <div className="hv-label">Voice Advisory</div>
-              <div className="hv-val" style={{ color: '#a78bfa' }}>Hindi · English · +10</div>
+              <div className="hv-val" style={{ color: '#a78bfa' }}>Hindi · English</div>
             </div>
           </div>
           <div className="hv-card hv-card-4">
             <span className="hv-icon">📈</span>
             <div>
               <div className="hv-label">Tomato · Nashik Mandi</div>
-              <div className="hv-val" style={{ color: '#4ade80' }}>₹2,840 / Quintal ↑8%</div>
+              <div className="hv-val" style={{ color: '#4ade80' }}>Live Mandi Prices ↑</div>
             </div>
           </div>
           <div className="hv-center">🌿</div>

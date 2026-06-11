@@ -6,10 +6,9 @@ export default function FieldCard() {
       {/* Main card */}
       <div className="absolute top-0 left-0 right-0 bg-green-950/90 border border-green-400/20 rounded-2xl p-5 backdrop-blur-sm">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xs text-green-100/40 font-medium">Field overview — Nashik, MH</span>
-          <span className="flex items-center gap-1.5 text-xs text-green-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot inline-block" />
-            Live
+          <span className="text-xs text-green-100/40 font-medium">Field overview — sample view</span>
+          <span className="flex items-center gap-1.5 text-xs text-green-400/60">
+            Demo
           </span>
         </div>
 
@@ -29,9 +28,9 @@ export default function FieldCard() {
 
         <div className="grid grid-cols-3 gap-2 mb-4">
           {[
-            { val: '28°C', label: 'Temperature' },
-            { val: '70%', label: 'Humidity' },
-            { val: '85%', label: 'Rain chance' },
+            { val: '—°C', label: 'Temperature' },
+            { val: '—%', label: 'Humidity' },
+            { val: '—%', label: 'Rain chance' },
           ].map(({ val, label }) => (
             <div key={label} className="bg-green-400/5 border border-green-400/10 rounded-lg p-2.5">
               <div className="text-lg font-bold text-green-400">{val}</div>
@@ -41,23 +40,23 @@ export default function FieldCard() {
         </div>
 
         <div className="flex justify-between text-[11px] text-green-100/30">
-          <span>Irrigation: Tomorrow 6AM · 25mm</span>
-          <span className="text-green-400">✓ Optimal</span>
+          <span>Sign in to see your live farm data</span>
+          <span className="text-green-400/50">GPS-based</span>
         </div>
       </div>
 
       {/* Disease scan card */}
       <div className="absolute top-14 -right-6 bg-green-950/95 border border-green-400/15 rounded-xl p-3.5 w-44 backdrop-blur-sm shadow-lg">
-        <div className="text-[10px] text-green-100/40 mb-2">Disease scan result</div>
+        <div className="text-[10px] text-green-100/40 mb-2">AI scan — example output</div>
         <div className="space-y-2">
           <div className="flex items-center justify-between text-[11px] text-green-100/65">
             <div className="flex-1">
               <div>Leaf Blight</div>
               <div className="h-0.5 bg-green-400/15 rounded mt-1 overflow-hidden">
-                <div className="h-full bg-green-400 rounded" style={{ width: '95%' }} />
+                <div className="h-full bg-green-400 rounded" style={{ width: '88%' }} />
               </div>
             </div>
-            <span className="ml-2 text-green-400 text-[10px]">95%</span>
+            <span className="ml-2 text-green-400 text-[10px]">88%</span>
           </div>
           <div className="flex items-center justify-between text-[11px] text-green-100/65">
             <div className="flex-1">
@@ -70,11 +69,11 @@ export default function FieldCard() {
           </div>
         </div>
         <div className="mt-2.5 pt-2.5 border-t border-green-400/10 text-[10px] text-green-100/35">
-          Spray Trichoderma + copper fungicide
+          Upload your crop photo to get real results
         </div>
       </div>
 
-      {/* Market alert card */}
+      {/* Market card */}
       <div className="absolute -bottom-0 -left-5 -right-5 bg-green-950/95 border border-green-400/20 rounded-xl p-3 flex items-center gap-3 backdrop-blur-sm shadow-lg">
         <div className="w-9 h-9 bg-yellow-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fde047" strokeWidth="2" strokeLinecap="round">
@@ -84,11 +83,11 @@ export default function FieldCard() {
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-yellow-300 text-[11px] font-medium">Wheat price rising at Indore Mandi</div>
-          <div className="text-[11px] text-green-100/50 mt-0.5">Expected +8% in 7 days · Best sell: 5–7 days</div>
+          <div className="text-yellow-300 text-[11px] font-medium">Live Mandi prices after sign-in</div>
+          <div className="text-[11px] text-green-100/50 mt-0.5">Government data.gov.in · Updated every hour</div>
         </div>
         <div className="px-2 py-1 bg-yellow-400/10 rounded text-yellow-300 text-[10px] flex-shrink-0">
-          Market alert
+          Market
         </div>
       </div>
     </div>

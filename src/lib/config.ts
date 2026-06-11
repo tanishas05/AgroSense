@@ -86,9 +86,9 @@ export const NOMINATIM_USER_AGENT =
 // These are display-only counters on the landing page.
 // Update here when real numbers change — never hardcode in components.
 export const HERO_STATS = {
-  farmers:   { value: 24,  suffix: 'L+' },  // displayed as counter animation
-  accuracy:  { value: 95,  suffix: '%'  },
-  languages: { value: 12,  suffix: '+'  },
+  farmers:   { value: 6,   suffix: ' features'  }, // number of platform features
+  accuracy:  { value: 2,   suffix: ' languages' }, // EN and HI fully supported
+  languages: { value: 4,   suffix: ' live APIs'  }, // Groq, OpenWeather, Mandi, Nominatim
 }
 
 // ─── Copyright ────────────────────────────────────────────────────────────────

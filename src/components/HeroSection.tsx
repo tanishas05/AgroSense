@@ -4,9 +4,9 @@ import FieldCard from './FieldCard'
 import { useRouter } from 'next/navigation'
 
 const stats = [
-  { value: '2.4M+', label: 'Farmers using AgroSense' },
-  { value: '12 langs', label: 'Regional language support' },
-  { value: '95%', label: 'Disease detection accuracy' },
+  { value: 'Free', label: 'No credit card required' },
+  { value: '2', label: 'Languages supported (EN, HI)' },
+  { value: 'Live', label: 'Real-time weather & Mandi data' },
 ]
 
 export default function HeroSection() {
