@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useLocation } from '@/context/LocationContext'
-import { DEFAULT_LOCATION } from '@/lib/config'
+import { DEFAULT_LOCATION, UNKNOWN_LOCATION_VILLAGE, UNKNOWN_LOCATION_DISPLAY } from '@/lib/config'
 import Navbar from '@/components/Navbar'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import WeatherCard from '@/components/dashboard/WeatherCard'
@@ -24,7 +24,7 @@ function LocationInit() {
           const loc = await fetch(`/api/location?lat=${lat}&lon=${lon}`).then(r => r.json())
           setLocation({ lat, lon, village: loc.village, district: loc.district, state: loc.state, display: loc.display })
         } catch {
-          setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
+          setLocation({ lat, lon, village: UNKNOWN_LOCATION_VILLAGE, district: '', state: '', display: UNKNOWN_LOCATION_DISPLAY })
         }
       },
       () => setLocation({
@@ -50,7 +50,6 @@ export default function DashboardPage() {
         <DashboardHeader />
         <DashboardStats />
 
-        {/* Row 1: Weather (wide) + Crop Health (sidebar) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
           <div className="lg:col-span-2">
             <WeatherCard />
@@ -60,7 +59,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Row 2: Risk Score (wide) + Alerts (sidebar) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
           <div className="lg:col-span-2">
             <RiskScoreCard />
@@ -70,7 +68,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Row 3: Irrigation + Market equally split */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <IrrigationCard />
           <MarketCard />

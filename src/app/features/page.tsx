@@ -51,12 +51,7 @@ type Feature = {
   tech: string[]
   href: string
   btnKey: string
-  visual: {
-    stat: string
-    statLabel: string
-    detail: string
-    sub: string
-  }
+  visual: { stat: string; statLabel: string; detail: string; sub: string }
 }
 
 export default function FeaturesPage() {
@@ -93,9 +88,9 @@ export default function FeaturesPage() {
         </p>
         <div className="grid grid-cols-3 gap-8 mt-14 max-w-lg mx-auto">
           {[
-            { value: `${HERO_STATS.farmers.value}${HERO_STATS.farmers.suffix}`, label: t('farmers') },
-            { value: `${HERO_STATS.accuracy.value}${HERO_STATS.accuracy.suffix}`, label: t('accuracy') },
-            { value: `${HERO_STATS.languages.value}${HERO_STATS.languages.suffix}`, label: t('languages') },
+            { value: `${HERO_STATS.featuresCount.value}${HERO_STATS.featuresCount.suffix}`, label: t('featuresLabel') },
+            { value: `${HERO_STATS.languagesCount.value}${HERO_STATS.languagesCount.suffix}`, label: t('languagesLabel') },
+            { value: `${HERO_STATS.apisCount.value}${HERO_STATS.apisCount.suffix}`, label: t('apisLabel') },
           ].map(({ value, label }) => (
             <div key={label} className="text-center">
               <div className="text-3xl font-bold mb-1" style={{ color: '#16a34a' }}>{value}</div>

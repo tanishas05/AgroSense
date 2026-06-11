@@ -91,23 +91,23 @@ export default function HomePage() {
           <div className="hero-stats">
             <div className="stat">
               <div className="stat-val">
-                <Counter to={HERO_STATS.farmers.value} suffix={HERO_STATS.farmers.suffix} />
+                <Counter to={HERO_STATS.featuresCount.value} suffix={HERO_STATS.featuresCount.suffix} />
               </div>
-              <div className="stat-label">{t('farmers')}</div>
+              <div className="stat-label">{t('featuresLabel')}</div>
             </div>
             <div className="stat-divider" />
             <div className="stat">
               <div className="stat-val">
-                <Counter to={HERO_STATS.accuracy.value} suffix={HERO_STATS.accuracy.suffix} />
+                <Counter to={HERO_STATS.languagesCount.value} suffix={HERO_STATS.languagesCount.suffix} />
               </div>
-              <div className="stat-label">{t('accuracy')}</div>
+              <div className="stat-label">{t('languagesLabel')}</div>
             </div>
             <div className="stat-divider" />
             <div className="stat">
               <div className="stat-val">
-                <Counter to={HERO_STATS.languages.value} suffix={HERO_STATS.languages.suffix} />
+                <Counter to={HERO_STATS.apisCount.value} suffix={HERO_STATS.apisCount.suffix} />
               </div>
-              <div className="stat-label">{t('languages')}</div>
+              <div className="stat-label">{t('apisLabel')}</div>
             </div>
           </div>
         </div>

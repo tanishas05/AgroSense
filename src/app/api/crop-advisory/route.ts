@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { API_URLS, AI_MODELS, AI_MAX_TOKENS } from '@/lib/config'
+import { API_URLS, AI_MODELS, AI_MAX_TOKENS, UNKNOWN_LOCATION_VILLAGE } from '@/lib/config'
 
 export async function POST(req: NextRequest) {
   const { crop, weather, village, district, state } = await req.json()
 
   const locationParts = [village, district, state].filter(Boolean)
   const locationStr = locationParts.length > 0 ? locationParts.join(', ') : 'India'
-  const isVillageLevel = Boolean(village && village !== 'Your Village')
+  const isVillageLevel = Boolean(village && village !== UNKNOWN_LOCATION_VILLAGE)
 
   const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice — not generic state-level recommendations. Always consider the exact village microclimate, local soil types, and regional crop calendars. Respond with valid JSON only. No markdown, no explanation.`
 

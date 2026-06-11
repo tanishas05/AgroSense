@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { useLocation } from '@/context/LocationContext'
+import { DEFAULT_LOCATION } from '@/lib/config'
 
 export default function PestAlerts() {
   const { t } = useLang()
@@ -15,12 +16,11 @@ export default function PestAlerts() {
     fetchAlerts(location.lat, location.lon)
   }, [location])
 
-  // Fallback if LocationContext not available on advisory page
   useEffect(() => {
     if (location) return
     navigator.geolocation.getCurrentPosition(
       p => fetchAlerts(p.coords.latitude, p.coords.longitude),
-      () => fetchAlerts(28.6667, 77.2167)
+      () => fetchAlerts(DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lon)
     )
   }, [])
 
@@ -68,7 +68,7 @@ export default function PestAlerts() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{icon}</span>
-                    <span className="text-xs font-semibold" style={{ color: "#1a1a14" }} >{pest}</span>
+                    <span className="text-xs font-semibold" style={{ color: "#1a1a14" }}>{pest}</span>
                   </div>
                   <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                     style={{ color: cfg.color, background: `${cfg.color}15`, border: `1px solid ${cfg.color}30` }}>{risk}</span>

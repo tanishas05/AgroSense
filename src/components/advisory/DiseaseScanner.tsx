@@ -94,7 +94,7 @@ export default function DiseaseScanner() {
         <div className="py-10 text-center">
           <div className="text-4xl mb-4">🔬</div>
           <p className="text-sm font-medium mb-1" style={{ color: "#1a1a14" }}>{t('analyzing')}</p>
-          <p className="text-xs mb-4" style={{ color: '#8a8a7a' }}>Running CNN + Vision AI model...</p>
+          <p className="text-xs mb-4" style={{ color: '#8a8a7a' }}>Running Groq Llama 4 Scout Vision...</p>
           <div className="h-1.5 rounded-full overflow-hidden mx-auto max-w-48" style={{ background: 'rgba(167,139,250,0.1)' }}>
             <div className="h-full rounded-full animate-pulse" style={{ width: '70%', background: '#a78bfa' }} />
           </div>

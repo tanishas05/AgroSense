@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { API_URLS, CACHE_TTL, NOMINATIM_USER_AGENT } from '@/lib/config'
+import { API_URLS, CACHE_TTL, NOMINATIM_USER_AGENT, UNKNOWN_LOCATION_VILLAGE, UNKNOWN_LOCATION_DISPLAY } from '@/lib/config'
 
 export interface LocationData {
   village: string
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
       addr.town ??
       addr.city_district ??
       addr.city ??
-      'Your Village'
+      UNKNOWN_LOCATION_VILLAGE
 
     const district =
       addr.district ??
@@ -66,9 +66,9 @@ export async function GET(req: NextRequest) {
     } satisfies LocationData)
   } catch {
     return NextResponse.json({
-      village: 'Your Village',
+      village: UNKNOWN_LOCATION_VILLAGE,
       district: '', state: '', country: 'India',
-      display: 'Your Location',
+      display: UNKNOWN_LOCATION_DISPLAY,
       lat: parseFloat(lat), lon: parseFloat(lon),
     } satisfies LocationData)
   }

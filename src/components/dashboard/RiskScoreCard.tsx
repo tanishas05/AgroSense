@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useLang } from '@/context/LanguageContext'
 import { useLocation } from '@/context/LocationContext'
+import { UNKNOWN_LOCATION_VILLAGE } from '@/lib/config'
 
 interface RiskData {
   overall: number; crop: number; disease: number; water: number; insight: string
@@ -48,7 +49,7 @@ export default function RiskScoreCard() {
       const temp: number = w.main?.temp ?? 28
       const humidity: number = w.main?.humidity ?? 60
       const rain: boolean = w.weather?.[0]?.main === 'Rain'
-      const village: string = location?.village ?? w.name ?? 'Your Village'
+      const village: string = location?.village ?? w.name ?? UNKNOWN_LOCATION_VILLAGE
 
       const disease = Math.min(95, Math.round((humidity>75?55:humidity>60?35:18)+(temp>34?15:temp>30?8:2)+(rain?12:0)))
       const water = Math.min(90, Math.round((humidity<40?55:humidity<55?35:15)+(temp>36?20:temp>32?10:3)+(rain?-15:5)))
@@ -88,7 +89,7 @@ export default function RiskScoreCard() {
         <div>
           <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
           <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>
-            📍 {location?.village ?? 'Your Village'} · {lang==='hi'?'हर घंटे अपडेट':'Updated every hour'}
+            📍 {location?.village ?? UNKNOWN_LOCATION_VILLAGE} · {lang==='hi'?'हर घंटे अपडेट':'Updated every hour'}
           </p>
         </div>
         <RiskArc value={risk.overall} size={72} />

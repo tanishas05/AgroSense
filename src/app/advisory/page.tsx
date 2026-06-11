@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useLocation } from '@/context/LocationContext'
-import { DEFAULT_LOCATION } from '@/lib/config'
+import { DEFAULT_LOCATION, UNKNOWN_LOCATION_VILLAGE, UNKNOWN_LOCATION_DISPLAY } from '@/lib/config'
 import Navbar from '@/components/Navbar'
 import DiseaseScanner from '@/components/advisory/DiseaseScanner'
 import CropAdvisory from '@/components/advisory/CropAdvisory'
@@ -21,7 +21,7 @@ function LocationInit() {
           const loc = await fetch(`/api/location?lat=${lat}&lon=${lon}`).then(r => r.json())
           setLocation({ lat, lon, village: loc.village, district: loc.district, state: loc.state, display: loc.display })
         } catch {
-          setLocation({ lat, lon, village: 'Your Village', district: '', state: '', display: 'Your Location' })
+          setLocation({ lat, lon, village: UNKNOWN_LOCATION_VILLAGE, district: '', state: '', display: UNKNOWN_LOCATION_DISPLAY })
         }
       },
       () => setLocation({
