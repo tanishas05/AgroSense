@@ -59,7 +59,7 @@ export default function PriceTrends() {
             </div>
             <div className="text-sm font-semibold px-3 py-1 rounded-lg"
               style={{ background: currentPrice?.up ? 'rgba(22,163,74,0.08)' : 'rgba(220,38,38,0.08)', color: currentPrice?.up ? '#16a34a' : '#dc2626' }}>
-              {currentPrice?.change}
+              {currentPrice?.change ?? '—'}
             </div>
           </div>
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 120 }}>

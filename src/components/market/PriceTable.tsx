@@ -40,7 +40,7 @@ export default function PriceTable() {
             onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
             <span className="text-xs font-medium" style={{ color: '#1a1a14' }}>{crop}</span>
             <span className="text-xs font-semibold" style={{ color: '#16a34a' }}>{price}</span>
-            <span className="text-xs font-medium" style={{ color: up ? '#16a34a' : '#dc2626' }}>{change}</span>
+            <span className="text-xs font-medium" style={{ color: change == null ? '#b0b0a0' : up ? '#16a34a' : '#dc2626' }}>{change ?? '—'}</span>
             <span className="truncate" style={{ color: '#8a8a7a', fontSize: 10 }}>{market}</span>
           </div>
         ))}

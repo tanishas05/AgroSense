@@ -2,15 +2,28 @@ import { NextRequest, NextResponse } from 'next/server'
 import { API_URLS, AI_MODELS, AI_MAX_TOKENS, UNKNOWN_LOCATION_VILLAGE } from '@/lib/config'
 
 export async function POST(req: NextRequest) {
-  const { crop, weather, village, district, state } = await req.json()
+  const { crop, weather, village, district, state, question } = await req.json()
 
   const locationParts = [village, district, state].filter(Boolean)
   const locationStr = locationParts.length > 0 ? locationParts.join(', ') : 'India'
   const isVillageLevel = Boolean(village && village !== UNKNOWN_LOCATION_VILLAGE)
 
+  // If a full question was asked (e.g. from voice), use it directly as context.
+  // Otherwise treat crop as the crop name for structured advisory.
+  const isQuestion = question && question.length > 30
+  const cropLabel = isQuestion ? 'general farming' : crop
+
   const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice based on the crop, GPS location, and live weather data provided. Respond with valid JSON only. No markdown, no explanation.`
 
-  const userPrompt = `Give highly specific farming advice for ${crop} crop.
+  const userPrompt = isQuestion
+    ? `A farmer asked: "${question}"
+
+Location: ${locationStr}${isVillageLevel ? ` (village-level precision)` : ''}
+Current weather: ${weather.temp}°C, humidity ${weather.humidity}%, ${weather.description}
+
+Answer their question with specific, actionable advice for this location and weather. Return this exact JSON:
+{"irrigation":"answer/advice","fertilizer":"relevant advice","pestControl":"relevant advice","harvesting":"relevant advice","tips":["tip 1","tip 2","tip 3"]}`
+    : `Give highly specific farming advice for ${cropLabel} crop.
 
 Location: ${locationStr}${isVillageLevel ? ` (village-level precision)` : ''}
 Current weather at this location: ${weather.temp}°C, humidity ${weather.humidity}%, ${weather.description}

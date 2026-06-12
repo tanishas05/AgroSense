@@ -48,7 +48,7 @@ export default function MarketCard() {
                     background: up ? 'rgba(74,222,128,0.1)' : 'rgba(239,68,68,0.1)',
                     color: up ? '#4ade80' : '#f87171',
                   }}>
-                  {up ? '↑' : '↓'} {change}
+                  {up ? '↑' : '↓'} {change ?? '—'}
                 </span>
               </div>
             </div>

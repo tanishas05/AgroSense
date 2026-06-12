@@ -52,6 +52,7 @@ export default function VoiceAdvisory() {
         body: JSON.stringify({
           crop: query,
           weather: { temp, humidity, description },
+          question: query,
         }),
       })
       const data = await res.json()

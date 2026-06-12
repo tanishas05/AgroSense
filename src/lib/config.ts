@@ -68,7 +68,7 @@ export const NOMINATIM_USER_AGENT =
 export const HERO_STATS = {
   featuresCount:  { value: 6, suffix: ' features'  },
   languagesCount: { value: 2, suffix: ' languages' },
-  apisCount:      { value: 4, suffix: ' live APIs'  },
+  apisCount:      { value: 5, suffix: ' live APIs'  },
 }
 
 export const COPYRIGHT_YEAR = new Date().getFullYear()

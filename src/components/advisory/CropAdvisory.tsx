@@ -34,7 +34,7 @@ export default function CropAdvisory() {
   }, [location])
 
   useEffect(() => {
-    if (!weather || !selected) return
+    if (!weather || !selected || !location) return
     setLoading(true)
     setAdvisory(null)
     fetch('/api/crop-advisory', {
@@ -48,7 +48,7 @@ export default function CropAdvisory() {
         state: location?.state ?? null,
       }),
     }).then(r => r.json()).then(d => { setAdvisory(d); setLoading(false) }).catch(() => setLoading(false))
-  }, [selected, weather])
+  }, [selected, weather, location])
 
   if (profileLoading) return <div className="h-48 rounded-2xl animate-pulse" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }} />
 

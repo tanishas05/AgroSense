@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { translations, Lang, TranslationKey } from '@/lib/i18n'
 
 interface LangContextType {
@@ -18,8 +18,15 @@ const LangContext = createContext<LangContextType>({
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('en')
 
+  // Restore language from localStorage on first load (instant, no flash)
+  useEffect(() => {
+    const saved = localStorage.getItem('agrosense_lang')
+    if (saved === 'en' || saved === 'hi') setLangState(saved)
+  }, [])
+
   function setLang(l: Lang) {
     setLangState(l)
+    localStorage.setItem('agrosense_lang', l)
   }
 
   function t(key: TranslationKey): string {
