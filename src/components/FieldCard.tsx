@@ -6,8 +6,8 @@ export default function FieldCard() {
       {/* Main card */}
       <div className="absolute top-0 left-0 right-0 bg-green-950/90 border border-green-400/20 rounded-2xl p-5 backdrop-blur-sm">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xs text-green-100/40 font-medium">Field overview — sample view</span>
-          <span className="flex items-center gap-1.5 text-xs text-green-400/60">
+          <span className="text-4xl text-green-100/40 font-medium">Field overview — sample view</span>
+          <span className="flex items-center gap-1.5 text-4xl text-green-400/60">
             Demo
           </span>
         </div>
@@ -33,7 +33,7 @@ export default function FieldCard() {
             { val: '—%', label: 'Rain chance' },
           ].map(({ val, label }) => (
             <div key={label} className="bg-green-400/5 border border-green-400/10 rounded-lg p-2.5">
-              <div className="text-lg font-bold text-green-400">{val}</div>
+              <div className="text-4xl font-bold text-green-400">{val}</div>
               <div className="text-[10px] text-green-100/30 mt-0.5">{label}</div>
             </div>
           ))}

@@ -35,19 +35,19 @@ export default function WeatherClient() {
       <div className="p-5 pb-4" style={{ background: 'linear-gradient(135deg, rgba(74,222,128,0.06) 0%, transparent 60%)' }}>
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h2 className="text-sm font-semibold text-green-100 mb-1">{t('weatherForecast')}</h2>
+            <h2 className="text-4xl font-semibold text-green-100 mb-1">{t('weatherForecast')}</h2>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs" style={{ color: 'rgba(74,222,128,0.6)' }}>📍</span>
-              <span className="text-xs font-medium" style={{ color: '#86efac' }}>
+              <span className="text-4xl" style={{ color: 'rgba(74,222,128,0.6)' }}>📍</span>
+              <span className="text-4xl font-medium" style={{ color: '#86efac' }}>
                 {location?.village ?? current.name}
                 {location?.district && <span style={{ color: 'rgba(232,245,226,0.3)', fontWeight: 400 }}> · {location.district}</span>}
               </span>
-              <span className="text-xs px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', fontSize: 10 }}>{t('live')}</span>
+              <span className="text-4xl px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', fontSize: 10 }}>{t('live')}</span>
             </div>
           </div>
           <div className="text-right">
             <div className="text-5xl font-bold leading-none" style={{ color: '#86efac' }}>{Math.round(current.main.temp)}°</div>
-            <div className="text-xs capitalize mt-1" style={{ color: 'rgba(232,245,226,0.4)' }}>
+            <div className="text-4xl capitalize mt-1" style={{ color: 'rgba(232,245,226,0.4)' }}>
               {icon(current.weather[0].main)} {current.weather[0].description}
             </div>
           </div>
@@ -60,9 +60,9 @@ export default function WeatherClient() {
             { label: t('visibility'), value: `${(current.visibility/1000).toFixed(1)}km`, ic: '👁️' },
           ].map(({ label, value, ic }) => (
             <div key={label} className="text-center p-2.5 rounded-xl" style={{ background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.1)' }}>
-              <div className="text-base mb-1">{ic}</div>
-              <div className="text-sm font-semibold text-green-300">{value}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'rgba(232,245,226,0.3)' }}>{label}</div>
+              <div className="text-4xl mb-1">{ic}</div>
+              <div className="text-4xl font-semibold text-green-300">{value}</div>
+              <div className="text-4xl mt-0.5" style={{ color: 'rgba(232,245,226,0.3)' }}>{label}</div>
             </div>
           ))}
         </div>
@@ -72,13 +72,13 @@ export default function WeatherClient() {
           {forecast.map((item, i) => (
             <div key={item.dt} className="text-center py-2.5 px-1 rounded-xl"
               style={i===0?{background:'rgba(74,222,128,0.1)',border:'1px solid rgba(74,222,128,0.2)'}:{}}>
-              <div className="text-xs mb-1.5" style={{ color: 'rgba(232,245,226,0.35)' }}>
+              <div className="text-4xl mb-1.5" style={{ color: 'rgba(232,245,226,0.35)' }}>
                 {i===0 ? t('today') : new Date(item.dt*1000).toLocaleDateString('en',{weekday:'short'})}
               </div>
-              <div className="text-lg mb-1">{icon(item.weather[0].main)}</div>
-              <div className="text-xs font-semibold text-green-300">{Math.round(item.main.temp_max)}°</div>
-              <div className="text-xs" style={{ color: 'rgba(232,245,226,0.25)' }}>{Math.round(item.main.temp_min)}°</div>
-              {item.pop > 0 && <div className="text-xs mt-1" style={{ color: '#60a5fa' }}>{Math.round(item.pop*100)}%</div>}
+              <div className="text-4xl mb-1">{icon(item.weather[0].main)}</div>
+              <div className="text-4xl font-semibold text-green-300">{Math.round(item.main.temp_max)}°</div>
+              <div className="text-4xl" style={{ color: 'rgba(232,245,226,0.25)' }}>{Math.round(item.main.temp_min)}°</div>
+              {item.pop > 0 && <div className="text-4xl mt-1" style={{ color: '#60a5fa' }}>{Math.round(item.pop*100)}%</div>}
             </div>
           ))}
         </div>

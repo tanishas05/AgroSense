@@ -14,9 +14,9 @@ export default function MarketPage() {
       <Navbar />
       <div className="max-w-6xl mx-auto px-8 py-8">
         <div className="mb-8">
-          <p className="text-xs font-medium mb-1" style={{ color: '#16a34a' }}>Live market data 📈</p>
+          <p className="text-4xl font-medium mb-1" style={{ color: '#16a34a' }}>Live market data 📈</p>
           <h1 className="font-serif text-4xl mb-2" style={{ color: '#1a1a14' }}>{t('mandiIntelligence')}</h1>
-          <p className="text-sm" style={{ color: '#6a6a5a' }}>{t('govtMandi')}</p>
+          <p className="text-4xl" style={{ color: '#6a6a5a' }}>{t('govtMandi')}</p>
         </div>
         <MarketHero />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">

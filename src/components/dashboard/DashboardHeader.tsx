@@ -31,11 +31,11 @@ export default function DashboardHeader() {
   return (
     <div className="mb-6">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-xs font-medium px-2.5 py-1 rounded-full"
+        <span className="text-4xl font-medium px-2.5 py-1 rounded-full"
           style={{ background: 'rgba(22,163,74,0.08)', color: '#16a34a', border: '1px solid rgba(22,163,74,0.2)' }}>
           {t(greetingKey)} {emoji}
         </span>
-        <span className="flex items-center gap-1.5 text-xs" style={{ color: '#16a34a' }}>
+        <span className="flex items-center gap-1.5 text-4xl" style={{ color: '#16a34a' }}>
           <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: '#4ade80' }} />
           {t('liveData')}
         </span>
@@ -45,7 +45,7 @@ export default function DashboardHeader() {
         <span style={{ color: '#8a8a7a' }}>{t('farmDashboard')}</span>
       </h1>
       {locDisplay && (
-        <p className="text-sm mt-1.5 flex items-center gap-1.5" style={{ color: '#6a6a5a' }}>
+        <p className="text-4xl mt-1.5 flex items-center gap-1.5" style={{ color: '#6a6a5a' }}>
           <span>📍</span>{locDisplay}
         </p>
       )}

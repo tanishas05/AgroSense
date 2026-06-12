@@ -84,9 +84,9 @@ export default function AlertsCard() {
   return (
     <div className="rounded-2xl p-5" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-green-100">🔔 {t('alertsTitle')}</h2>
+        <h2 className="text-4xl font-semibold text-green-100">🔔 {t('alertsTitle')}</h2>
         {alerts.length > 0 && (
-          <span className="text-xs px-2 py-0.5 rounded-full"
+          <span className="text-4xl px-2 py-0.5 rounded-full"
             style={{ background: 'rgba(239,68,68,0.12)', color: '#f87171', border: '1px solid rgba(239,68,68,0.2)' }}>
             {alerts.length} {t('newAlerts')}
           </span>
@@ -99,8 +99,8 @@ export default function AlertsCard() {
         </div>
       ) : alerts.length === 0 ? (
         <div className="py-8 text-center">
-          <div className="text-3xl mb-2">✅</div>
-          <p className="text-xs" style={{ color: 'rgba(232,245,226,0.3)' }}>No active alerts for your preferences</p>
+          <div className="text-4xl mb-2">✅</div>
+          <p className="text-4xl" style={{ color: 'rgba(232,245,226,0.3)' }}>No active alerts for your preferences</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -108,12 +108,12 @@ export default function AlertsCard() {
             const cfg = typeConfig[type] ?? typeConfig.info
             return (
               <div key={i} className="flex gap-3 p-3 rounded-xl" style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
-                <span className="text-base flex-shrink-0 mt-0.5">{icon}</span>
+                <span className="text-4xl flex-shrink-0 mt-0.5">{icon}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold" style={{ color: cfg.color }}>{title}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(232,245,226,0.4)' }}>{desc}</p>
+                  <p className="text-4xl font-semibold" style={{ color: cfg.color }}>{title}</p>
+                  <p className="text-4xl mt-0.5" style={{ color: 'rgba(232,245,226,0.4)' }}>{desc}</p>
                 </div>
-                <span className="text-xs flex-shrink-0" style={{ color: 'rgba(232,245,226,0.2)' }}>{time}</span>
+                <span className="text-4xl flex-shrink-0" style={{ color: 'rgba(232,245,226,0.2)' }}>{time}</span>
               </div>
             )
           })}

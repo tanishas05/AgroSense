@@ -50,8 +50,8 @@ export default function PestAlerts() {
   return (
     <div className="p-5 rounded-2xl h-full" style={{ background: 'white', border: '1px solid rgba(251,191,36,0.12)' }}>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-sm font-semibold" style={{ color: "#1a1a14" }}>🐛 {t('pestAlerts')}</h2>
-        <span className="text-xs px-2 py-1 rounded-full"
+        <h2 className="text-4xl font-semibold" style={{ color: "#1a1a14" }}>🐛 {t('pestAlerts')}</h2>
+        <span className="text-4xl px-2 py-1 rounded-full"
           style={{ background: 'rgba(251,191,36,0.1)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.2)' }}>
           {t('weatherBased')}
         </span>
@@ -67,14 +67,14 @@ export default function PestAlerts() {
               <div key={pest} className="p-3.5 rounded-xl" style={{ background: cfg.bg, border: `1px solid ${cfg.color}25` }}>
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{icon}</span>
-                    <span className="text-xs font-semibold" style={{ color: "#1a1a14" }}>{pest}</span>
+                    <span className="text-4xl">{icon}</span>
+                    <span className="text-4xl font-semibold" style={{ color: "#1a1a14" }}>{pest}</span>
                   </div>
-                  <span className="text-xs px-2 py-0.5 rounded-full font-medium"
+                  <span className="text-4xl px-2 py-0.5 rounded-full font-medium"
                     style={{ color: cfg.color, background: `${cfg.color}15`, border: `1px solid ${cfg.color}30` }}>{risk}</span>
                 </div>
-                <p className="text-xs mb-1.5" style={{ color: '#8a8a7a' }}>Affects: {crops}</p>
-                <p className="text-xs leading-relaxed" style={{ color: '#4a4a3a' }}>{advice}</p>
+                <p className="text-4xl mb-1.5" style={{ color: '#8a8a7a' }}>Affects: {crops}</p>
+                <p className="text-4xl leading-relaxed" style={{ color: '#4a4a3a' }}>{advice}</p>
               </div>
             )
           })}
@@ -82,8 +82,8 @@ export default function PestAlerts() {
       )}
 
       <div className="mt-4 p-3 rounded-xl" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}>
-        <p className="text-xs font-medium" style={{ color: '#38bdf8' }}>{t('alertsBasedOnWeather')}</p>
-        <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>{t('riskAdjust')}</p>
+        <p className="text-4xl font-medium" style={{ color: '#38bdf8' }}>{t('alertsBasedOnWeather')}</p>
+        <p className="text-4xl mt-0.5" style={{ color: '#8a8a7a' }}>{t('riskAdjust')}</p>
       </div>
     </div>
   )
