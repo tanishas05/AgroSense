@@ -49,7 +49,7 @@ export default function ProfileCard() {
               className="w-20 h-20 rounded-2xl object-cover"
               style={{ border: '3px solid #f5f0e8', boxShadow: '0 0 0 1px rgba(74,222,128,0.3), 0 8px 24px rgba(0,0,0,0.4)' }} />
           ) : (
-            <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl"
+            <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl"
               style={{ background: 'rgba(74,222,128,0.12)', border: '3px solid #f5f0e8', boxShadow: '0 0 0 1px rgba(74,222,128,0.3)' }}>
               👤
             </div>
@@ -62,15 +62,15 @@ export default function ProfileCard() {
         </div>
 
         {/* Name */}
-        <h2 className="text-4xl font-semibold mb-0.5" style={{ color: '#111111', letterSpacing: '-0.01em' }}>
+        <h2 className="text-base font-semibold mb-0.5" style={{ color: '#111111', letterSpacing: '-0.01em' }}>
           {session?.user?.name ?? '—'}
         </h2>
-        <p className="text-4xl mb-3" style={{ color: '#8a8a7a', fontFamily: 'monospace' }}>
+        <p className="text-xs mb-3" style={{ color: '#8a8a7a', fontFamily: 'monospace' }}>
           {session?.user?.email ?? '—'}
         </p>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-1.5 text-4xl px-2.5 py-1 rounded-lg mb-5"
+        <div className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg mb-5"
           style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', color: '#16a34a' }}>
           <span style={{ fontSize: 10 }}>🌱</span>
           {t('verifiedFarmer')}
@@ -87,15 +87,15 @@ export default function ProfileCard() {
           ].map(({ label, value, icon, color }) => (
             <div key={label} className="p-3 rounded-xl text-center"
               style={{ background: `${color}08`, border: `1px solid ${color}18` }}>
-              <div className="text-4xl mb-1" style={{ filter: 'saturate(0.8)' }}>{icon}</div>
-              <div className="text-4xl font-bold leading-none mb-1" style={{ color, fontVariantNumeric: 'tabular-nums' }}>{value}</div>
-              <div className="text-4xl" style={{ color: '#8a8a7a' }}>{label}</div>
+              <div className="text-xl mb-1" style={{ filter: 'saturate(0.8)' }}>{icon}</div>
+              <div className="text-2xl font-bold leading-none mb-1" style={{ color, fontVariantNumeric: 'tabular-nums' }}>{value}</div>
+              <div className="text-xs" style={{ color: '#8a8a7a' }}>{label}</div>
             </div>
           ))}
         </div>
 
         {/* Member since */}
-        <div className="flex items-center justify-between text-4xl py-2.5 px-3 rounded-lg"
+        <div className="flex items-center justify-between text-xs py-2.5 px-3 rounded-lg"
           style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(0,0,0,0.07)' }}>
           <span style={{ color: '#8a8a7a' }}>{t('memberSince')}</span>
           <span style={{ color: '#4a4a3a', fontFamily: 'monospace' }}>{joinDate}</span>

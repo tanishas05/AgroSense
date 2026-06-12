@@ -25,14 +25,14 @@ export default function LanguageSettings() {
       {/* Header */}
       <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-4xl"
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
             style={{ background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)' }}>🌐</div>
           <div>
-            <h2 className="text-4xl font-semibold" style={{ color: '#111111' }}>{t('languagePref')}</h2>
-            <p className="text-4xl" style={{ color: '#8a8a7a' }}>{t('chooseLanguage')}</p>
+            <h2 className="text-sm font-semibold" style={{ color: '#111111' }}>{t('languagePref')}</h2>
+            <p className="text-xs" style={{ color: '#8a8a7a' }}>{t('chooseLanguage')}</p>
           </div>
         </div>
-        <span className="text-4xl px-2 py-1 rounded-lg" style={{ background: 'rgba(74,222,128,0.08)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.15)' }}>
+        <span className="text-xs px-2 py-1 rounded-lg" style={{ background: 'rgba(74,222,128,0.08)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.15)' }}>
           {lang === 'en' ? 'English' : 'हिंदी'} active
         </span>
       </div>
@@ -63,16 +63,16 @@ export default function LanguageSettings() {
                   </div>
                 )}
 
-                <div className="text-4xl font-medium leading-tight mb-0.5"
+                <div className="text-base font-medium leading-tight mb-0.5"
                   style={{ color: active ? '#16a34a' : ready ? '#1a1a14' : '#b0b0a0' }}>
                   {native}
                 </div>
-                <div className="text-4xl"
+                <div className="text-xs"
                   style={{ color: active ? '#16a34a' : '#8a8a7a' }}>
                   {name}
                 </div>
                 {!ready && (
-                  <div className="mt-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-4xl"
+                  <div className="mt-1.5 inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs"
                     style={{ background: 'rgba(251,191,36,0.08)', color: 'rgba(251,191,36,0.5)', fontSize: 9, border: '1px solid rgba(251,191,36,0.12)' }}>
                     Soon
                   </div>
@@ -82,7 +82,7 @@ export default function LanguageSettings() {
           })}
         </div>
 
-        <div className="mt-5 flex items-center gap-2 text-4xl px-3 py-2.5 rounded-xl"
+        <div className="mt-5 flex items-center gap-2 text-xs px-3 py-2.5 rounded-xl"
           style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.1)', color: 'rgba(56,189,248,0.6)' }}>
           <span>ℹ️</span>
           English and हिंदी are fully supported. 10 more languages coming soon.

@@ -77,15 +77,15 @@ export default function FarmSettings() {
       {/* Header */}
       <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-4xl"
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base"
             style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)' }}>🏡</div>
           <div>
-            <h2 className="text-4xl font-semibold" style={{ color: '#111111' }}>{t('farmDetails')}</h2>
-            <p className="text-4xl" style={{ color: '#8a8a7a' }}>Location, soil & crop setup</p>
+            <h2 className="text-sm font-semibold" style={{ color: '#111111' }}>{t('farmDetails')}</h2>
+            <p className="text-xs" style={{ color: '#8a8a7a' }}>Location, soil & crop setup</p>
           </div>
         </div>
         {form.crops.length > 0 && (
-          <span className="text-4xl px-2 py-1 rounded-lg" style={{ background: 'rgba(74,222,128,0.08)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.15)' }}>
+          <span className="text-xs px-2 py-1 rounded-lg" style={{ background: 'rgba(74,222,128,0.08)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.15)' }}>
             {form.crops.length} crops
           </span>
         )}
@@ -99,13 +99,13 @@ export default function FarmSettings() {
             { label: t('landSize'), field: 'land_size', type: 'number', placeholder: '5' },
           ].map(({ label, field, type, placeholder }) => (
             <div key={field}>
-              <label className="text-4xl font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{label}</label>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{label}</label>
               <input
                 type={type}
                 value={(form as any)[field]}
                 placeholder={placeholder}
                 onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))}
-                className="w-full text-4xl px-3 py-2.5 rounded-xl"
+                className="w-full text-sm px-3 py-2.5 rounded-xl"
                 style={inputBase}
                 onFocus={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)')}
                 onBlur={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.1)')}
@@ -113,9 +113,9 @@ export default function FarmSettings() {
             </div>
           ))}
           <div>
-            <label className="text-4xl font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{t('state')}</label>
+            <label className="text-xs font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{t('state')}</label>
             <select value={form.state} onChange={e => setForm(f => ({ ...f, state: e.target.value }))}
-              className="w-full text-4xl px-3 py-2.5 rounded-xl appearance-none"
+              className="w-full text-sm px-3 py-2.5 rounded-xl appearance-none"
               style={{ ...inputBase, backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234ade80' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
               onFocus={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)')}
               onBlur={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.1)')}>
@@ -123,9 +123,9 @@ export default function FarmSettings() {
             </select>
           </div>
           <div>
-            <label className="text-4xl font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{t('district')}</label>
+            <label className="text-xs font-medium block mb-1.5" style={{ color: '#6a6a5a' }}>{t('district')}</label>
             <input value={form.district} placeholder={t('enterDistrict')} onChange={e => setForm(f => ({ ...f, district: e.target.value }))}
-              className="w-full text-4xl px-3 py-2.5 rounded-xl" style={inputBase}
+              className="w-full text-sm px-3 py-2.5 rounded-xl" style={inputBase}
               onFocus={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)')}
               onBlur={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.1)')} />
           </div>
@@ -138,11 +138,11 @@ export default function FarmSettings() {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <span className="text-4xl font-semibold" style={{ color: '#3a3a2a' }}>{t('soilType')}</span>
-              <span className="text-4xl ml-2" style={{ color: '#b0b0a0' }}>select all that apply</span>
+              <span className="text-xs font-semibold" style={{ color: '#3a3a2a' }}>{t('soilType')}</span>
+              <span className="text-xs ml-2" style={{ color: '#b0b0a0' }}>select all that apply</span>
             </div>
             {form.soil_types.length > 0 && (
-              <span className="text-4xl px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#16a34a' }}>
+              <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#16a34a' }}>
                 {form.soil_types.length} selected
               </span>
             )}
@@ -152,7 +152,7 @@ export default function FarmSettings() {
               const on = form.soil_types.includes(soil)
               return (
                 <button key={soil} onClick={() => toggleSoil(soil)}
-                  className="text-4xl px-3 py-1.5 rounded-lg transition-all"
+                  className="text-xs px-3 py-1.5 rounded-lg transition-all"
                   style={on
                     ? { background: 'rgba(74,222,128,0.12)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.35)', fontWeight: 500 }
                     : { color: '#8a8a7a', border: '1px solid rgba(0,0,0,0.08)', background: 'rgba(255,255,255,0.02)' }}>
@@ -169,9 +169,9 @@ export default function FarmSettings() {
         {/* Crops */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-4xl font-semibold" style={{ color: '#3a3a2a' }}>{t('cropsYouGrow')}</span>
+            <span className="text-xs font-semibold" style={{ color: '#3a3a2a' }}>{t('cropsYouGrow')}</span>
             {form.crops.length > 0 && (
-              <span className="text-4xl px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#16a34a' }}>
+              <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(74,222,128,0.1)', color: '#16a34a' }}>
                 {form.crops.length} {t('selected')}
               </span>
             )}
@@ -179,10 +179,10 @@ export default function FarmSettings() {
 
           {/* Search */}
           <div className="relative mb-3">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-4xl" style={{ color: 'rgba(74,222,128,0.4)' }}>🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs" style={{ color: 'rgba(74,222,128,0.4)' }}>🔍</span>
             <input value={cropSearch} placeholder="Search crops..."
               onChange={e => setCropSearch(e.target.value)}
-              className="w-full text-4xl pl-8 pr-3 py-2.5 rounded-xl" style={inputBase}
+              className="w-full text-xs pl-8 pr-3 py-2.5 rounded-xl" style={inputBase}
               onFocus={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.4)')}
               onBlur={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.1)')} />
           </div>
@@ -192,7 +192,7 @@ export default function FarmSettings() {
             <div className="flex flex-wrap gap-1.5 mb-3">
               {CROP_CATEGORIES.map(({ label, icon }) => (
                 <button key={label} onClick={() => setActiveCategory(label)}
-                  className="text-4xl px-2.5 py-1 rounded-lg transition-all"
+                  className="text-xs px-2.5 py-1 rounded-lg transition-all"
                   style={activeCategory === label
                     ? { background: 'rgba(74,222,128,0.15)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.3)', fontWeight: 500 }
                     : { color: '#8a8a7a', border: '1px solid rgba(0,0,0,0.07)', background: 'rgba(255,255,255,0.02)' }}>
@@ -206,7 +206,7 @@ export default function FarmSettings() {
           <div className="flex flex-wrap gap-2 mb-3">
             {activeCrops.map(crop => (
               <button key={crop} onClick={() => toggleCrop(crop)}
-                className="text-4xl px-3 py-1.5 rounded-lg transition-all"
+                className="text-xs px-3 py-1.5 rounded-lg transition-all"
                 style={form.crops.includes(crop)
                   ? { background: 'rgba(74,222,128,0.12)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.35)', fontWeight: 500 }
                   : { color: '#8a8a7a', border: '1px solid rgba(0,0,0,0.08)', background: 'rgba(255,255,255,0.02)' }}>
@@ -218,11 +218,11 @@ export default function FarmSettings() {
           {/* Selected chips */}
           {form.crops.length > 0 && (
             <div className="p-3 rounded-xl" style={{ background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.1)' }}>
-              <p className="text-4xl mb-2" style={{ color: '#8a8a7a' }}>{t('selectedCrops')}</p>
+              <p className="text-xs mb-2" style={{ color: '#8a8a7a' }}>{t('selectedCrops')}</p>
               <div className="flex flex-wrap gap-1.5">
                 {form.crops.map(crop => (
                   <span key={crop} onClick={() => toggleCrop(crop)}
-                    className="text-4xl px-2.5 py-1 rounded-lg cursor-pointer transition-all hover:opacity-70"
+                    className="text-xs px-2.5 py-1 rounded-lg cursor-pointer transition-all hover:opacity-70"
                     style={{ background: 'rgba(74,222,128,0.1)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)' }}>
                     {crop} <span style={{ opacity: 0.5 }}>×</span>
                   </span>
@@ -234,7 +234,7 @@ export default function FarmSettings() {
 
         {/* Save */}
         <button onClick={handleSave}
-          className="w-full py-3 text-4xl font-semibold rounded-xl transition-all"
+          className="w-full py-3 text-sm font-semibold rounded-xl transition-all"
           style={{
             background: saved ? 'rgba(22,163,74,0.9)' : '#16a34a',
             color: '#1a1a1a',

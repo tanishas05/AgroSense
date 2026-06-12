@@ -152,14 +152,14 @@ export default function VoiceAdvisory() {
     <div className="p-5 rounded-xl" style={{ background: 'rgba(74,222,128,0.03)', border: '1px solid rgba(74,222,128,0.14)' }}>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-4xl font-semibold" style={{ color: "#1a1a14" }}>
+          <h2 className="text-sm font-semibold" style={{ color: "#1a1a14" }}>
             🎙️ {lang === 'hi' ? 'आवाज़ खेती सहायक' : 'Voice Farming Assistant'}
           </h2>
-          <p className="text-4xl mt-0.5" style={{ color: '#6a6a5a' }}>
+          <p className="text-xs mt-0.5" style={{ color: '#6a6a5a' }}>
             {lang === 'hi' ? 'हिंदी या अंग्रेज़ी में पूछें' : 'Ask in Hindi or English'}
           </p>
         </div>
-        <span className="text-4xl px-2 py-1 rounded-full" style={{
+        <span className="text-xs px-2 py-1 rounded-full" style={{
           background: 'rgba(74,222,128,0.1)', color: '#16a34a', border: '1px solid rgba(74,222,128,0.2)'
         }}>
           {lang === 'hi' ? 'हिंदी · English' : 'Hindi · English'}
@@ -186,7 +186,7 @@ export default function VoiceAdvisory() {
       </div>
 
       {/* Status text */}
-      <p className="text-center text-4xl mb-4" style={{
+      <p className="text-center text-xs mb-4" style={{
         color: listening ? '#16a34a' : loading ? '#d97706' : '#8a8a7a'
       }}>
         {listening
@@ -197,7 +197,7 @@ export default function VoiceAdvisory() {
       </p>
 
       {error && (
-        <p className="text-center text-4xl mb-3" style={{ color: '#f87171' }}>{error}</p>
+        <p className="text-center text-xs mb-3" style={{ color: '#f87171' }}>{error}</p>
       )}
 
       {/* Transcript */}
@@ -205,10 +205,10 @@ export default function VoiceAdvisory() {
         <div className="mb-3 p-3 rounded-lg" style={{
           background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(0,0,0,0.09)'
         }}>
-          <p className="text-4xl mb-1" style={{ color: '#8a8a7a' }}>
+          <p className="text-xs mb-1" style={{ color: '#8a8a7a' }}>
             {lang === 'hi' ? 'आपने कहा:' : 'You said:'}
           </p>
-          <p className="text-4xl" style={{ color: "#1a1a14" }}>"{transcript}"</p>
+          <p className="text-sm" style={{ color: "#1a1a14" }}>"{transcript}"</p>
         </div>
       )}
 
@@ -221,7 +221,7 @@ export default function VoiceAdvisory() {
             <div className="h-1.5 flex-1 rounded-full overflow-hidden" style={{ background: 'rgba(74,222,128,0.1)' }}>
               <div className="h-full rounded-full animate-pulse" style={{ width: '60%', background: '#4ade80' }} />
             </div>
-            <p className="text-4xl" style={{ color: 'rgba(22,163,74,0.6)' }}>
+            <p className="text-xs" style={{ color: 'rgba(22,163,74,0.6)' }}>
               {lang === 'hi' ? 'विश्लेषण हो रहा है...' : 'Analyzing...'}
             </p>
           </div>
@@ -232,15 +232,15 @@ export default function VoiceAdvisory() {
         <div className="mb-4 p-3 rounded-lg" style={{
           background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(74,222,128,0.18)'
         }}>
-          <p className="text-4xl font-semibold mb-1.5 text-[#16a34a]">
+          <p className="text-xs font-semibold mb-1.5 text-[#16a34a]">
             🌿 {lang === 'hi' ? 'AI सलाह:' : 'AI Advisory:'}
           </p>
-          <p className="text-4xl leading-relaxed" style={{ color: '#2a2a1a' }}>
+          <p className="text-xs leading-relaxed" style={{ color: '#2a2a1a' }}>
             {response}
           </p>
           <button
             onClick={() => { setTranscript(''); setResponse(''); transcriptRef.current = '' }}
-            className="mt-2 text-4xl"
+            className="mt-2 text-xs"
             style={{ color: 'rgba(74,222,128,0.4)' }}
           >
             {lang === 'hi' ? '✕ साफ करें' : '✕ Clear'}
@@ -250,13 +250,13 @@ export default function VoiceAdvisory() {
 
       {/* Sample questions */}
       <div>
-        <p className="text-4xl mb-2" style={{ color: '#8a8a7a' }}>
+        <p className="text-xs mb-2" style={{ color: '#8a8a7a' }}>
           {lang === 'hi' ? 'या इन्हें टैप करें:' : 'Or tap a question:'}
         </p>
         <div className="space-y-1.5">
           {samples.map((q, i) => (
             <button key={i} onClick={() => askSample(q)}
-              className="w-full text-left text-4xl px-3 py-2.5 rounded-lg transition-all hover:border-green-400/25"
+              className="w-full text-left text-xs px-3 py-2.5 rounded-lg transition-all hover:border-green-400/25"
               style={{
                 background: 'rgba(255,255,255,0.02)',
                 border: '1px solid rgba(0,0,0,0.09)',
@@ -272,10 +272,10 @@ export default function VoiceAdvisory() {
       <div className="mt-4 p-3 rounded-xl" style={{
         background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)'
       }}>
-        <p className="text-4xl font-semibold mb-1" style={{ color: '#38bdf8' }}>
+        <p className="text-xs font-semibold mb-1" style={{ color: '#38bdf8' }}>
           📱 {lang === 'hi' ? 'SMS सलाह (जल्द आ रहा है)' : 'SMS Advisory (coming soon)'}
         </p>
-        <p className="text-4xl" style={{ color: '#6a6a5a' }}>
+        <p className="text-xs" style={{ color: '#6a6a5a' }}>
           {lang === 'hi'
             ? `"${SMS.shortcodeHint}" लिखकर ${SMS.number || '[SMS नंबर जल्द आएगा]'} पर भेजें — हिंदी में जवाब मिलेगा`
             : `SMS "${SMS.shortcodeHint}" to ${SMS.number || '[SMS number coming soon]'} — get advice in your language`}

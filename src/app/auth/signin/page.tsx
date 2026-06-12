@@ -19,17 +19,17 @@ export default function SignInPage() {
               <path d="M9 13V16M7 16H11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="font-bold text-4xl tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
+          <span className="font-bold text-xl tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
         </div>
 
         {/* Card */}
         <div className="rounded-2xl p-8" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.1)', boxShadow: '0 4px 32px rgba(0,0,0,0.08)' }}>
-          <h1 className="font-serif text-4xl mb-1 text-center" style={{ color: '#1a1a14' }}>{t('welcomeBack')}</h1>
-          <p className="text-4xl text-center mb-8" style={{ color: '#8a8a7a' }}>{t('signInAccess')}</p>
+          <h1 className="font-serif text-3xl mb-1 text-center" style={{ color: '#1a1a14' }}>{t('welcomeBack')}</h1>
+          <p className="text-sm text-center mb-8" style={{ color: '#8a8a7a' }}>{t('signInAccess')}</p>
 
           <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3.5 font-medium text-4xl rounded-xl transition-all"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3.5 font-medium text-sm rounded-xl transition-all"
             style={{ background: 'white', color: '#1a1a14', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}
             onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)')}
             onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)')}>
@@ -42,10 +42,10 @@ export default function SignInPage() {
             {t('continueWithGoogle')}
           </button>
 
-          <p className="text-4xl text-center mt-6 leading-relaxed" style={{ color: '#b0b0a0' }}>{t('termsText')}</p>
+          <p className="text-xs text-center mt-6 leading-relaxed" style={{ color: '#b0b0a0' }}>{t('termsText')}</p>
         </div>
 
-        <p className="text-center text-4xl mt-6" style={{ color: '#8a8a7a' }}>
+        <p className="text-center text-xs mt-6" style={{ color: '#8a8a7a' }}>
           {t('newToAgroSense')}{' '}
           <span className="cursor-pointer hover:underline" style={{ color: '#16a34a' }}
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}>

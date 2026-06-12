@@ -32,11 +32,11 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center no-underline flex-shrink-0">
-          <span className="font-bold text-4xl tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
+          <span className="font-bold text-base tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
         </Link>
 
         {/* Desktop nav links — centered */}
-        <div className="hidden md:flex items-center gap-7 text-4xl absolute left-1/2 -translate-x-1/2">
+        <div className="hidden md:flex items-center gap-7 text-sm absolute left-1/2 -translate-x-1/2">
           {navLinks.map(({ label, href }) => (
             <Link key={href} href={href}
               className="no-underline transition-colors"
@@ -48,7 +48,7 @@ export default function Navbar() {
           ))}
           <button
             onClick={() => session ? router.push('/dashboard') : router.push('/auth/signin')}
-            className="transition-colors text-4xl"
+            className="transition-colors text-sm"
             style={{ color: '#4a4a3a' }}
             onMouseEnter={e => (e.currentTarget.style.color = '#16a34a')}
             onMouseLeave={e => (e.currentTarget.style.color = '#4a4a3a')}>
@@ -64,7 +64,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-2.5">
             {session ? (
               <div className="flex items-center gap-3">
-                <span className="text-4xl" style={{ color: '#8a8a7a' }}>{session.user?.name}</span>
+                <span className="text-xs" style={{ color: '#8a8a7a' }}>{session.user?.name}</span>
                 <Link href="/profile">
                   {session.user?.image ? (
                     <img src={session.user.image} alt="avatar"
@@ -73,12 +73,12 @@ export default function Navbar() {
                       onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(22,163,74,0.7)')}
                       onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(22,163,74,0.3)')} />
                   ) : (
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-4xl cursor-pointer"
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs cursor-pointer"
                       style={{ background: 'rgba(22,163,74,0.1)', border: '2px solid rgba(22,163,74,0.3)', color: '#16a34a' }}>👤</div>
                   )}
                 </Link>
                 <button onClick={() => signOut()}
-                  className="px-3 py-1.5 text-4xl rounded-lg transition-all"
+                  className="px-3 py-1.5 text-sm rounded-lg transition-all"
                   style={{ color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.12)', background: 'transparent' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(22,163,74,0.4)'; e.currentTarget.style.color = '#16a34a' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = '#4a4a3a' }}>
@@ -88,14 +88,14 @@ export default function Navbar() {
             ) : (
               <>
                 <button onClick={() => signIn('google')}
-                  className="px-3 py-1.5 text-4xl rounded-lg transition-all"
+                  className="px-3 py-1.5 text-sm rounded-lg transition-all"
                   style={{ color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.12)', background: 'transparent' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(22,163,74,0.4)'; e.currentTarget.style.color = '#16a34a' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = '#4a4a3a' }}>
                   {t('signIn')}
                 </button>
                 <button onClick={() => signIn('google')}
-                  className="px-4 py-1.5 text-4xl font-semibold rounded-lg transition-all"
+                  className="px-4 py-1.5 text-sm font-semibold rounded-lg transition-all"
                   style={{ background: '#16a34a', color: 'white', border: 'none' }}
                   onMouseEnter={e => (e.currentTarget.style.background = '#15803d')}
                   onMouseLeave={e => (e.currentTarget.style.background = '#16a34a')}>
@@ -129,7 +129,7 @@ export default function Navbar() {
           {/* Drawer top bar */}
           <div className="flex items-center justify-between px-8 py-4"
             style={{ borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
-            <span className="font-bold text-4xl tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
+            <span className="font-bold text-base tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
             <button onClick={closeMenu} className="w-8 h-8 flex items-center justify-center rounded-lg"
               style={{ background: 'rgba(0,0,0,0.05)' }}
               aria-label="Close menu">
@@ -143,13 +143,13 @@ export default function Navbar() {
           <div className="flex flex-col px-8 py-6 gap-1 flex-1">
             {navLinks.map(({ label, href }) => (
               <Link key={href} href={href} onClick={closeMenu}
-                className="no-underline py-3.5 text-4xl font-medium transition-colors"
+                className="no-underline py-3.5 text-base font-medium transition-colors"
                 style={{ color: '#2a2a1a', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
                 {label}
               </Link>
             ))}
             <button onClick={() => { closeMenu(); session ? router.push('/dashboard') : router.push('/auth/signin') }}
-              className="text-left py-3.5 text-4xl font-medium transition-colors"
+              className="text-left py-3.5 text-base font-medium transition-colors"
               style={{ color: '#2a2a1a', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
               {t('dashboard')}
             </button>
@@ -163,15 +163,15 @@ export default function Navbar() {
                       ? <img src={session.user.image} alt="avatar" className="w-9 h-9 rounded-full" style={{ border: '2px solid rgba(22,163,74,0.3)' }} />
                       : <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'rgba(22,163,74,0.1)', border: '2px solid rgba(22,163,74,0.3)', color: '#16a34a' }}>👤</div>
                     }
-                    <span className="text-4xl" style={{ color: '#4a4a3a' }}>{session.user?.name}</span>
+                    <span className="text-sm" style={{ color: '#4a4a3a' }}>{session.user?.name}</span>
                   </div>
                   <button onClick={() => { closeMenu(); router.push('/profile') }}
-                    className="w-full py-3 text-4xl rounded-xl text-left px-4"
+                    className="w-full py-3 text-sm rounded-xl text-left px-4"
                     style={{ background: 'rgba(0,0,0,0.04)', color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.08)' }}>
                     {'Profile'}
                   </button>
                   <button onClick={() => { closeMenu(); signOut() }}
-                    className="w-full py-3 text-4xl rounded-xl font-medium"
+                    className="w-full py-3 text-sm rounded-xl font-medium"
                     style={{ color: '#dc2626', border: '1px solid rgba(220,38,38,0.2)', background: 'rgba(220,38,38,0.05)' }}>
                     {t('signOut')}
                   </button>
@@ -179,12 +179,12 @@ export default function Navbar() {
               ) : (
                 <>
                   <button onClick={() => { closeMenu(); signIn('google') }}
-                    className="w-full py-3 text-4xl rounded-xl font-semibold"
+                    className="w-full py-3 text-sm rounded-xl font-semibold"
                     style={{ background: '#16a34a', color: 'white' }}>
                     {t('getStarted')}
                   </button>
                   <button onClick={() => { closeMenu(); signIn('google') }}
-                    className="w-full py-3 text-4xl rounded-xl"
+                    className="w-full py-3 text-sm rounded-xl"
                     style={{ color: '#4a4a3a', border: '1px solid rgba(0,0,0,0.12)', background: 'transparent' }}>
                     {t('signIn')}
                   </button>

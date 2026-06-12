@@ -63,13 +63,13 @@ export default function CropAdvisory() {
     <div className="p-5 rounded-2xl" style={{ background: 'rgba(14,28,16,0.8)', border: '1px solid rgba(74,222,128,0.08)' }}>
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h2 className="text-4xl font-semibold text-white">🌿 {t('personalizedAdvisory')}</h2>
-          <p className="text-4xl mt-0.5" style={{ color: 'rgba(74,222,128,0.5)' }}>
+          <h2 className="text-sm font-semibold text-white">🌿 {t('personalizedAdvisory')}</h2>
+          <p className="text-xs mt-0.5" style={{ color: 'rgba(74,222,128,0.5)' }}>
             {location?.display ? `📍 ${location.display} · AI advice` : t('aiAdviceBasedOn')}
           </p>
         </div>
         {location?.village && (
-          <span className="text-4xl px-2 py-1 rounded-full flex-shrink-0"
+          <span className="text-xs px-2 py-1 rounded-full flex-shrink-0"
             style={{ background: 'rgba(74,222,128,0.08)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.18)' }}>
             Village-specific ✓
           </span>
@@ -79,8 +79,8 @@ export default function CropAdvisory() {
       {crops.length === 0 ? (
         <div className="text-center py-10">
           <div className="text-4xl mb-3">🌱</div>
-          <p className="text-4xl mb-4" style={{ color: 'rgba(255,255,255,0.35)' }}>{t('noCropsYet')}</p>
-          <button onClick={() => router.push('/profile')} className="text-4xl px-4 py-2 rounded-xl"
+          <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.35)' }}>{t('noCropsYet')}</p>
+          <button onClick={() => router.push('/profile')} className="text-xs px-4 py-2 rounded-xl"
             style={{ color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>{t('setCropsInProfile')}</button>
         </div>
       ) : (
@@ -88,7 +88,7 @@ export default function CropAdvisory() {
           <div className="flex flex-wrap gap-2 mb-4">
             {crops.map(crop => (
               <button key={crop} onClick={() => setSelected(crop)}
-                className="text-4xl px-3 py-1.5 rounded-xl transition-all"
+                className="text-xs px-3 py-1.5 rounded-xl transition-all"
                 style={selected === crop
                   ? { background: 'rgba(74,222,128,0.15)', color: '#86efac', border: '1px solid rgba(74,222,128,0.3)' }
                   : { color: 'rgba(255,255,255,0.35)', border: '1px solid rgba(255,255,255,0.08)' }}>
@@ -107,19 +107,19 @@ export default function CropAdvisory() {
                 {advCards.map(({ icon, label, key, color, bg, border }) => (
                   <div key={key} className="p-3 rounded-xl" style={{ background: bg, border: `1px solid ${border}` }}>
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-4xl">{icon}</span>
-                      <span className="text-4xl font-semibold" style={{ color }}>{label}</span>
+                      <span className="text-base">{icon}</span>
+                      <span className="text-xs font-semibold" style={{ color }}>{label}</span>
                     </div>
-                    <p className="text-4xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{advisory[key]}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{advisory[key]}</p>
                   </div>
                 ))}
               </div>
               {advisory.tips?.length > 0 && (
                 <div className="p-3.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                  <p className="text-4xl font-semibold text-white mb-2">{t('proTips')}</p>
+                  <p className="text-xs font-semibold text-white mb-2">{t('proTips')}</p>
                   <ul className="space-y-1.5">
                     {advisory.tips.map((tip: string, i: number) => (
-                      <li key={i} className="text-4xl flex items-start gap-2" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                      <li key={i} className="text-xs flex items-start gap-2" style={{ color: 'rgba(255,255,255,0.45)' }}>
                         <span style={{ color: '#4ade80' }}>→</span>{tip}
                       </li>
                     ))}

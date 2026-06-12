@@ -27,7 +27,7 @@ export default function LanguageSwitcher() {
         <button
           key={code}
           onClick={() => handleSwitch(code)}
-          className="px-2.5 py-1 rounded-md text-4xl font-medium transition-all"
+          className="px-2.5 py-1 rounded-md text-xs font-medium transition-all"
           style={{
             backgroundColor: lang === code ? 'rgba(74,222,128,0.2)' : 'transparent',
             color: lang === code ? '#16a34a' : '#8a8a7a',

@@ -78,12 +78,12 @@ export default function FeaturesPage() {
 
       {/* HERO */}
       <section className="max-w-5xl mx-auto px-8 py-20 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 text-4xl" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 text-xs" style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', color: '#4ade80' }}>
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
           {lang === 'hi' ? '6 शक्तिशाली विशेषताएं' : '6 powerful features'}
         </div>
         <h1 className="font-serif text-5xl lg:text-6xl mb-5 leading-tight" style={{ color: '#1a1a14' }}>{t('everythingAFarmerNeeds')}</h1>
-        <p className="text-4xl max-w-2xl mx-auto" style={{ color: 'rgba(30,30,20,0.5)', lineHeight: 1.7 }}>
+        <p className="text-base max-w-2xl mx-auto" style={{ color: 'rgba(30,30,20,0.5)', lineHeight: 1.7 }}>
           {lang === 'hi' ? 'AgroSense AI, रियल-टाइम मौसम डेटा, सरकारी मंडी भाव और आवाज़ सलाह को एक प्लेटफ़ॉर्म में जोड़ता है।' : 'AgroSense combines AI, real-time weather data, government Mandi prices, and voice advisory into one platform for Indian farmers.'}
         </p>
         <div className="grid grid-cols-3 gap-8 mt-14 max-w-lg mx-auto">
@@ -93,8 +93,8 @@ export default function FeaturesPage() {
             { value: `${HERO_STATS.apisCount.value}${HERO_STATS.apisCount.suffix}`, label: t('apisLabel') },
           ].map(({ value, label }) => (
             <div key={label} className="text-center">
-              <div className="text-4xl font-bold mb-1" style={{ color: '#16a34a' }}>{value}</div>
-              <div className="text-4xl uppercase tracking-wider" style={{ color: 'rgba(30,30,20,0.4)' }}>{label}</div>
+              <div className="text-3xl font-bold mb-1" style={{ color: '#16a34a' }}>{value}</div>
+              <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(30,30,20,0.4)' }}>{label}</div>
             </div>
           ))}
         </div>
@@ -103,7 +103,7 @@ export default function FeaturesPage() {
       {/* HOW IT WORKS */}
       <section className="max-w-6xl mx-auto px-8 pb-20">
         <div className="text-center mb-12">
-          <p className="text-4xl mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'यह कैसे काम करता है' : 'How it works'}</p>
+          <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'यह कैसे काम करता है' : 'How it works'}</p>
           <h2 className="font-serif text-4xl mb-3" style={{ color: '#1a1a14' }}>{lang === 'hi' ? '4 आसान चरणों में शुरू करें' : 'Get started in 4 simple steps'}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -114,11 +114,11 @@ export default function FeaturesPage() {
               onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
               {i < 3 && <div className="hidden lg:block absolute top-8 -right-2 w-4 h-px" style={{ background: 'rgba(74,222,128,0.2)' }} />}
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-4xl" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)' }}>{icon}</div>
-                <span className="text-4xl font-mono" style={{ color: 'rgba(74,222,128,0.3)' }}>{number}</span>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl" style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)' }}>{icon}</div>
+                <span className="text-xs font-mono" style={{ color: 'rgba(74,222,128,0.3)' }}>{number}</span>
               </div>
-              <h3 className="text-4xl font-semibold mb-2" style={{ color: '#1a1a14' }}>{title}</h3>
-              <p className="text-4xl leading-relaxed" style={{ color: 'rgba(30,30,20,0.5)' }}>{desc}</p>
+              <h3 className="text-sm font-semibold mb-2" style={{ color: '#1a1a14' }}>{title}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(30,30,20,0.5)' }}>{desc}</p>
             </div>
           ))}
         </div>
@@ -127,7 +127,7 @@ export default function FeaturesPage() {
       {/* FEATURES — 2 per row */}
       <section className="max-w-6xl mx-auto px-8 pb-20 space-y-4">
         <div className="text-center mb-10">
-          <p className="text-4xl mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'विशेषताएं' : 'Features'}</p>
+          <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'विशेषताएं' : 'Features'}</p>
           <h2 className="font-serif text-4xl" style={{ color: '#1a1a14' }}>{t('everythingAFarmerNeeds')}</h2>
         </div>
         {pairs.map((pair, pi) => (
@@ -139,32 +139,32 @@ export default function FeaturesPage() {
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-4xl flex-shrink-0"
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
                       style={{ background: accentBg, border: `1px solid ${accentBorder}` }}>{icon}</div>
                     <div>
-                      <span className="text-4xl font-mono block mb-0.5" style={{ color: `${accent}60` }}>{number}</span>
-                      <h3 className="text-4xl font-semibold" style={{ color: '#1a1a14' }}>{t(titleKey as any)}</h3>
+                      <span className="text-xs font-mono block mb-0.5" style={{ color: `${accent}60` }}>{number}</span>
+                      <h3 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>{t(titleKey as any)}</h3>
                     </div>
                   </div>
                   <div className="text-right flex-shrink-0 ml-2">
-                    <div className="text-4xl font-bold" style={{ color: accent }}>{visual.stat}</div>
-                    <div className="text-4xl" style={{ color: 'rgba(30,30,20,0.4)' }}>{visual.statLabel}</div>
+                    <div className="text-xl font-bold" style={{ color: accent }}>{visual.stat}</div>
+                    <div className="text-xs" style={{ color: 'rgba(30,30,20,0.4)' }}>{visual.statLabel}</div>
                   </div>
                 </div>
-                <p className="text-4xl leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
+                <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(30,30,20,0.55)' }}>{desc[lang as 'en' | 'hi']}</p>
                 <ul className="space-y-1.5 mb-4 flex-1">
                   {points[lang as 'en' | 'hi'].map((point: string, j: number) => (
-                    <li key={j} className="flex items-center gap-2 text-4xl" style={{ color: 'rgba(30,30,20,0.65)' }}>
+                    <li key={j} className="flex items-center gap-2 text-xs" style={{ color: 'rgba(30,30,20,0.65)' }}>
                       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />{point}
                     </li>
                   ))}
                 </ul>
                 <div className="flex flex-wrap items-center gap-1.5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.02)' }}>
                   {tech.map((techItem: string) => (
-                    <span key={techItem} className="text-4xl px-2 py-0.5 rounded-lg"
+                    <span key={techItem} className="text-xs px-2 py-0.5 rounded-lg"
                       style={{ background: accentBg, color: accent, border: `1px solid ${accentBorder}` }}>{techItem}</span>
                   ))}
-                  <button onClick={() => handleNav(href)} className="ml-auto text-4xl px-3 py-1 rounded-xl transition-all"
+                  <button onClick={() => handleNav(href)} className="ml-auto text-xs px-3 py-1 rounded-xl transition-all"
                     style={{ color: accent, border: `1px solid ${accentBorder}` }}
                     onMouseEnter={e => (e.currentTarget.style.background = accentBg)}
                     onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
@@ -180,8 +180,8 @@ export default function FeaturesPage() {
       {/* TECH STACK */}
       <section className="max-w-6xl mx-auto px-8 pb-20">
         <div className="text-center mb-10">
-          <p className="text-4xl mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'तकनीक' : 'Technology'}</p>
-          <h2 className="font-serif text-4xl mb-2" style={{ color: '#1a1a14' }}>{lang === 'hi' ? 'हमारी तकनीक' : 'Built with modern tech'}</h2>
+          <p className="text-xs mb-3 uppercase tracking-widest" style={{ color: '#4ade80' }}>{lang === 'hi' ? 'तकनीक' : 'Technology'}</p>
+          <h2 className="font-serif text-3xl mb-2" style={{ color: '#1a1a14' }}>{lang === 'hi' ? 'हमारी तकनीक' : 'Built with modern tech'}</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {techStack.map(({ category, items }) => (
@@ -189,10 +189,10 @@ export default function FeaturesPage() {
               style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.2)')}
               onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(74,222,128,0.08)')}>
-              <h3 className="text-4xl font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgba(74,222,128,0.6)' }}>{category[lang as 'en' | 'hi']}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'rgba(74,222,128,0.6)' }}>{category[lang as 'en' | 'hi']}</h3>
               <ul className="space-y-2">
                 {items.map(item => (
-                  <li key={item} className="text-4xl flex items-center gap-2" style={{ color: 'rgba(30,30,20,0.7)' }}>
+                  <li key={item} className="text-xs flex items-center gap-2" style={{ color: 'rgba(30,30,20,0.7)' }}>
                     <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: 'rgba(74,222,128,0.5)' }} />{item}
                   </li>
                 ))}
@@ -208,15 +208,15 @@ export default function FeaturesPage() {
           <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%)' }} />
           <div className="text-4xl mb-5">🌱</div>
           <h2 className="font-serif text-4xl mb-3" style={{ color: '#1a1a14' }}>{t('readyToGrow')}</h2>
-          <p className="mb-8 text-4xl" style={{ color: 'rgba(30,30,20,0.5)' }}>{t('freeNoCard')}</p>
+          <p className="mb-8 text-sm" style={{ color: 'rgba(30,30,20,0.5)' }}>{t('freeNoCard')}</p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <button onClick={() => handleNav('/dashboard')} className="px-8 py-3.5 text-4xl font-semibold text-white rounded-xl"
+            <button onClick={() => handleNav('/dashboard')} className="px-8 py-3.5 text-sm font-semibold text-white rounded-xl"
               style={{ background: '#16a34a' }}
               onMouseEnter={e => (e.currentTarget.style.background = '#15803d')}
               onMouseLeave={e => (e.currentTarget.style.background = '#16a34a')}>
               {session ? t('goToDashboard') : t('getStartedFree')}
             </button>
-            <button onClick={() => handleNav('/advisory')} className="px-8 py-3.5 text-4xl rounded-xl transition-all"
+            <button onClick={() => handleNav('/advisory')} className="px-8 py-3.5 text-sm rounded-xl transition-all"
               style={{ color: 'rgba(30,30,20,0.6)', border: '1px solid rgba(0,0,0,0.12)' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(74,222,128,0.35)'; e.currentTarget.style.color = '#86efac' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'rgba(232,245,226,0.5)' }}>
@@ -224,7 +224,7 @@ export default function FeaturesPage() {
             </button>
           </div>
         </div>
-        <footer className="text-center text-4xl mt-10" style={{ color: 'rgba(30,30,20,0.3)' }}>
+        <footer className="text-center text-xs mt-10" style={{ color: 'rgba(30,30,20,0.3)' }}>
           © {COPYRIGHT_YEAR} AgroSense · AI-Powered Smart Farming · Built for Bharat 🇮🇳
         </footer>
       </section>

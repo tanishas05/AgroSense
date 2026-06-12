@@ -23,13 +23,13 @@ export default function PriceTable() {
   return (
     <div className="rounded-xl p-5" style={{ background: 'white', border: '1px solid rgba(0,0,0,0.08)' }}>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-4xl font-semibold" style={{ color: '#1a1a14' }}>All Commodities</h2>
+        <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>All Commodities</h2>
         <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)}
-          className="text-4xl px-3 py-1.5 rounded-lg outline-none w-32"
+          className="text-xs px-3 py-1.5 rounded-lg outline-none w-32"
           style={{ background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.1)', color: '#1a1a14' }} />
       </div>
       <div className="space-y-1">
-        <div className="grid grid-cols-4 px-2 pb-2 text-4xl" style={{ borderBottom: '1px solid rgba(0,0,0,0.07)', color: '#b0b0a0', fontSize: 10 }}>
+        <div className="grid grid-cols-4 px-2 pb-2 text-xs" style={{ borderBottom: '1px solid rgba(0,0,0,0.07)', color: '#b0b0a0', fontSize: 10 }}>
           <span>Commodity</span><span>Price/q</span><span>Change</span><span>Market</span>
         </div>
         {loading ? MANDI_ALL_COMMODITIES.map((_, i) => (
@@ -38,9 +38,9 @@ export default function PriceTable() {
           <div key={crop} className="grid grid-cols-4 items-center px-2 py-2 rounded-lg transition-all"
             onMouseEnter={e => (e.currentTarget.style.background = 'rgba(0,0,0,0.025)')}
             onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-            <span className="text-4xl font-medium" style={{ color: '#1a1a14' }}>{crop}</span>
-            <span className="text-4xl font-semibold" style={{ color: '#16a34a' }}>{price}</span>
-            <span className="text-4xl font-medium" style={{ color: change == null ? '#b0b0a0' : up ? '#16a34a' : '#dc2626' }}>{change ?? '—'}</span>
+            <span className="text-xs font-medium" style={{ color: '#1a1a14' }}>{crop}</span>
+            <span className="text-xs font-semibold" style={{ color: '#16a34a' }}>{price}</span>
+            <span className="text-xs font-medium" style={{ color: change == null ? '#b0b0a0' : up ? '#16a34a' : '#dc2626' }}>{change ?? '—'}</span>
             <span className="truncate" style={{ color: '#8a8a7a', fontSize: 10 }}>{market}</span>
           </div>
         ))}

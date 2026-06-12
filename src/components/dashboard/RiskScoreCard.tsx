@@ -87,8 +87,8 @@ export default function RiskScoreCard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-4xl font-semibold" style={{ color: '#1a1a14' }}>🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
-          <p className="text-4xl mt-0.5" style={{ color: '#8a8a7a' }}>
+          <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
+          <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>
             📍 {location?.village ?? UNKNOWN_LOCATION_VILLAGE} · {lang==='hi'?'पेज लोड पर अपडेट':'Updates on page load'}
           </p>
         </div>
@@ -104,10 +104,10 @@ export default function RiskScoreCard() {
             return (
               <div key={label}>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-4xl" style={{ color: '#4a4a3a' }}>{label}</span>
+                  <span className="text-xs" style={{ color: '#4a4a3a' }}>{label}</span>
                   <div className="flex items-center gap-1">
-                    <span className="text-4xl font-semibold" style={{ color }}>{value}%</span>
-                    <span className="text-4xl px-1 rounded" style={{ background: `${color}18`, color, fontSize: 9 }}>{level}</span>
+                    <span className="text-xs font-semibold" style={{ color }}>{value}%</span>
+                    <span className="text-xs px-1 rounded" style={{ background: `${color}18`, color, fontSize: 9 }}>{level}</span>
                   </div>
                 </div>
                 <div className="h-1.5 rounded-full" style={{ background: 'rgba(74,222,128,0.08)' }}>
@@ -119,10 +119,10 @@ export default function RiskScoreCard() {
         </div>
         <div className="p-3 rounded-xl flex flex-col justify-center"
           style={{ background: `${insightColor}08`, border: `1px solid ${insightColor}25` }}>
-          <p className="text-4xl font-semibold mb-1.5" style={{ color: insightColor }}>
+          <p className="text-xs font-semibold mb-1.5" style={{ color: insightColor }}>
             ⚡ {lang==='hi'?'AI अंतर्दृष्टि':'AI Insight'}
           </p>
-          <p className="text-4xl leading-relaxed" style={{ color: '#4a4a3a' }}>{risk.insight}</p>
+          <p className="text-xs leading-relaxed" style={{ color: '#4a4a3a' }}>{risk.insight}</p>
         </div>
       </div>
     </div>

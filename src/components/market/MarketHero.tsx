@@ -19,14 +19,14 @@ export default function MarketHero() {
           onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(22,163,74,0.3)')}
           onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)')}>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-4xl font-medium" style={{ color: '#4a4a3a' }}>{crop}</span>
-            <span className="text-4xl font-semibold px-2 py-0.5 rounded-full"
+            <span className="text-xs font-medium" style={{ color: '#4a4a3a' }}>{crop}</span>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
               style={{ background: up ? 'rgba(22,163,74,0.08)' : 'rgba(239,68,68,0.08)', color: up ? '#16a34a' : '#dc2626' }}>
               {change}
             </span>
           </div>
-          <div className="text-4xl font-bold" style={{ color: '#1a1a14' }}>{price}</div>
-          <div className="text-4xl mt-1" style={{ color: '#8a8a7a' }}>/quintal · {market}</div>
+          <div className="text-2xl font-bold" style={{ color: '#1a1a14' }}>{price}</div>
+          <div className="text-xs mt-1" style={{ color: '#8a8a7a' }}>/quintal · {market}</div>
         </div>
       ))}
     </div>
