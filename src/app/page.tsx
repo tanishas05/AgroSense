@@ -124,7 +124,7 @@ export default function HomePage() {
           <div className="hv-card hv-card-2">
             <span className="hv-icon">🌡️</span>
             <div>
-              <div className="hv-label">Weather · Example</div>
+              <div className="hv-label">Weather</div>
               <div className="hv-val" style={{ color: '#16a34a' }}>Live after sign-in</div>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function HomePage() {
           <div className="hv-card hv-card-4">
             <span className="hv-icon">📈</span>
             <div>
-              <div className="hv-label">Mandi Prices · Example</div>
+              <div className="hv-label">Mandi Prices</div>
               <div className="hv-val" style={{ color: '#4ade80' }}>Live after sign-in</div>
             </div>
           </div>

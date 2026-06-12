@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
   // If a full question was asked (e.g. from voice), use it directly as context.
   // Otherwise treat crop as the crop name for structured advisory.
-  const isQuestion = question && question.length > 30
+  const isQuestion = question && (question.length > 20 || /\b(what|when|how|why|which|price|rate|bhav|kab|kya|kaise)\b/i.test(question))
   const cropLabel = isQuestion ? 'general farming' : crop
 
   const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice based on the crop, GPS location, and live weather data provided. Respond with valid JSON only. No markdown, no explanation.`

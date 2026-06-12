@@ -46,11 +46,15 @@ export default function VoiceAdvisory() {
       const humidity = weather.main?.humidity ?? 65
       const description = weather.weather?.[0]?.description ?? 'partly cloudy'
 
+      // Extract crop name from query, fallback to 'general crops'
+      const cropMatch = query.match(/\b(tomato|wheat|rice|onion|potato|maize|cotton|sugarcane|soybean|mustard|टमाटर|गेहूं|चावल|प्याज|आलू|मक्का|कपास|गन्ना|सोयाबीन|सरसों)\b/i)
+      const crop = cropMatch ? cropMatch[0] : 'general crops'
+
       const res = await fetch('/api/crop-advisory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          crop: query,
+          crop,
           weather: { temp, humidity, description },
           question: query,
         }),
