@@ -26,6 +26,7 @@ export default function VoiceAdvisory() {
   const [response, setResponse] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isSpeaking, setIsSpeaking] = useState(false)
   const recRef = useRef<any>(null)
   const transcriptRef = useRef('')
 
@@ -78,6 +79,9 @@ export default function VoiceAdvisory() {
         const utter = new SpeechSynthesisUtterance(advice)
         utter.lang = SPEECH.langMap[lang] ?? SPEECH.langMap['en']
         utter.rate = SPEECH.rate
+        utter.onstart = () => setIsSpeaking(true)
+        utter.onend = () => setIsSpeaking(false)
+        utter.onerror = () => setIsSpeaking(false)
         window.speechSynthesis.speak(utter)
       }
     } catch {
@@ -142,6 +146,11 @@ export default function VoiceAdvisory() {
   function stopListening() {
     recRef.current?.stop()
     setListening(false)
+  }
+
+  function stopSpeaking() {
+    window.speechSynthesis?.cancel()
+    setIsSpeaking(false)
   }
 
   function askSample(q: string) {
@@ -236,14 +245,24 @@ export default function VoiceAdvisory() {
         <div className="mb-4 p-3 rounded-lg" style={{
           background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(74,222,128,0.18)'
         }}>
-          <p className="text-xs font-semibold mb-1.5 text-[#16a34a]">
-            🌿 {lang === 'hi' ? 'AI सलाह:' : 'AI Advisory:'}
-          </p>
+          <div className="flex items-center justify-between mb-1.5">
+            <p className="text-xs font-semibold text-[#16a34a]">
+              🌿 {lang === 'hi' ? 'AI सलाह:' : 'AI Advisory:'}
+            </p>
+            {isSpeaking && (
+              <button
+                onClick={stopSpeaking}
+                className="text-xs px-2 py-1 rounded-lg transition-all"
+                style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.2)' }}>
+                🔇 {lang === 'hi' ? 'चुप करो' : 'Stop'}
+              </button>
+            )}
+          </div>
           <p className="text-xs leading-relaxed" style={{ color: '#2a2a1a' }}>
             {response}
           </p>
           <button
-            onClick={() => { setTranscript(''); setResponse(''); transcriptRef.current = '' }}
+            onClick={() => { setTranscript(''); setResponse(''); transcriptRef.current = ''; stopSpeaking() }}
             className="mt-2 text-xs"
             style={{ color: 'rgba(74,222,128,0.4)' }}
           >
