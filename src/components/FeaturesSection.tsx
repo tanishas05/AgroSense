@@ -18,19 +18,19 @@ const features = [
   {
     icon: '💧',
     title: 'Smart Irrigation System',
-    desc: 'Analyzes soil moisture and crop type to recommend optimal irrigation timing.',
+    desc: 'Estimates soil moisture from live weather and humidity data to suggest irrigation timing.',
     tag: 'Weather · AI',
   },
   {
     icon: '🌱',
     title: 'Fertilizer Optimization',
-    desc: 'AI recommends exact NPK quantities tailored to your crop and soil.',
-    tag: 'AI · ML',
+    desc: 'AI recommends fertilizer based on your crop type and current weather conditions.',
+    tag: 'Groq AI',
   },
   {
     icon: '📈',
-    title: 'Market Price Prediction',
-    desc: 'Live Mandi prices and 7-day forecasts so you sell at the right time.',
+    title: 'Live Mandi Prices',
+    desc: 'Live Mandi prices from data.gov.in so you know todays market rates.',
     tag: 'Live Mandi APIs',
   },
   {

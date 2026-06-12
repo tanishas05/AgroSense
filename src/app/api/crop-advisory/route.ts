@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   const locationStr = locationParts.length > 0 ? locationParts.join(', ') : 'India'
   const isVillageLevel = Boolean(village && village !== UNKNOWN_LOCATION_VILLAGE)
 
-  const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice — not generic state-level recommendations. Always consider the exact village microclimate, local soil types, and regional crop calendars. Respond with valid JSON only. No markdown, no explanation.`
+  const systemPrompt = `You are an expert agricultural advisor for Indian farmers. You give HYPERLOCAL, VILLAGE-SPECIFIC advice based on the crop, GPS location, and live weather data provided. Respond with valid JSON only. No markdown, no explanation.`
 
   const userPrompt = `Give highly specific farming advice for ${crop} crop.
 

@@ -272,7 +272,7 @@ export default function VoiceAdvisory() {
         background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)'
       }}>
         <p className="text-xs font-semibold mb-1" style={{ color: '#38bdf8' }}>
-          📱 {lang === 'hi' ? 'SMS सलाह (ऑफलाइन क्षेत्र)' : 'SMS Advisory (offline areas)'}
+          📱 {lang === 'hi' ? 'SMS सलाह (जल्द आ रहा है)' : 'SMS Advisory (coming soon)'}
         </p>
         <p className="text-xs" style={{ color: '#6a6a5a' }}>
           {lang === 'hi'

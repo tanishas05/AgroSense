@@ -26,7 +26,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="text-base text-green-100/50 leading-relaxed mb-8 max-w-lg">
-          Real-time crop intelligence, hyperlocal weather advisories, and market price predictions — all in your regional language.
+          Real-time crop intelligence, hyperlocal weather advisories, and live Mandi prices — all in your regional language.
         </p>
 
         <div className="flex items-center gap-3 flex-wrap">

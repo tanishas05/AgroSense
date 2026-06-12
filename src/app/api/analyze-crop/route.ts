@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
 import { API_URLS, AI_MODELS, AI_MAX_TOKENS } from '@/lib/config'
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession()
+  if (!session?.user?.email) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const { image, mimeType, cropName } = await req.json()
 
   try {
@@ -29,8 +35,8 @@ export async function POST(req: NextRequest) {
 If it is NOT a crop/plant image, respond with exactly:
 {"error":"not_a_crop","message":"Please upload a photo of a crop or plant leaf"}
 
-If it IS a crop/plant image${cropName ? ` of ${cropName}` : ''}, analyze it and respond with ONLY this JSON:
-{"disease":"exact disease name or Healthy","confidence":90,"severity":"Low","healthScore":75,"treatment":["specific step 1","specific step 2","specific step 3"],"nutrients":[],"summary":"2 sentence summary of what you actually see"}`,
+If it IS a crop/plant image${cropName ? ` of ${cropName}` : ''}, analyze it and respond with ONLY this JSON (no example values — fill in real ones based on what you see):
+{"cropType":"the crop plant name you identified e.g. Tomato","disease":"exact disease name or Healthy","confidence":<integer 0-100>,"severity":"Low or Medium or High","healthScore":<integer 0-100>,"treatment":["step 1","step 2","step 3"],"nutrients":[],"summary":"2 sentence summary of what you actually see"}`,
               },
             ],
           },
@@ -47,6 +53,7 @@ If it IS a crop/plant image${cropName ? ` of ${cropName}` : ''}, analyze it and 
 
     if (parsed.error === 'not_a_crop') {
       return NextResponse.json({
+        cropType: '',
         disease: 'Invalid image',
         confidence: 0,
         severity: 'Unknown',
@@ -60,6 +67,7 @@ If it IS a crop/plant image${cropName ? ` of ${cropName}` : ''}, analyze it and 
     return NextResponse.json(parsed)
   } catch (e) {
     return NextResponse.json({
+      cropType: '',
       disease: 'Analysis Error',
       confidence: 0,
       severity: 'Unknown',

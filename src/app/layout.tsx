@@ -6,7 +6,7 @@ import { LocationProvider } from '@/context/LocationContext'
 
 export const metadata: Metadata = {
   title: 'AgroSense — AI-Powered Smart Farming',
-  description: 'Real-time crop intelligence, hyperlocal weather advisories, and market price predictions.',
+  description: 'Real-time crop intelligence, hyperlocal weather advisories, and live Mandi prices.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

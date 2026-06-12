@@ -89,7 +89,7 @@ export default function RiskScoreCard() {
         <div>
           <h2 className="text-sm font-semibold" style={{ color: '#1a1a14' }}>🤖 {lang==='hi'?'AI खेती जोखिम स्कोर':'AI Farming Risk Score'}</h2>
           <p className="text-xs mt-0.5" style={{ color: '#8a8a7a' }}>
-            📍 {location?.village ?? UNKNOWN_LOCATION_VILLAGE} · {lang==='hi'?'हर घंटे अपडेट':'Updated every hour'}
+            📍 {location?.village ?? UNKNOWN_LOCATION_VILLAGE} · {lang==='hi'?'पेज लोड पर अपडेट':'Updates on page load'}
           </p>
         </div>
         <RiskArc value={risk.overall} size={72} />

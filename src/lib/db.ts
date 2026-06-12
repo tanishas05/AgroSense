@@ -2,21 +2,26 @@ import { supabase } from './supabase'
 import { DB_LIMITS } from '@/lib/config'
 
 export async function getOrCreateProfile(email: string, name?: string, avatar?: string) {
-  const { data, error } = await supabase
+  // upsert avoids the SELECT-then-INSERT race condition on concurrent first-logins
+  const { data } = await supabase
+    .from('profiles')
+    .upsert(
+      { email, name, avatar_url: avatar, notifications: { weather: true, disease: true, market: true, irrigation: true } },
+      { onConflict: 'email', ignoreDuplicates: true }
+    )
+    .select()
+    .single()
+
+  // ignoreDuplicates means existing row isn't touched; fetch it if upsert returned nothing
+  if (data) return data
+
+  const { data: existing } = await supabase
     .from('profiles')
     .select('*')
     .eq('email', email)
     .single()
 
-  if (data) return data
-
-  const { data: newProfile } = await supabase
-    .from('profiles')
-    .insert({ email, name, avatar_url: avatar })
-    .select()
-    .single()
-
-  return newProfile
+  return existing
 }
 
 export async function updateProfile(email: string, updates: any) {

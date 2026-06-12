@@ -19,7 +19,6 @@ export default function AlertsCard() {
 
   async function generateAlerts(lat: number, lon: number) {
     try {
-      // Fetch weather, mandi prices, AND user's notification preferences in parallel
       const [weatherRes, mandiRes, profileRes] = await Promise.all([
         fetch(`/api/weather?lat=${lat}&lon=${lon}&type=forecast`),
         fetch('/api/mandi'),
@@ -28,40 +27,42 @@ export default function AlertsCard() {
       const weather = await weatherRes.json()
       const mandi = await mandiRes.json()
       const profile = await profileRes.json()
-      const prefs: Record<string, boolean> = profile?.notifications ?? {}
+
+      // Default all notifications to ON — consistent with getOrCreateProfile defaults.
+      // !!prefs.X (not prefs.X !== false) so new users with empty prefs see no alerts
+      // until preferences are saved, rather than showing alerts the toggles say are off.
+      const prefs: Record<string, boolean> = profile?.notifications ?? {
+        weather: true, disease: true, market: true, irrigation: true,
+      }
 
       const current = weather.list?.[0]
       const humidity = current?.main?.humidity ?? 50
       const temp = current?.main?.temp ?? 28
       const newAlerts: any[] = []
 
-      // Weather alerts — only if user has weather notifications on
-      if (prefs.weather !== false) {
+      if (!!prefs.weather) {
         const rainDay = weather.list?.find((item: any) => item.pop > 0.7)
         if (rainDay) {
           const day = new Date(rainDay.dt * 1000).toLocaleDateString('en', { weekday: 'long' })
           newAlerts.push({ type: 'warning', icon: '🌧️', title: `Heavy rain expected ${day}`, desc: `${Math.round(rainDay.pop * 100)}% chance · Delay irrigation`, time: 'Just now' })
         }
         if (temp > 35) {
-          newAlerts.push({ type: 'warning', icon: '🌡️', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: '1h ago' })
+          newAlerts.push({ type: 'warning', icon: '🌡️', title: 'Heat stress alert', desc: `${Math.round(temp)}°C · Water crops early morning`, time: 'Just now' })
         }
       }
 
-      // Market alerts — only if user has market notifications on
-      if (prefs.market !== false) {
+      if (!!prefs.market) {
         const rising = mandi.find((m: any) => m.up && parseFloat(m.change) > 3)
-        if (rising) newAlerts.push({ type: 'success', icon: '📈', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: '1h ago' })
+        if (rising) newAlerts.push({ type: 'success', icon: '📈', title: `${rising.crop} price rising`, desc: `${rising.market} · ${rising.change}`, time: 'Just now' })
       }
 
-      // Disease alerts — only if user has disease notifications on
-      if (prefs.disease !== false) {
-        if (humidity > 65) newAlerts.push({ type: 'danger', icon: '🍄', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: '2h ago' })
+      if (!!prefs.disease) {
+        if (humidity > 65) newAlerts.push({ type: 'danger', icon: '🍄', title: 'Fungal disease risk high', desc: `Humidity ${Math.round(humidity)}% · Spray fungicide`, time: 'Just now' })
       }
 
-      // Irrigation alerts — only if user has irrigation notifications on
-      if (prefs.irrigation !== false) {
+      if (!!prefs.irrigation) {
         if (humidity < 40 || temp > 33) {
-          newAlerts.push({ type: 'info', icon: '💧', title: 'Irrigation recommended today', desc: `Low moisture conditions · Schedule early morning`, time: '3h ago' })
+          newAlerts.push({ type: 'info', icon: '💧', title: 'Irrigation recommended today', desc: `Low moisture conditions · Schedule early morning`, time: 'Just now' })
         }
       }
 

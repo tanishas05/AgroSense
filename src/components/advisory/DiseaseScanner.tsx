@@ -32,10 +32,23 @@ export default function DiseaseScanner() {
         const data = await res.json()
         setResult(data)
         if (session?.user?.email && data.disease) {
+          // Use the user-typed crop name first, then fall back to what the AI identified,
+          // then fall back to 'Crop' — never save as 'Unknown' so health card can match.
+          const savedCropName = cropName.trim() || data.cropType?.trim() || 'Crop'
           await fetch('/api/scans', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: session.user.email, crop_name: cropName || 'Unknown', disease: data.disease, confidence: data.confidence, severity: data.severity, health_score: data.healthScore, treatment: data.treatment, nutrients: data.nutrients, summary: data.summary }),
+            body: JSON.stringify({
+              email: session.user.email,
+              crop_name: savedCropName,
+              disease: data.disease,
+              confidence: data.confidence,
+              severity: data.severity,
+              health_score: data.healthScore,
+              treatment: data.treatment,
+              nutrients: data.nutrients,
+              summary: data.summary,
+            }),
           })
         }
       } catch {
@@ -108,7 +121,7 @@ export default function DiseaseScanner() {
             style={{ background: 'rgba(167,139,250,0.07)', border: '1px solid rgba(167,139,250,0.18)' }}>
             <div className="flex-1">
               <p className="text-xs mb-1" style={{ color: '#8a8a7a' }}>{t('detected')}</p>
-              <p className="text-base font-bold mb-1" style={{ color: "#1a1a14" }} >{result.disease}</p>
+              <p className="text-base font-bold mb-1" style={{ color: "#1a1a14" }}>{result.disease}</p>
               <p className="text-xs leading-relaxed" style={{ color: '#6a6a5a' }}>{result.summary}</p>
             </div>
             <div className="text-right ml-4 flex-shrink-0">
@@ -137,7 +150,7 @@ export default function DiseaseScanner() {
 
           {result.treatment?.length > 0 && (
             <div className="p-4 rounded-xl" style={{ background: 'rgba(74,222,128,0.05)', border: '1px solid rgba(74,222,128,0.15)' }}>
-              <p className="text-xs font-semibold mb-3" style={{ color: "#1a1a14" }} >{t('treatmentSteps')}</p>
+              <p className="text-xs font-semibold mb-3" style={{ color: "#1a1a14" }}>{t('treatmentSteps')}</p>
               <div className="space-y-2">
                 {result.treatment.map((step: string, i: number) => (
                   <div key={i} className="flex items-start gap-2.5">

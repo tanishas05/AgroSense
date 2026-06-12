@@ -6,7 +6,7 @@ import { useLang } from '@/context/LanguageContext'
 
 // These notifications are fully implemented (drive real AlertsCard logic)
 const LIVE_NOTIFICATIONS = [
-  { key: 'weather',    label: 'Weather Alerts',       desc: 'Rain, heatwave, frost warnings',          icon: '🌧️', accent: '#38bdf8' },
+  { key: 'weather',    label: 'Weather Alerts',       desc: 'Rain and heatwave warnings',          icon: '🌧️', accent: '#38bdf8' },
   { key: 'disease',   label: 'Disease Alerts',        desc: 'Risk detection based on conditions',       icon: '🔬', accent: '#a78bfa' },
   { key: 'market',    label: 'Market Price Alerts',   desc: 'Price rise/fall notifications',            icon: '📈', accent: '#fbbf24' },
   { key: 'irrigation',label: 'Irrigation Alerts',     desc: 'Low moisture condition alerts',            icon: '💧', accent: '#4ade80' },
