@@ -11,14 +11,7 @@ export default function SignInPage() {
 
       <div className="relative z-10 w-full max-w-sm mx-auto px-6">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2.5 mb-8">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #16a34a, #4ade80)' }}>
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-              <path d="M9 2C9 2 5 5 5 9C5 11.2 6.8 13 9 13C11.2 13 13 11.2 13 9C13 5 9 2 9 2Z" fill="white" opacity="0.9"/>
-              <path d="M9 13V16M7 16H11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
+        <div className="flex items-center justify-center mb-8">
           <span className="font-bold text-xl tracking-tight" style={{ color: '#1a1a14' }}>AgroSense</span>
         </div>
 
