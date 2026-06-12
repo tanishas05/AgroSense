@@ -1,18 +1,8 @@
-# 🌾 AgroSense
+# AgroSense
 
 **AI-powered smart farming platform built for Indian farmers.**
 
 AgroSense combines crop disease detection, hyperlocal weather, live Mandi prices, and voice-based advisory — in Hindi and English — into a single mobile-friendly web app.
-
----
-
-## Screenshots
-
-> Sign in → Dashboard → Disease Scanner → Market Prices
-
-| Dashboard | Disease Scanner | Mandi Prices |
-|---|---|---|
-| Live weather, crop health, alerts | Upload crop photo → AI diagnosis | Live prices from data.gov.in |
 
 ---
 
@@ -44,17 +34,17 @@ Weather, disease risk, market, and irrigation alerts — filtered by your notifi
 ## Tech Stack
 
 | Layer | Technology |
-|---|---|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript |
-| Auth | NextAuth.js + Google OAuth |
-| Database | Supabase (PostgreSQL) |
-| AI | Groq API — Llama 4 Scout Vision + Llama 3 8B |
-| Weather | OpenWeatherMap API |
-| Market Data | data.gov.in Mandi API |
-| Geocoding | OpenStreetMap Nominatim |
-| Styling | Tailwind CSS |
-| i18n | React Context (English + Hindi) |
+
+| Framework : Next.js 14 (App Router) |
+| Language : TypeScript |
+| Auth : NextAuth.js + Google OAuth |
+| Database : Supabase (PostgreSQL) |
+| AI : Groq API — Llama 4 Scout Vision + Llama 3 8B |
+| Weather : OpenWeatherMap API |
+| Market Data : data.gov.in Mandi API |
+| Geocoding : OpenStreetMap Nominatim |
+| Styling : Tailwind CSS |
+| i18n : React Context (English + Hindi) |
 
 ---
 
@@ -137,37 +127,14 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── api/               # All API routes (weather, mandi, analyze-crop, etc.)
-│   ├── dashboard/         # Main farm dashboard
-│   ├── advisory/          # Disease scanner + crop advisory + voice
-│   ├── market/            # Mandi prices
-│   ├── profile/           # Farm settings + notifications + language
-│   └── auth/signin/       # Google sign-in
-├── components/
-│   ├── dashboard/         # DashboardStats, WeatherClient, AlertsCard, etc.
-│   ├── advisory/          # DiseaseScanner, CropAdvisory, VoiceAdvisory
-│   ├── market/            # MarketHero, PriceTrends, PriceTable
-│   └── profile/           # FarmSettings, NotificationSettings, LanguageSettings
-├── context/               # LanguageContext, LocationContext
-└── lib/                   # config.ts, db.ts, supabase.ts, i18n.ts
-```
-
----
-
 ## API Keys — Where to Get Them
 
 | Key | Where | Free tier |
-|---|---|---|
-| `GOOGLE_CLIENT_ID/SECRET` | [console.cloud.google.com](https://console.cloud.google.com) → Credentials | Free |
-| `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` | [supabase.com](https://supabase.com) → Settings → API | 500MB free |
-| `GROQ_API_KEY` | [console.groq.com](https://console.groq.com) | Generous free tier |
-| `OPENWEATHER_API_KEY` | [openweathermap.org/api](https://openweathermap.org/api) | 1,000 calls/day free |
-| `DATA_GOV_API_KEY` | [data.gov.in](https://data.gov.in) → register | Free |
+| `GOOGLE_CLIENT_ID/SECRET` : [console.cloud.google.com](https://console.cloud.google.com) → Credentials : Free |
+| `NEXT_PUBLIC_SUPABASE_URL/ANON_KEY` : [supabase.com](https://supabase.com) → Settings → API : 500MB free |
+| `GROQ_API_KEY` : [console.groq.com](https://console.groq.com) : Generous free tier |
+| `OPENWEATHER_API_KEY` : [openweathermap.org/api](https://openweathermap.org/api) : 1,000 calls/day free |
+| `DATA_GOV_API_KEY` : [data.gov.in](https://data.gov.in) → register : Free |
 
 ---
 
@@ -178,8 +145,3 @@ src/
 - **Voice advisory** requires an active internet connection — it uses live AI calls, not an offline model.
 - **Language support** is currently English and Hindi. More languages are planned.
 
----
-
-## License
-
-MIT
